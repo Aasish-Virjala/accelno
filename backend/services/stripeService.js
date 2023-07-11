@@ -1,15 +1,12 @@
 const Stripe = require('stripe');
-const stripe = new Stripe('sk_test_26PHem9AhJZvU623DfE1x4sd');
+const STRIPE_API_KEY = process.env.STRIPE_API_KEY;
+const stripe = new Stripe(STRIPE_API_KEY);
 
 const createSubscription = async (clientData) => {
 	// create a stripe customer
 	const customer = await stripe.customers.create({
 		email: clientData.email,
 		name: clientData.username,
-		payment_method: 'card',
-		invoice_settings: {
-			default_payment_method: 'card',
-		},
 	});
 
 	// get the price id from the client data
@@ -20,11 +17,6 @@ const createSubscription = async (clientData) => {
 		customer: customer.id,
 		items: [{ price: priceId }],
 		payment_settings: {
-			payment_method_options: {
-				card: {
-					request_three_d_secure: 'any',
-				},
-			},
 			payment_method_types: ['card'],
 			save_default_payment_method: 'on_subscription',
 		},
