@@ -10,6 +10,14 @@ export default {
 			},
 			colors: {
 				darkGrey: '#101010',
+				primaryBlue: '#001BA6',
+				secondaryBlue: '#0030AA',
+				secondaryPurple: '#381EDA',
+				lightGrey: '#D9D9D9',
+				darkNavy: '#0A1628',
+			},
+			borderColor: {
+				primaryPurple: '#7B81FF',
 			},
 		},
 	},
