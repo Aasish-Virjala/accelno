@@ -5,11 +5,6 @@ const handleChange = () => {
 	console.log('changed');
 };
 
-const customStyles = {
-	position: 'absolute',
-	top: '-20px',
-};
-
 const PricingPlan = () => {
 	return (
 		<div className="">
