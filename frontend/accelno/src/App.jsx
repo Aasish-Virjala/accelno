@@ -1,11 +1,11 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import AvgMonthlyRevenue from './components/dashboard/AvgMonthlyRevenue/AvgMonthlyRevenue';
+import RecentActivities from './components/dashboard/RecentActivities/RecentActivities';
 
 function App() {
 	return (
 		<BrowserRouter>
 			<Routes>
-				<Route path="/" element={<AvgMonthlyRevenue />} />
+				<Route path="/" element={<RecentActivities />} />
 			</Routes>
 		</BrowserRouter>
 	);

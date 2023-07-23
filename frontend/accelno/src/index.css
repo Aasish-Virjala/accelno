@@ -110,6 +110,11 @@ linear-gradient(112.93deg, #D5DFF5 1.12%, #F3F4F7 109.38%);
     max-width: 680px;
   }
 
+  .activity-container{
+    box-shadow: 0px 2px 48px 0px #00000014;
+    height: 600px;
+  }
+
 }
 
 

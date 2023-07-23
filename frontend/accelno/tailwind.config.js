@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-	content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+	content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}', 'node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}'],
 	theme: {
 		extend: {
 			fontFamily: {
@@ -24,6 +24,7 @@ export default {
 				darkNavy: '#0A1628',
 				primaryGold: '#B8961C',
 				lightSilver: '#CBD2E3',
+				primarySilver: '#EBECEE',
 				secondarySilver: '#8C9296',
 				primaryGreen: '#83BDA7',
 				darkPink: '#D9949D',
@@ -34,5 +35,5 @@ export default {
 			},
 		},
 	},
-	plugins: [],
+	plugins: ['flowbite/plugin'],
 };
