@@ -35,7 +35,7 @@ const stocksData = [
 
 const StockTicker = () => {
 	return (
-		<div className="stock-ticker-container w-full py-4">
+		<div className="stock-ticker-container w-full py-4 bg-white">
 			<div className="flex justify-center items-center max-w-7xl mx-auto space-x-6">
 				{stocksData.map((stock) => (
 					<div key={stock.id} className="font-inter text-sm">

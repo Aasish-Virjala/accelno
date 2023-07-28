@@ -51,8 +51,8 @@ const data = [
 
 const FinancialTableMini = () => {
 	return (
-		<div className=" py-3 financial-container font-inter rounded-xl border border-lightSilver shadow-xl m-5">
-			<div className="text-center flex justify-between items-center py-3 px-4 text-darkGrey text-xs font-bold ">
+		<div className="bg-white w-[385px] h-full py-6 font-inter rounded-xl border border-lightSilver shadow-xl">
+			<div className="text-center flex justify-between items-center py-3 px-4 text-darkGrey text-sm font-bold ">
 				<span className="w-1/5">COMPANY</span>
 				<span className="w-1/5">PRICE($)</span>
 				<span className="w-1/5">MCAP($M)</span>
@@ -61,7 +61,7 @@ const FinancialTableMini = () => {
 			</div>
 
 			{data.map((item) => (
-				<div key={item.id} className="text-center py-3 px-4 flex justify-between items-center text-xs font-medium text-darkGrey">
+				<div key={item.id} className="text-center py-3 px-4 flex justify-between items-center text-sm font-medium text-darkGrey">
 					<span className="w-1/5">{item.name}</span>
 					<span className="w-1/5">{item.price}</span>
 					<span className="w-1/5">{item.mcap}</span>

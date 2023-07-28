@@ -1,11 +1,13 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import RecentActivities from './components/dashboard/RecentActivities/RecentActivities';
+import DashboardHome from './screens/DashboardHome';
+import SingleStockStackedChart from './components/dashboard/SingleStockStackedChart/SingleStockStackedChart';
+import TodaysMovers from './screens/TodaysMovers';
 
 function App() {
 	return (
 		<BrowserRouter>
 			<Routes>
-				<Route path="/" element={<RecentActivities />} />
+				<Route path="/" element={<TodaysMovers />} />
 			</Routes>
 		</BrowserRouter>
 	);

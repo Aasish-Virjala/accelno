@@ -1,51 +1,69 @@
 import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';
 import { MdPaid, MdMoreVert } from 'react-icons/md';
+import './RecentActivities.css';
 
 const RecentActivities = () => {
 	return (
-		<div className="activity-container my-20 mx-auto w-96 px-5 py-10 font-poppins overflow-y-scroll">
-			<div className="flex justify-between mb-4 text-xl">
-				<h1 className=" font-semibold text-darkGrey"> RECENT </h1>
-				<MdMoreVert />
+		<div className=" pt-3 font-poppins">
+			<div className="flex justify-end font-semibold">
+				<button className="rounded-tl-md rounded-bl-md py-3 px-6 bg-dashboardBlue text-white">Recent</button>
+				<button className="rounded-tr-md rounded-br-md py-3 px-6 bg-searchbarGrey text-primaryGrey">Alerts</button>
 			</div>
-			<VerticalTimeline layout="1-column-left" lineColor="#2D2F35">
-				<VerticalTimelineElement
-					className="vertical-timeline-element--work"
-					contentStyle={{ color: '#2D2F35', border: 'none', boxShadow: 'none' }}
-					contentArrowStyle={{ display: 'none' }}
-					date="10 minutes ago"
-					iconStyle={{ background: '#2151C0', color: '#fff' }}
-					icon={<MdPaid />}
-				>
-					<h1 className="font-bold text-darkGrey text-lg"> You Sold an item </h1>
-					<p>Curabitur non leo mauris. Quisque dapibus massa in nisi tincidunt, vitae lacinia ex vestibulum.</p>
-				</VerticalTimelineElement>
-				<VerticalTimelineElement
-					className="vertical-timeline-element--work"
-					contentStyle={{ color: '#2D2F35', border: 'none', boxShadow: 'none' }}
-					contentArrowStyle={{ display: 'none' }}
-					date="10 minutes ago"
-					iconStyle={{ background: '#2151C0', color: '#fff' }}
-					icon={<MdPaid />}
-				>
-					<h1 className="font-bold text-darkGrey text-lg"> You Sold an item </h1>
-					<p>Curabitur non leo mauris. Quisque dapibus massa in nisi tincidunt, vitae lacinia ex vestibulum.</p>
-				</VerticalTimelineElement>
-				<VerticalTimelineElement
-					className="vertical-timeline-element--work"
-					contentStyle={{ color: '#2D2F35', border: 'none', boxShadow: 'none' }}
-					contentArrowStyle={{ display: 'none' }}
-					date="10 minutes ago"
-					iconStyle={{ background: '#2151C0', color: '#fff' }}
-					icon={<MdPaid />}
-				>
-					<h1 className="font-bold text-darkGrey text-lg"> You Sold an item </h1>
-					<p>Curabitur non leo mauris. Quisque dapibus massa in nisi tincidunt, vitae lacinia ex vestibulum.</p>
-				</VerticalTimelineElement>
+			<div className="bg-white activity-container mx-auto w-[270px] px-2 py-10 overflow-hidden">
+				<div className="flex justify-between mb-4 md:text-md 2xl:text-xl px-4">
+					<h1 className=" font-semibold text-darkGrey"> RECENT </h1>
+					<MdMoreVert />
+				</div>
+				<div className="overflow-y-scroll h-full">
+					<VerticalTimeline layout="1-column-left" lineColor="#2D2F35">
+						<VerticalTimelineElement
+							style={{ margin: '0px' }}
+							className="vertical-timeline-element--work"
+							contentStyle={{ color: '#2D2F35', border: 'none', boxShadow: 'none' }}
+							contentArrowStyle={{ display: 'none' }}
+							date="10 minutes ago"
+							iconStyle={{ background: '#2151C0', color: '#fff' }}
+							icon={<MdPaid />}
+						>
+							<h1 className="font-bold text-darkGrey md:text-sm 2xl:text-md mb-2"> You Sold an item </h1>
+							<span className=" md:text-sm 2xl:text-md ">
+								Curabitur non leo mauris. Quisque dapibus massa in nisi tincidunt, vitae lacinia ex vestibulum.
+							</span>
+						</VerticalTimelineElement>
+						<VerticalTimelineElement
+							style={{ margin: '0px' }}
+							className="vertical-timeline-element--work"
+							contentStyle={{ color: '#2D2F35', border: 'none', boxShadow: 'none' }}
+							contentArrowStyle={{ display: 'none' }}
+							date="10 minutes ago"
+							iconStyle={{ background: '#2151C0', color: '#fff' }}
+							icon={<MdPaid />}
+						>
+							<h1 className="font-bold text-darkGrey md:text-sm 2xl:text-md mb-2"> You Sold an item </h1>
+							<span className=" md:text-sm 2xl:text-md ">
+								Curabitur non leo mauris. Quisque dapibus massa in nisi tincidunt, vitae lacinia ex vestibulum.
+							</span>
+						</VerticalTimelineElement>
+						<VerticalTimelineElement
+							style={{ margin: '0px' }}
+							className="vertical-timeline-element--work"
+							contentStyle={{ color: '#2D2F35', border: 'none', boxShadow: 'none' }}
+							contentArrowStyle={{ display: 'none' }}
+							date="10 minutes ago"
+							iconStyle={{ background: '#2151C0', color: '#fff' }}
+							icon={<MdPaid />}
+						>
+							<h1 className="font-bold text-darkGrey md:text-sm 2xl:text-md mb-2"> You Sold an item </h1>
+							<span className=" md:text-sm 2xl:text-md ">
+								Curabitur non leo mauris. Quisque dapibus massa in nisi tincidunt, vitae lacinia ex vestibulum.
+							</span>
+						</VerticalTimelineElement>
 
-				<VerticalTimelineElement iconStyle={{ background: '#2151C0', color: '#fff' }} icon={<MdPaid />} />
-			</VerticalTimeline>
+						<VerticalTimelineElement iconStyle={{ background: '#2151C0', color: '#fff' }} icon={<MdPaid />} />
+					</VerticalTimeline>
+				</div>
+			</div>
 		</div>
 	);
 };

@@ -33,17 +33,13 @@ const data = [
 
 const Barchart = () => {
 	return (
-		<ResponsiveContainer width={420} height={250}>
+		<ResponsiveContainer width={330} height={250}>
 			<BarChart
-				width={500}
-				height={300}
 				data={data}
 				stackOffset="sign"
-				style={{ fontFamily: 'Inter', fontWeight: 'bold', fontSize: '12px' }}
+				style={{ fontFamily: 'Inter', fontWeight: 'bold', fontSize: '10px' }}
 				margin={{
 					top: 5,
-					right: 10,
-					left: 10,
 					bottom: 5,
 				}}
 			>

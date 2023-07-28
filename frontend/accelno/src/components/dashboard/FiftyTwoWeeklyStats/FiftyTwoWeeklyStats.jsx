@@ -35,7 +35,7 @@ const data = [
 
 const FiftyTwoWeeklyStats = () => {
 	return (
-		<div className="custom-container font-inter rounded-xl border border-lightSilver shadow-xl m-5">
+		<div className="bg-white w-[300px] h-full py-2 font-inter rounded-xl border border-lightSilver shadow-xl ">
 			<div className="flex justify-between items-center p-4 text-darkGrey">
 				<span className="font-bold text-sm ">52 Week High/Low</span>
 				<div className="flex items-center space-x-2">

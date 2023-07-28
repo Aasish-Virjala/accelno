@@ -8,7 +8,7 @@ const handleChange = () => {
 
 const SingleStockChart = () => {
 	return (
-		<div className="space-y-3 p-3 single-stock-container font-inter rounded-xl border border-lightSilver  m-5">
+		<div className="bg-white space-y-3 p-3 single-stock-container font-inter rounded-xl border border-lightSilver">
 			<div className="flex justify-between">
 				<div className="flex space-x-1 font-bold text-sm">
 					<span className="text-darkGrey">AAPL</span>

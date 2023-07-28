@@ -35,8 +35,8 @@ const data = [
 
 const GainerLoser = () => {
 	return (
-		<div className="custom-container font-inter rounded-xl border border-lightSilver shadow-xl m-5">
-			<div className="flex justify-between items-center p-4 text-darkGrey">
+		<div className="bg-white w-[300px] h-full font-inter rounded-xl border border-lightSilver shadow-x py-6">
+			<div className="flex justify-between items-center text-darkGrey pb-4 px-3">
 				<span className="font-bold text-sm ">Today&#39;s Gainer/Loser</span>
 				<div className="flex items-center space-x-2">
 					<span className="text-xs font-medium">Gainers</span>
@@ -49,7 +49,7 @@ const GainerLoser = () => {
 				<span>Change %</span>
 			</div>
 
-			<div className="pb-2">
+			<div className="">
 				{data.map((item) => (
 					<div key={item.id} className=" py-3 px-6 flex justify-between items-center  text-sm font-medium text-darkGrey">
 						<span className="w-1/3">{item.name}</span>

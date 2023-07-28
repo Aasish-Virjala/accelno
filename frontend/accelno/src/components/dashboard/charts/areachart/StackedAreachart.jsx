@@ -76,7 +76,7 @@ const gradientColorsSec = [
 const StackedAreachart = () => {
 	return (
 		<AreaChart
-			width={600}
+			width={460}
 			height={200}
 			data={data}
 			margin={{
