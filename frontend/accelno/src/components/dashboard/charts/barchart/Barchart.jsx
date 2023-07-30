@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { BarChart, Bar, Cell, XAxis, YAxis, Tooltip, ReferenceLine, ResponsiveContainer } from 'recharts';
 
 const data = [
@@ -31,9 +32,9 @@ const data = [
 	},
 ];
 
-const Barchart = () => {
+const Barchart = ({ chartWidth }) => {
 	return (
-		<ResponsiveContainer width={330} height={250}>
+		<ResponsiveContainer width={chartWidth} height={250}>
 			<BarChart
 				data={data}
 				stackOffset="sign"

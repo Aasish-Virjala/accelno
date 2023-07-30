@@ -6,13 +6,21 @@ const handleChange = () => {
 	console.log('changed');
 };
 
-const SingleStockChart = () => {
+const SingleStockChart = ({ ratio }) => {
 	return (
-		<div className="bg-white space-y-3 p-3 single-stock-container font-inter rounded-xl border border-lightSilver">
+		<div className="bg-white space-y-3 p-3 single-stock-container font-inter rounded-xl border border-lightSilver shadow-md">
 			<div className="flex justify-between">
-				<div className="flex space-x-1 font-bold text-sm">
-					<span className="text-darkGrey">AAPL</span>
-					<span className="text-secondarySilver">Apple Inc.</span>
+				<div className=" font-bold text-sm">
+					{ratio === 'sales' ? (
+						<span className="text-darkGrey">Sales Growth</span>
+					) : ratio === 'profit' ? (
+						<span className="text-darkGrey">Profit Growth</span>
+					) : (
+						<div className="flex space-x-1">
+							<span className="text-darkGrey">AAPL</span>
+							<span className="text-secondarySilver">Apple Inc.</span>
+						</div>
+					)}
 				</div>
 				<div className="space-x-1 font-bold text-sm">
 					<span className="text-darkGrey">100.00</span>

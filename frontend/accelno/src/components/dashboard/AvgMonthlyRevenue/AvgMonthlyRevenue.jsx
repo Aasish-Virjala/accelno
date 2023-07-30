@@ -1,9 +1,15 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import Barchart from '../charts/barchart/Barchart';
 import { MdSaveAlt } from 'react-icons/md';
 
-const AvgMonthlyRevenue = () => {
+const AvgMonthlyRevenue = ({ containerWidth, chartWidth }) => {
 	return (
-		<div className=" md:w-[530px] 2xl:w-[580px] px-4 pt-4 pb-1 font-inter rounded-xl border border-lightSilver  flex justify-center bg-white">
+		<div
+			className={`md:w-[${containerWidth}px] 2xl:w-[${
+				containerWidth + 50
+			}px] px-4 pt-4 pb-1 font-inter rounded-xl border border-lightSilver  flex justify-center bg-white`}
+		>
 			<div className="flex flex-col space-y-7">
 				<div className="flex flex-col space-y-1">
 					<span className="font-poppins font-bold md:text-sm 2xl:text-md text-secondarySilver">Average Monthly Revenue</span>
@@ -30,7 +36,7 @@ const AvgMonthlyRevenue = () => {
 				</div>
 			</div>
 			<div className="">
-				<Barchart />
+				<Barchart chartWidth={chartWidth} />
 			</div>
 		</div>
 	);

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { AreaChart, Area, XAxis, YAxis, Tooltip } from 'recharts';
 
 const data = [
@@ -73,10 +74,10 @@ const gradientColorsSec = [
 	{ offset: 1, color: 'rgba(255, 84, 84, 0)' },
 ];
 
-const StackedAreachart = () => {
+const StackedAreachart = ({ chartWidth }) => {
 	return (
 		<AreaChart
-			width={460}
+			width={chartWidth}
 			height={200}
 			data={data}
 			margin={{

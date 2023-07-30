@@ -93,24 +93,24 @@ const data = [
 
 const EarningsTable = () => {
 	return (
-		<div className=" max-w-6xl mx-auto mt-8 border border-lightSilver font-poppins">
+		<div className=" w-[950px] border border-lightSilver font-poppins">
 			<table className="w-full text-left">
-				<thead>
-					<tr>
-						<th className="p-3">TICKER 428 MATCHES</th>
-						<th>MKT CAP</th>
-						<th>EPS ESTIMATE</th>
-						<th>REPORTED EPS</th>
-						<th>SURPRISE</th>
-						<th>SURPRISE %</th>
-						<th>REVENUE FORECAST</th>
+				<thead className="bg-white text-sm">
+					<tr className="">
+						<th className="py-6 px-4">TICKER 428 MATCHES</th>
+						<th className="py-6 px-4">MKT CAP</th>
+						<th className="py-6 px-4">EPS ESTIMATE</th>
+						<th className="py-6 px-4">REPORTED EPS</th>
+						<th className="py-6 px-4">SURPRISE</th>
+						<th className="py-6 px-4">SURPRISE %</th>
+						<th className="py-6 px-4">REVENUE FORECAST</th>
 					</tr>
 				</thead>
 				<tbody>
 					{data.map((rowData, index) => (
 						<tr key={index} className={`${index % 2 === 0 ? 'bg-white' : 'bg-primarySilver'}`}>
 							{Object.values(rowData).map((value, innerIndex) => (
-								<td key={innerIndex} className="p-3 text-sm text-darkGrey font-semibold">
+								<td key={innerIndex} className="p-3 text-sm text-darkGrey font-semibold text-center">
 									{value}
 									{innerIndex !== 0 && innerIndex !== 5 ? <span className="ml-1 text-xs text-secondarySilver">USD</span> : ''}
 								</td>

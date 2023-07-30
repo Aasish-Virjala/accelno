@@ -35,7 +35,7 @@ const DashboardHome = () => {
 					<RecentActivities />
 				</div>
 			</div>
-			<div className="flex flex-wrap justify-center space-x-2 ">
+			<div className="flex flex-wrap justify-center space-x-2 pb-4 ">
 				<HeatmapContainer />
 				<GainerLoser />
 				<FiftyTwoWeeklyStats />
