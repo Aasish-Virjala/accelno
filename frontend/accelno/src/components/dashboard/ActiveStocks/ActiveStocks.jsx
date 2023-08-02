@@ -23,7 +23,7 @@ const data = [
 
 const ActiveStocks = () => {
 	return (
-		<div className=" active-stocks-container font-inter rounded-xl border border-lightSilver  m-5">
+		<div className=" w-[360px] font-inter rounded-xl border border-lightSilver">
 			<div className="px-4 py-3">
 				<span className="font-bold text-sm"> Most Active Stocks </span>
 			</div>

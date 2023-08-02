@@ -1,15 +1,13 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import DashboardHome from './screens/DashboardHome';
-import SingleStockStackedChart from './components/dashboard/SingleStockStackedChart/SingleStockStackedChart';
-import TodaysMovers from './screens/TodaysMovers';
-import Watchlist from './screens/Watchlist';
-import EarningCalendar from './screens/EarningCalendar';
+import MarketDashboard from './screens/MarketDashboard';
+import Bundle from './components/dashboard/bundles/Bundle';
+import EtfBundles from './screens/EtfBundles';
 
 function App() {
 	return (
 		<BrowserRouter>
 			<Routes>
-				<Route path="/" element={<EarningCalendar />} />
+				<Route path="/" element={<EtfBundles />} />
 			</Routes>
 		</BrowserRouter>
 	);

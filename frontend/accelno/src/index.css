@@ -115,7 +115,9 @@ linear-gradient(112.93deg, #D5DFF5 1.12%, #F3F4F7 109.38%);
     height: 500px;
   }
 
- 
+ .custom-width{
+  width: clamp(300px, 100%, 360px);
+ }
  
 
 }

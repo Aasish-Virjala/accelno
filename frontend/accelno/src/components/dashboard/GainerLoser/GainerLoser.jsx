@@ -35,7 +35,7 @@ const data = [
 
 const GainerLoser = () => {
 	return (
-		<div className="bg-white w-[300px] h-full font-inter rounded-xl border border-lightSilver shadow-x py-6">
+		<div className="custom-width bg-white h-full font-inter rounded-xl border border-lightSilver shadow-x py-6">
 			<div className="flex justify-between items-center text-darkGrey pb-4 px-3">
 				<span className="font-bold text-sm ">Today&#39;s Gainer/Loser</span>
 				<div className="flex items-center space-x-2">
