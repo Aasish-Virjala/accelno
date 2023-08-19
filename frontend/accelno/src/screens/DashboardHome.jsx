@@ -14,14 +14,14 @@ const DashboardHome = () => {
 	return (
 		<div className="bg-primarySilver">
 			<StockTicker />
-			<div className="flex py-3 justify-center space-x-6">
+			<div className="flex py-3 justify-center space-x-4">
 				<div className="flex flex-col space-y-4">
-					<div className="flex justify-center space-x-2">
+					<div className="flex justify-center space-x-1">
 						<div>
-							<AvgMonthlyRevenue />
+							<AvgMonthlyRevenue containerWidth={400} chartWidth={380} />
 						</div>
 						<div>
-							<SingleStockStackedChart />
+							<SingleStockStackedChart containerWidth={460} chartWidth={430} />
 						</div>
 					</div>
 
@@ -35,7 +35,7 @@ const DashboardHome = () => {
 					<RecentActivities />
 				</div>
 			</div>
-			<div className="flex flex-wrap justify-center space-x-2 pb-4 ">
+			<div className="flex flex-wrap justify-center space-x-1 pb-4 ">
 				<HeatmapContainer />
 				<GainerLoser />
 				<FiftyTwoWeeklyStats />

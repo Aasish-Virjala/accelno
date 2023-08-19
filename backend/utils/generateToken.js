@@ -15,6 +15,9 @@ const generateToken = (res, username) => {
 		secure: true,
 		sameSite: 'none',
 	});
+
+	// send token to client
+	res.token = token;
 };
 
 module.exports = generateToken;

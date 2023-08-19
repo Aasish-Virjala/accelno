@@ -28,7 +28,7 @@ const registerUserController = asyncHandler(async (req, res) => {
 					password: hashedPassword,
 				},
 			});
-			res.status(201).json({ message: 'User created' });
+			res.status(201).json({ message: 'User created', status: 'success' });
 		}
 	} catch (err) {
 		res.status(500).json({ message: 'Internal server error', error: err.message });
@@ -57,7 +57,8 @@ const loginUserController = asyncHandler(async (req, res) => {
 			} else {
 				// util function to generate token and send to client
 				generateToken(res, username);
-				res.status(200).json({ message: 'Logged in' });
+				const token = res.token;
+				res.status(200).json({ message: 'Logged in', status: 'success', token });
 			}
 		}
 	} catch (err) {

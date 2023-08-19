@@ -42,6 +42,15 @@
 
   }
 
+  .custom-bg{
+    background: url('./assets/backgrounds/looperbg.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100vh;
+    width: 100%;
+    background-size: cover;
+
+  }
 
 
   .gradient-text {

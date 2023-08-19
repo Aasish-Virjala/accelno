@@ -11,7 +11,7 @@ const stripeSubscriptionController = asyncHandler(async (req, res) => {
 	// get user data from req.user which is set by the protect middleware
 	const user_data = req.user;
 	const { email, username } = user_data;
-	const { planId } = req.body;
+	const { planId, paymentMethodId } = req.body;
 	// check if the planId coming from user is valid by checking if it exists in the database
 	// if not, send error
 	const plan = await prisma.plan.findFirst({
@@ -30,7 +30,7 @@ const stripeSubscriptionController = asyncHandler(async (req, res) => {
 		if (!user_data.stripe_customer_id) {
 			// create a new stripe customer and subscription for the user
 			// get the client secret and subscription id to be used in the frontend
-			const { clientSecret, subscriptionId } = await createSubscription({ email, username, priceId });
+			const { clientSecret, subscriptionId } = await createSubscription({ email, username, priceId, paymentMethodId });
 			// update the user's subscription_id in the database as stripe_customer_id
 			const updateUser = await prisma.user.update({
 				where: {
