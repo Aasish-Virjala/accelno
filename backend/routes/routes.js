@@ -1,7 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const { registerUserController, loginUserController } = require('../controller/auth/authcontrollers.js');
-const { stripeSubscriptionController } = require('../controller/payment/stripeController.js');
+const {
+	stripeSubscriptionController,
+	stripeUpdateSubscriptionController,
+	stripeCancelSubscriptionController,
+} = require('../controller/payment/stripeController.js');
 const { getFinancialDataController } = require('../controller/externalAPI/externalDataController.js');
 const { protect } = require('../middleware/authMiddleware.js');
 
@@ -16,5 +20,11 @@ router.route('/loginuser').post(loginUserController);
 
 // POST /api/v1/createsubscription
 router.route('/createsubscription').post(protect, stripeSubscriptionController);
+
+// POST /api/v1/updatesubscription
+router.route('/updatesubscription').post(protect, stripeUpdateSubscriptionController);
+
+// POST /api/v1/cancelsubscription
+router.route('/cancelsubscription').post(protect, stripeCancelSubscriptionController);
 
 module.exports = router;

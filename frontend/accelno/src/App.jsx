@@ -11,8 +11,8 @@ import Watchlist from './screens/Watchlist';
 import EtfBundles from './screens/EtfBundles';
 import AiAssistant from './screens/AiAssistant';
 import FileUploader from './components/dashboard/AiAssistant/FileUploader';
-import TestStripe from './services/testStripe';
-import Test from './services/Test';
+import StripeUpdateTest from './services/StripeUpdateTest';
+import StripeSubscription from './services/StripeSubscription';
 
 function App() {
 	return (
@@ -30,7 +30,8 @@ function App() {
 				<Route path="/dashboard/watchlist" element={<Watchlist />} />
 				<Route path="/dashboard/ai-assistant" element={<AiAssistant />} />
 				<Route path="/fileuploader" element={<FileUploader />} />
-				<Route path="/teststripe" element={<Test />} />
+				<Route path="/createpayment" element={<StripeSubscription />} />
+				<Route path="/updatepayment" element={<StripeUpdateTest />} />
 			</Routes>
 		</BrowserRouter>
 	);

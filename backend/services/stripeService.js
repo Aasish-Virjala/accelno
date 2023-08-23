@@ -28,7 +28,6 @@ const createSubscription = async (clientData) => {
 	const subscription = await stripe.subscriptions.create({
 		customer: customer.id,
 		items: [{ price: priceId }],
-		payment_behavior: 'default_incomplete',
 		payment_settings: {
 			save_default_payment_method: 'on_subscription',
 		},
@@ -39,7 +38,22 @@ const createSubscription = async (clientData) => {
 	return {
 		clientSecret: subscription.latest_invoice.payment_intent.client_secret,
 		subscriptionId: subscription.id,
+		status: subscription.status,
+		customerId: customer.id,
+		subscriptionExpiry: subscription.current_period_end,
 	};
 };
 
-module.exports = { createSubscription };
+const updateSubscription = async (clientData) => {
+	const updatedSubscription = await stripe.subscriptions.update(clientData.subscriptionId, { items: [{ price: clientData.priceId }] });
+
+	return updatedSubscription;
+};
+
+const cancelSubscription = async (clientData) => {
+	const canceledSubscription = await stripe.subscriptions.del(clientData.subscriptionId);
+
+	return canceledSubscription;
+};
+
+module.exports = { createSubscription, updateSubscription, cancelSubscription };

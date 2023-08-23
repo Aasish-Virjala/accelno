@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
-import { initializeStripe, createPaymentMethod } from './stripe';
 import axios from 'axios';
 
-const TestStripe = () => {
+const PaymentForm = () => {
 	const stripe = useStripe();
 	const elements = useElements();
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(null);
+
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 
@@ -38,10 +38,23 @@ const TestStripe = () => {
 				{ withCredentials: true }
 			);
 
-			console.log('Subscription created:', response.data);
+			// Use the client_secret received in the response to confirm the payment
+			const { clientSecret } = response.data;
 
-			// Redirect to the Dashboard page after successful subscription
-			history.push('/dashboard');
+			const result = await stripe.confirmCardPayment(clientSecret, {
+				payment_method: {
+					card: elements.getElement(CardElement),
+				},
+			});
+
+			if (result.error) {
+				throw new Error(result.error.message);
+			}
+
+			// Payment was successful
+			console.log('Payment successful:', result.paymentIntent);
+
+			// You can perform further actions here, such as redirecting to a success page
 		} catch (error) {
 			setError(error.message);
 		} finally {
@@ -62,4 +75,4 @@ const TestStripe = () => {
 	);
 };
 
-export default TestStripe;
+export default PaymentForm;
