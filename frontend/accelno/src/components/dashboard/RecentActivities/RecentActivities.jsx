@@ -11,8 +11,8 @@ const RecentActivities = () => {
 				<button className="rounded-tr-md rounded-br-md py-3 px-6 bg-searchbarGrey text-primaryGrey">Alerts</button>
 			</div>
 			<div className="bg-white activity-container mx-auto w-[270px] px-2 py-10 overflow-hidden">
-				<div className="flex justify-between mb-4 md:text-md 2xl:text-xl px-4">
-					<h1 className=" font-semibold text-darkGrey"> RECENT </h1>
+				<div className="flex justify-between mb-4 md:text-md 2xl:text-lg px-4">
+					<span className=" font-semibold text-darkGrey"> RECENT </span>
 					<MdMoreVert />
 				</div>
 				<div className="overflow-y-scroll h-full">

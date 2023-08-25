@@ -3,6 +3,8 @@ import { useLoginMutation } from '../api/endpoints/authApi';
 import show from '../utils/toastNotifications';
 import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../redux/slices/authSlice';
+import AuthTemplate from '../components/common/AuthTemplate';
+import { useNavigate } from 'react-router-dom';
 
 const inputs = [
 	{
@@ -22,7 +24,10 @@ const inputs = [
 const Login = () => {
 	const [login] = useLoginMutation();
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 	const submitHandler = (data) => {
+		navigate('/choose-plan');
+		/*
 		login(data)
 			.then((response) => {
 				console.log(response);
@@ -34,9 +39,15 @@ const Login = () => {
 			.catch((err) => {
 				show(err.data.message, 'error');
 			});
+			*/
 	};
 
-	return <FormTemplate formType="Login" inputs={inputs} submitHandler={submitHandler} />;
+	return (
+		<div className="flex">
+			<AuthTemplate title="WELCOME BACK" />
+			<FormTemplate formType="Login" inputs={inputs} submitHandler={submitHandler} />;
+		</div>
+	);
 };
 
 export default Login;

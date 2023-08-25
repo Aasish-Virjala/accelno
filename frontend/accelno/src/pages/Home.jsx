@@ -63,9 +63,9 @@ const Home = () => {
 				<h6 className="text-3xl font-bold font-poppins text-white"> Pricing </h6>
 			</div>
 			<div className="bg-lightGrey py-10 px-6 flex md:flex-row flex-col justify-center items-center md:space-x-7 md:space-y-0 space-y-4 ">
-				<Pricing title="Basic" price="50" />
-				<Pricing title="Standard" price="79" />
-				<Pricing title="Professional" price="99" />
+				<Pricing title="Basic" price="50" isDumb={true} />
+				<Pricing title="Standard" price="79" isDumb={true} />
+				<Pricing title="Professional" price="99" isDumb={true} />
 			</div>
 			<div className=" py-16 space-y-8">
 				<h6 className="text-2xl md:text-3xl font-medium font-poppins text-darkGrey text-center"> What Our Members Say </h6>

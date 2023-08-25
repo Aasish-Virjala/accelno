@@ -1,10 +1,8 @@
-import Navbar from '../Navigation/Navbar';
 import Button from '../common/Button';
 
 const HeroHeader = () => {
 	return (
 		<div className="bg-black pt-12 custom-header-cover ">
-			<Navbar />
 			<div className="text-center  mt-28 space-y-2">
 				<h2 className=" font-poppins text-transparent gradient-text text-5xl md:text-7xl font-normal text-red-800 py-2">
 					Fast Financial Intelligence.

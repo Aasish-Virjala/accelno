@@ -1,13 +1,39 @@
 import Switch from 'react-switch';
 import Pricing from '../components/common/Pricing';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const handleChange = () => {
 	console.log('changed');
 };
 
+const plans = [
+	{
+		id: 1,
+		title: 'Basic',
+		price: '50',
+	},
+	{
+		id: 2,
+		title: 'Standard',
+		price: '79',
+	},
+	{
+		id: 3,
+		title: 'Basic',
+		price: '50',
+	},
+];
+
 const PricingPlan = () => {
+	const [selected, setSelected] = useState(null);
+	const navigate = useNavigate();
+	const handleBtnClick = () => {
+		navigate('/checkout');
+	};
+
 	return (
-		<div className="">
+		<div className="pb-8 bg-lightGrey text-center space-y-4 ">
 			<div className="font-poppins text-base text-white font-medium bg-secondaryBlue py-28 px-4 flex flex-row items-center justify-center space-x-3 ">
 				<span>Monthly</span>
 				<Switch
@@ -25,11 +51,25 @@ const PricingPlan = () => {
 				/>
 				<span>Yearly</span>
 			</div>
-			<div className=" bg-lightGrey py-10 px-6 flex md:flex-row flex-col justify-center items-center md:space-x-7 md:space-y-0 space-y-4">
-				<Pricing title="Basic" price="50" />
-				<Pricing title="Standard" price="79" />
-				<Pricing title="Professional" price="99" />
+			<div className=" py-10 px-6 flex md:flex-row flex-col justify-center items-center md:space-x-9 md:space-y-0 space-y-4">
+				{plans.map((plan) => (
+					<Pricing
+						key={plan.id}
+						id={plan.id}
+						title={plan.title}
+						price={plan.price}
+						setSelected={setSelected}
+						isSelected={selected === plan.id}
+					/>
+				))}
 			</div>
+			<button
+				disabled={!selected}
+				className={` font-poppins font-semibold text-lg rounded-md text-white py-4 px-56   ${selected ? 'bg-[#0A1628]' : 'bg-[#677C9A]'}`}
+				onClick={handleBtnClick}
+			>
+				Next
+			</button>
 		</div>
 	);
 };

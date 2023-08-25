@@ -128,6 +128,26 @@ linear-gradient(112.93deg, #D5DFF5 1.12%, #F3F4F7 109.38%);
   width: clamp(300px, 100%, 360px);
  }
  
+ .auth-container{
+  background: linear-gradient(269.78deg, #0038FF 0.14%, #4D1DFF 27.64%, #9E00FF 99.75%);
+   
+ }
+
+.auth-wrapper{
+  background: url('./assets/backgrounds/looperbg.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+
+}
+
+.sm-looper-wrapper{
+  background: url('./assets/backgrounds/looper-bg-sm.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 170px;
+  width: 100%;
+}
+
 
 }
 

@@ -1,22 +1,14 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
-import Login from './pages/Login';
-import PricingPlan from './pages/PricingPlan';
-import Register from './pages/Register';
-import DashboardHome from './screens/DashboardHome';
-import EarningCalendar from './screens/EarningCalendar';
-import TodaysMovers from './screens/TodaysMovers';
-import MarketDashboard from './screens/MarketDashboard';
-import Watchlist from './screens/Watchlist';
-import EtfBundles from './screens/EtfBundles';
-import AiAssistant from './screens/AiAssistant';
-import FileUploader from './components/dashboard/AiAssistant/FileUploader';
-import StripeUpdateTest from './services/StripeUpdateTest';
-import StripeSubscription from './services/StripeSubscription';
+import { RouterProvider } from 'react-router-dom';
+import router from './routes';
 
 function App() {
-	return (
-		<BrowserRouter>
+	return <RouterProvider router={router} />;
+}
+
+export default App;
+
+/*
+<BrowserRouter>
 			<Routes>
 				<Route path="/" element={<Home />} />
 				<Route path="/login" element={<Login />} />
@@ -34,7 +26,7 @@ function App() {
 				<Route path="/updatepayment" element={<StripeUpdateTest />} />
 			</Routes>
 		</BrowserRouter>
-	);
-}
 
-export default App;
+
+
+*/

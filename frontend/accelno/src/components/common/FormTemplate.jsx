@@ -46,15 +46,17 @@ const FormTemplate = ({ formType, inputs, submitHandler }) => {
 	});
 
 	return (
-		<div className="h-full w-full">
-			<div className=" mx-auto my-36 bg-lightGrey pt-14 pb-3 px-8 md:max-w-md max-w-xs space-y-2 font-poppins">
+		<div className="h-screen w-full flex justify-center items-center ">
+			<div className="  w-[450px] space-y-2 font-poppins">
 				<form onSubmit={handleSubmit(submitHandler)} className="space-y-10 flex flex-col">
 					{inputs.map((el) => (
 						<input
 							key={el.id}
 							type={el.type}
 							{...registration[el.value]}
-							className={`px-6 py-3 text-darkGrey text-sm ${errors[el.value] ? 'border-red-500 border-2' : ''}`}
+							className={`px-6 py-3 text-darkGrey font-poppins bg-inputGrey placeholder-darkGrey text-sm rounded-md ${
+								errors[el.value] ? 'border-red-500 border-2' : ''
+							}`}
 							placeholder={el.placeholder}
 						/>
 					))}
@@ -62,7 +64,7 @@ const FormTemplate = ({ formType, inputs, submitHandler }) => {
 					<input
 						type="submit"
 						value={formType === 'Login' ? 'Login' : 'Register'}
-						className="bg-darkNavy text-white  py-3 text-md font-semibold cursor-pointer "
+						className="bg-darkNavy text-white  py-3 text-md font-semibold cursor-pointer rounded-md"
 					/>
 				</form>
 				<p className="text-center text-xs font-normal">

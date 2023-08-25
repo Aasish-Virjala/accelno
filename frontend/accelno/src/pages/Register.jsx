@@ -2,6 +2,7 @@ import FormTemplate from '../components/common/FormTemplate';
 import { useRegisterMutation } from '../api/endpoints/authApi';
 import show from '../utils/toastNotifications';
 import { useNavigate } from 'react-router-dom';
+import AuthTemplate from '../components/common/AuthTemplate';
 
 const inputs = [
 	{
@@ -34,7 +35,9 @@ const Register = () => {
 	const [register] = useRegisterMutation();
 	const navigate = useNavigate();
 	const submitHandler = (data) => {
+		navigate('/login');
 		// eslint-disable-next-line no-unused-vars
+		/*
 		const { retypePassword, ...rest } = data;
 
 		register(rest)
@@ -50,8 +53,14 @@ const Register = () => {
 			.catch((err) => {
 				show(err.data.message, 'error');
 			});
+	*/
 	};
-	return <FormTemplate formType="Register" inputs={inputs} submitHandler={submitHandler} />;
+	return (
+		<div className="flex">
+			<AuthTemplate title="JOIN US" />
+			<FormTemplate formType="Register" inputs={inputs} submitHandler={submitHandler} />;
+		</div>
+	);
 };
 
 export default Register;

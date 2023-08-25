@@ -10,17 +10,17 @@ const dashboardLinks = [
 	{
 		id: 2,
 		title: 'Watchlist',
-		path: '#',
+		path: 'watchlist',
 	},
 	{
 		id: 3,
 		title: 'Market',
-		path: '#',
+		path: 'market',
 	},
 	{
 		id: 4,
 		title: 'Todays Movers',
-		path: '#',
+		path: 'todays-movers',
 	},
 ];
 

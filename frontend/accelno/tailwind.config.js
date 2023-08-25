@@ -28,6 +28,7 @@ export default {
 				secondarySilver: '#8C9296',
 				primaryGreen: '#83BDA7',
 				darkPink: '#D9949D',
+				inputGrey: '#ECECEC',
 			},
 			borderColor: {
 				primaryPurple: '#7B81FF',
