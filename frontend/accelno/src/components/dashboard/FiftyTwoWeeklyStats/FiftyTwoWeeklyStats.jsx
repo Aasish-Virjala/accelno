@@ -33,17 +33,35 @@ const data = [
 	},
 ];
 
-const FiftyTwoWeeklyStats = () => {
+const FiftyTwoWeeklyStats = ({ size }) => {
 	return (
-		<div className="bg-white custom-width h-full py-2 font-inter rounded-xl border border-lightSilver shadow-xl ">
-			<div className="flex justify-between items-center p-4 text-darkGrey">
-				<span className="font-bold text-sm ">52 Week High/Low</span>
+		<div
+			className={`${
+				size === 'small'
+					? ' w-[320px] h-[360px]'
+					: size === 'medium'
+					? ' w-[420px] h-[460px]'
+					: size === 'large'
+					? ' w-[520px] h-[480px]'
+					: ''
+			} bg-white h-full py-2 font-inter rounded-xl border border-lightSilver shadow-xl `}
+		>
+			<div
+				className={`${
+					size === 'small' ? 'text-xs' : size === 'medium' ? 'text-sm' : size === 'large' ? 'text-md' : ''
+				}  flex justify-between items-center p-4 text-darkGrey`}
+			>
+				<span className="font-bold ">52 Week High/Low</span>
 				<div className="flex items-center space-x-2">
-					<span className="text-xs font-medium">High</span>
+					<span className=" font-medium">High</span>
 					<MdKeyboardArrowDown />
 				</div>
 			</div>
-			<div className="custom-stripe py-3 px-6 flex justify-between items-center bg-dashboardBlue text-sm font-semibold text-white">
+			<div
+				className={`${
+					size === 'small' ? 'text-xs py-2' : size === 'medium' ? 'text-sm py-4' : size === 'large' ? 'text-md py-5' : ''
+				}   custom-stripe px-6 flex justify-between items-center bg-dashboardBlue font-semibold text-white`}
+			>
 				<span>Company</span>
 				<span>Price ($)</span>
 				<span>Change %</span>
@@ -51,7 +69,12 @@ const FiftyTwoWeeklyStats = () => {
 
 			<div className="pb-2">
 				{data.map((item) => (
-					<div key={item.id} className=" py-3 px-6 flex justify-between items-center  text-sm font-medium text-darkGrey">
+					<div
+						key={item.id}
+						className={`${
+							size === 'small' ? 'text-xs py-3' : size === 'medium' ? 'text-sm py-5' : size === 'large' ? 'text-md py-6' : ''
+						} px-6 flex justify-between items-center font-medium text-darkGrey`}
+					>
 						<span className="w-1/3">{item.name}</span>
 						<span className="w-1/3">{item.price}</span>
 						<span className="w-16 bg-primaryGreen p-1 text-center rounded-lg text-white font-normal">{item.change} %</span>

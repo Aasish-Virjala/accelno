@@ -74,11 +74,11 @@ const gradientColorsSec = [
 	{ offset: 1, color: 'rgba(255, 84, 84, 0)' },
 ];
 
-const StackedAreachart = ({ chartWidth }) => {
+const StackedAreachart = ({ size }) => {
 	return (
 		<AreaChart
-			width={chartWidth}
-			height={200}
+			width={size === 'small' ? 450 : size === 'medium' ? 500 : 560}
+			height={size === 'small' ? 200 : size === 'medium' ? 260 : 320}
 			data={data}
 			margin={{
 				top: 10,

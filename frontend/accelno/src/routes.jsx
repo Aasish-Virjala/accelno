@@ -10,6 +10,8 @@ import TodaysMovers from './screens/TodaysMovers';
 import MarketDashboard from './screens/MarketDashboard';
 import Checkout from './screens/Checkout';
 import PricingPlan from './pages/PricingPlan';
+import Settings from './screens/Settings';
+import Test from './screens/Test';
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -19,13 +21,14 @@ const router = createBrowserRouter(
 			</Route>
 			<Route path="/login" element={<Login />} />
 			<Route path="/register" element={<Register />} />
-			<Route path="/checkout" element={<Checkout />} />
-			<Route path="/choose-plan" element={<PricingPlan />} />
+			<Route path="test" element={<Test />} />
 			<Route path="/" element={<DashboardLayout />}>
 				<Route path="/dashboard" element={<DashboardHome />} />
 				<Route path="/watchlist" element={<Watchlist />} />
 				<Route path="/todays-movers" element={<TodaysMovers />} />
 				<Route path="/market" element={<MarketDashboard />} />
+				<Route path="/settings" element={<Settings />} />
+				<Route path="/settings/:element" element={<Settings />} />
 			</Route>
 		</>
 	)

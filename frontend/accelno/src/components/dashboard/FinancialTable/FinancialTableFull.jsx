@@ -97,10 +97,18 @@ const data = [
 	},
 ];
 
-const FinancialTableFull = () => {
+const FinancialTableFull = ({ size }) => {
 	return (
-		<div className="bg-white w-[450px]  py-6 font-inter rounded-xl border border-lightSilver shadow-xl">
-			<div className="text-center flex justify-between items-center py-3 px-4 text-darkGrey text-sm font-bold ">
+		<div
+			className={`${
+				size === 'small' ? 'w-[450px]' : size === 'medium' ? 'w-[500px]' : 'w-[550px]'
+			} bg-white   py-6 font-inter rounded-xl border border-lightSilver shadow-xl`}
+		>
+			<div
+				className={`${
+					size === 'small' ? 'text-sm' : size === 'medium' ? 'text-md' : 'text-lg'
+				}  text-center flex justify-between items-center py-3 px-4 text-darkGrey font-bold `}
+			>
 				<span className="w-1/5">COMPANY</span>
 				<span className="w-1/5">PRICE($)</span>
 				<span className="w-1/5">MCAP($M)</span>
@@ -109,7 +117,12 @@ const FinancialTableFull = () => {
 			</div>
 
 			{data.map((item) => (
-				<div key={item.id} className="text-center py-3 px-4 flex justify-between items-center text-sm font-medium text-darkGrey">
+				<div
+					key={item.id}
+					className={`${
+						size === 'small' ? 'text-sm py-3' : size === 'medium' ? 'text-md py-5' : 'text-lg py-6'
+					}  text-center px-4 flex justify-between items-center font-medium text-darkGrey`}
+				>
 					<span className="w-1/5">{item.name}</span>
 					<span className="w-1/5">{item.price}</span>
 					<span className="w-1/5">{item.mcap}</span>

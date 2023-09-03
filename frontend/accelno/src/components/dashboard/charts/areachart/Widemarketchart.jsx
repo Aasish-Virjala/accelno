@@ -34,13 +34,13 @@ const gradientColors = [
 	{ offset: '100%', color: 'rgba(20, 198, 122, 0)' },
 ];
 
-const Widemarketchart = () => {
+const Widemarketchart = ({ size }) => {
 	const cardinal = curveCardinal.tension(0.2);
 
 	return (
 		<AreaChart
-			width={650}
-			height={180}
+			width={size === 'small' ? 500 : size === 'medium' ? 600 : 700}
+			height={size === 'small' ? 180 : size === 'medium' ? 210 : 240}
 			data={data}
 			style={{ fontSize: '0.7rem', fontWeight: '500', FontFamily: 'Inter' }}
 			margin={{

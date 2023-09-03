@@ -21,19 +21,35 @@ const data = [
 	},
 ];
 
-const ActiveStocks = () => {
+const ActiveStocks = ({ size }) => {
 	return (
-		<div className=" w-[360px] font-inter rounded-xl border border-lightSilver">
+		<div
+			className={`${
+				size === 'small' ? 'w-[360]' : size === 'medium' ? 'w-[410]' : 'w-[460]'
+			}   font-inter rounded-xl bg-white border border-lightSilver`}
+		>
 			<div className="px-4 py-3">
-				<span className="font-bold text-sm"> Most Active Stocks </span>
+				<span className={`${size === 'small' ? 'text-xs' : size === 'medium' ? 'text-sm' : 'text-md'}  font-bold`}>
+					{' '}
+					Most Active Stocks{' '}
+				</span>
 			</div>
-			<div className="custom-stripe py-3 px-6 flex justify-between items-center bg-dashboardBlue text-sm font-semibold text-white">
+			<div
+				className={`${
+					size === 'small' ? 'text-xs py-2' : size === 'medium' ? 'text-sm py-2' : 'text-md py-3'
+				} custom-stripe  px-6 flex justify-between items-center bg-dashboardBlue  font-semibold text-white`}
+			>
 				<span>Company</span>
 				<span>Volume</span>
 			</div>
 			<div className="pb-2">
 				{data.map((item) => (
-					<div key={item.id} className=" py-3 px-6 flex justify-between items-center  text-sm font-medium text-darkGrey">
+					<div
+						key={item.id}
+						className={`${
+							size === 'small' ? 'py-2 text-xs' : size === 'medium' ? 'py-3 text-sm' : 'py-4 text-md'
+						} px-6 flex justify-between items-center font-medium text-darkGrey`}
+					>
 						<span className="">{item.name}</span>
 						<span className=" bg-primaryGreen py-1 px-2 text-center rounded-lg text-white font-normal">{item.volume} %</span>
 					</div>

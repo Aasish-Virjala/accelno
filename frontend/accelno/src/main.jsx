@@ -5,6 +5,8 @@ import './index.css';
 import store from './redux/store.js';
 import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
 	<React.StrictMode>

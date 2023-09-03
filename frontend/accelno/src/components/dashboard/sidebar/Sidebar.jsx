@@ -13,6 +13,7 @@ import updatesIcon from '../../../assets/dashboard/icons/update-icon.svg';
 import logoutIcon from '../../../assets/dashboard/icons/logout-icon.svg';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 import { useState } from 'react';
+import SidebarItem from './SidebarItem';
 
 const sidebarItems = [
 	{
@@ -25,36 +26,6 @@ const sidebarItems = [
 		id: 2,
 		title: 'Widgets',
 		icon: widgetIcon,
-		path: '#',
-	},
-	{
-		id: 3,
-		title: 'UI Elements',
-		icon: uiElementsIcon,
-		path: '#',
-	},
-	{
-		id: 4,
-		title: 'Advanced UI',
-		icon: advancedUiIcon,
-		path: '#',
-	},
-	{
-		id: 5,
-		title: 'Form Elements',
-		icon: formElementsIcon,
-		path: '#',
-	},
-	{
-		id: 6,
-		title: 'Calendar',
-		icon: calendarIcon,
-		path: '#',
-	},
-	{
-		id: 7,
-		title: 'Charts',
-		icon: chartsIcon,
 		path: '#',
 	},
 ];
@@ -129,7 +100,7 @@ const Sidebar = () => {
 						</NavLink>
 					))}
 				</div>
-
+				<SidebarItem widgetType={'Test'} />
 				<div className="w-full">
 					{sidebarItems2.map((item) => (
 						<NavLink

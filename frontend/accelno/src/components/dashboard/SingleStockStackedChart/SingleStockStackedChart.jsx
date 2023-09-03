@@ -1,12 +1,12 @@
 /* eslint-disable react/prop-types */
 import StackedAreachart from '../charts/areachart/StackedAreachart';
 
-const SingleStockStackedChart = ({ containerWidth, chartWidth }) => {
+const SingleStockStackedChart = ({ size }) => {
 	return (
 		<div
-			className={`bg-white md:w-[${containerWidth}px] 2xl:w-[${
-				containerWidth + 40
-			}px] rounded-xl border border-lightSilver  px-2 pt-3 pb-5 shadow-md`}
+			className={`${
+				size === 'small' ? '300px' : size === 'medium' ? '380px' : '460px'
+			} bg-white rounded-xl border border-lightSilver   pt-3 pb-5 shadow-md`}
 		>
 			<div className="flex justify-center space-x-5 mb-4">
 				<div className="flex space-x-1 font-bold text-sm">
@@ -17,7 +17,7 @@ const SingleStockStackedChart = ({ containerWidth, chartWidth }) => {
 
 				<span className="text-sm text-darkGrey font-medium">NASDAQ - USD</span>
 			</div>
-			<StackedAreachart chartWidth={chartWidth} />
+			<StackedAreachart size={size} />
 		</div>
 	);
 };

@@ -6,11 +6,15 @@ const handleChange = () => {
 	console.log('changed');
 };
 
-const SingleStockChart = ({ ratio }) => {
+const SingleStockChart = ({ ratio, size }) => {
 	return (
-		<div className="bg-white space-y-3 p-3 single-stock-container font-inter rounded-xl border border-lightSilver shadow-md">
-			<div className="flex justify-between">
-				<div className=" font-bold text-sm">
+		<div
+			className={`${
+				size === 'small' ? 'w-[300px]' : size === 'medium' ? 'w-[360px]' : 'w-[400px]'
+			} bg-white space-y-3 p-3 font-inter rounded-xl border border-lightSilver shadow-md`}
+		>
+			<div className={`${size === 'small' ? 'text-sm' : size === 'medium' ? 'text-md' : 'text-lg'} flex justify-between`}>
+				<div className=" font-bold ">
 					{ratio === 'sales' ? (
 						<span className="text-darkGrey">Sales Growth</span>
 					) : ratio === 'profit' ? (
@@ -22,24 +26,24 @@ const SingleStockChart = ({ ratio }) => {
 						</div>
 					)}
 				</div>
-				<div className="space-x-1 font-bold text-sm">
+				<div className="space-x-1 font-bold">
 					<span className="text-darkGrey">100.00</span>
 					<span className="text-secondarySilver">USD</span>
 				</div>
 			</div>
 
-			<div className="flex justify-between font-semibold">
-				<span className="text-secondarySilver text-xs items-center">Updated:10:36am</span>
+			<div className={`${size === 'small' ? 'text-xs' : size === 'medium' ? 'text-sm' : 'text-md'}  flex justify-between font-semibold`}>
+				<span className="text-secondarySilver items-center">Updated:10:36am</span>
 				<div className="flex justify-center ">
-					<span className="text-xs">+50.00</span>
-					<span className="text-primaryGreen text-xs">(+1.27%)</span>
+					<span className="">+50.00</span>
+					<span className="text-primaryGreen ">(+1.27%)</span>
 					<span className="text-xl">
 						<MdArrowDropUp className="text-primaryGreen" />
 					</span>
 				</div>
 			</div>
-			<Areachart />
-			<div className="flex justify-between">
+			<Areachart size={size} />
+			<div className={`${size === 'small' ? 'text-xs' : size === 'medium' ? 'text-sm' : 'text-md'} flex justify-between`}>
 				<div className="flex justify-between items-center space-x-2">
 					<Switch
 						onChange={handleChange}
@@ -52,9 +56,9 @@ const SingleStockChart = ({ ratio }) => {
 						height={20}
 						width={40}
 					/>
-					<span className="text-xs font-medium text-secondarySilver">Notifications</span>
+					<span className="font-medium text-secondarySilver">Notifications</span>
 				</div>
-				<span className="text-xs font-semibold text-secondarySilver">Advance Chart</span>
+				<span className=" font-semibold text-secondarySilver">Advance Chart</span>
 			</div>
 		</div>
 	);

@@ -10,7 +10,7 @@ const HeroHeader = () => {
 				<h3 className="font-grotesk text-5xl md:text-7xl text-white"> Scalable AI.</h3>
 			</div>
 			<div className="mt-14 space-x-3 mx-auto w-ful text-center">
-				<Button textColor={'white'} title={'Get Started'} customClassName="gradient-button-bg" />
+				<Button textColor={'white'} title={'Get Started'} customClassName="gradient-button-bg" register={true} />
 				<Button textColor={'black'} title={'Features'} customClassName="gradient-button-bg-2" />
 			</div>
 		</div>

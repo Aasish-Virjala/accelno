@@ -32,9 +32,12 @@ const data = [
 	},
 ];
 
-const Barchart = ({ chartWidth }) => {
+const Barchart = ({ size }) => {
 	return (
-		<ResponsiveContainer width={chartWidth} height={250}>
+		<ResponsiveContainer
+			width={size === 'small' ? 320 : size === 'medium' ? 380 : 460}
+			height={size === 'small' ? 250 : size === 'medium' ? 300 : 350}
+		>
 			<BarChart
 				data={data}
 				stackOffset="sign"

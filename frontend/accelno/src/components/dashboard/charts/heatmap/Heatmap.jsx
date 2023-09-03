@@ -35,8 +35,8 @@ const getColor = (symbol, value) => {
 	return companyColors[symbol];
 };
 
-const HeatmapComp = () => (
-	<div style={{ width: '300px', padding: '5px', fontFamily: 'poppins' }}>
+const HeatmapComp = ({ size }) => (
+	<div style={{ width: `${size === 'small' ? '300px' : size === 'medium' ? '380px' : '500px'}`, padding: '5px', fontFamily: 'poppins' }}>
 		<Heatmap
 			xLabels={xLabels}
 			yLabels={yLabels}

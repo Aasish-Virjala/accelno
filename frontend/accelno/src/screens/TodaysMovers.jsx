@@ -74,7 +74,7 @@ const TodaysMovers = () => {
 						</div>
 					</div>
 					<div className="flex justify-center">
-						<AvgMonthlyRevenue containerWidth={680} chartWidth={450} />
+						<AvgMonthlyRevenue />
 					</div>
 				</div>
 			</div>

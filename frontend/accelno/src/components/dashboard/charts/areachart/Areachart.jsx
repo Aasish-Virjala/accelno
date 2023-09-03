@@ -34,13 +34,13 @@ const gradientColors = [
 	{ offset: '100%', color: 'rgba(20, 198, 122, 0)' },
 ];
 
-const Areachart = () => {
+const Areachart = ({ size }) => {
 	const cardinal = curveCardinal.tension(0.2);
 
 	return (
 		<AreaChart
-			width={330}
-			height={160}
+			width={size === 'small' ? 330 : size === 'medium' ? 390 : 440}
+			height={size === 'small' ? 160 : size === 'medium' ? 200 : 240}
 			data={data}
 			style={{ fontSize: '0.7rem', fontWeight: '500', FontFamily: 'Inter' }}
 			margin={{
