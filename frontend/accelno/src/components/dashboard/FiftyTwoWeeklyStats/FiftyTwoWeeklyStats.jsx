@@ -1,4 +1,7 @@
-import { MdKeyboardArrowDown } from 'react-icons/md';
+import { useState } from 'react';
+import { MdKeyboardArrowDown, MdInfoOutline } from 'react-icons/md';
+import { useDispatch } from 'react-redux';
+import { deleteWidget } from '../../../redux/slices/widgetSlice';
 
 const data = [
 	{
@@ -33,7 +36,14 @@ const data = [
 	},
 ];
 
-const FiftyTwoWeeklyStats = ({ size }) => {
+const FiftyTwoWeeklyStats = ({ size, widgetId, screen }) => {
+	const [edit, setEdit] = useState(false);
+	const dispatch = useDispatch();
+
+	const handleWidgetDelete = (widgetId) => {
+		dispatch(deleteWidget({ screen, widgetId }));
+	};
+
 	return (
 		<div
 			className={`${
@@ -44,12 +54,26 @@ const FiftyTwoWeeklyStats = ({ size }) => {
 					: size === 'large'
 					? ' w-[520px] h-[480px]'
 					: ''
-			} bg-white h-full py-2 font-inter rounded-xl border border-lightSilver shadow-xl `}
+			} bg-white h-full py-1 font-inter rounded-xl border border-lightSilver shadow-xl `}
 		>
+			<div className="flex justify-end p-1 ">
+				{!edit ? (
+					<span className="cursor-pointer" onClick={() => setEdit(!edit)}>
+						{<MdInfoOutline />}
+					</span>
+				) : (
+					<button
+						className=" bg-red-500 text-white w-5 h-5 rounded-full flex items-center justify-center text-sm hover:bg-red-600"
+						onClick={() => handleWidgetDelete(widgetId)}
+					>
+						x
+					</button>
+				)}
+			</div>
 			<div
 				className={`${
 					size === 'small' ? 'text-xs' : size === 'medium' ? 'text-sm' : size === 'large' ? 'text-md' : ''
-				}  flex justify-between items-center p-4 text-darkGrey`}
+				}  flex justify-between items-center px-4 py-2 text-darkGrey`}
 			>
 				<span className="font-bold ">52 Week High/Low</span>
 				<div className="flex items-center space-x-2">

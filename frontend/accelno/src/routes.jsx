@@ -11,7 +11,15 @@ import MarketDashboard from './screens/MarketDashboard';
 import Checkout from './screens/Checkout';
 import PricingPlan from './pages/PricingPlan';
 import Settings from './screens/Settings';
-import Test from './screens/Test';
+import WidgetsComponent from './screens/WidgetsComponent';
+import { Navigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
+// eslint-disable-next-line react/prop-types
+const PrivateRoute = ({ children }) => {
+	const { user } = useSelector((state) => state.auth);
+	return user ? children : <Navigate to="/login" replace />;
+};
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -21,8 +29,17 @@ const router = createBrowserRouter(
 			</Route>
 			<Route path="/login" element={<Login />} />
 			<Route path="/register" element={<Register />} />
-			<Route path="test" element={<Test />} />
-			<Route path="/" element={<DashboardLayout />}>
+			<Route path="/plans" element={<PricingPlan />} />
+			<Route path="/checkout/:planId" element={<Checkout />} />
+
+			<Route
+				path="/"
+				element={
+					<PrivateRoute>
+						<DashboardLayout />
+					</PrivateRoute>
+				}
+			>
 				<Route path="/dashboard" element={<DashboardHome />} />
 				<Route path="/watchlist" element={<Watchlist />} />
 				<Route path="/todays-movers" element={<TodaysMovers />} />

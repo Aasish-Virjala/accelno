@@ -14,6 +14,9 @@ import logoutIcon from '../../../assets/dashboard/icons/logout-icon.svg';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 import { useState } from 'react';
 import SidebarItem from './SidebarItem';
+import { openModal } from '../../../redux/slices/modalSlice';
+import { useDispatch } from 'react-redux';
+import { logoutSuccess } from '../../../redux/slices/authSlice';
 
 const sidebarItems = [
 	{
@@ -21,12 +24,6 @@ const sidebarItems = [
 		title: 'Dashboard',
 		icon: homeIcon,
 		path: 'dashboard',
-	},
-	{
-		id: 2,
-		title: 'Widgets',
-		icon: widgetIcon,
-		path: '#',
 	},
 ];
 
@@ -41,7 +38,7 @@ const sidebarItems2 = [
 		id: 2,
 		title: 'My Account',
 		icon: accountIcon,
-		path: '#',
+		path: 'settings',
 	},
 	{
 		id: 3,
@@ -59,6 +56,7 @@ const sidebarItems2 = [
 
 const Sidebar = () => {
 	const [active, setActive] = useState(false);
+	const dispatch = useDispatch();
 	return (
 		<div
 			className={`${!active ? ' -left-52' : 'left-0'} fixed top-0 bottom-0  z-50 bg-secondaryGrey w-64 h-full space-y-4
@@ -100,7 +98,7 @@ const Sidebar = () => {
 						</NavLink>
 					))}
 				</div>
-				<SidebarItem widgetType={'Test'} />
+
 				<div className="w-full">
 					{sidebarItems2.map((item) => (
 						<NavLink
@@ -114,7 +112,10 @@ const Sidebar = () => {
 								};
 							}}
 						>
-							<div className={`${!active && 'justify-end'}   flex items-center py-3 px-4 space-x-4 `}>
+							<div
+								className={`${!active && 'justify-end'}   flex items-center py-3 px-4 space-x-4 `}
+								onClick={item.title === 'Logout' ? () => dispatch(logoutSuccess()) : ''}
+							>
 								<img src={item.icon} alt="" className="w-5" />
 								{active && (
 									<div className="flex justify-between w-full">

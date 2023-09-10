@@ -35,9 +35,8 @@ const Register = () => {
 	const [register] = useRegisterMutation();
 	const navigate = useNavigate();
 	const submitHandler = (data) => {
-		navigate('/login');
 		// eslint-disable-next-line no-unused-vars
-		/*
+
 		const { retypePassword, ...rest } = data;
 
 		register(rest)
@@ -53,7 +52,6 @@ const Register = () => {
 			.catch((err) => {
 				show(err.data.message, 'error');
 			});
-	*/
 	};
 	return (
 		<div className="flex">

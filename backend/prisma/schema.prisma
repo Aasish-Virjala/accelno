@@ -18,6 +18,10 @@ model User {
     stripe_subscription_expiry DateTime?
     plan_id                    Int?
     plan                       Plan?     @relation(fields: [plan_id], references: [id])
+    fullName                   String?
+    website                    String?
+    companyLogo                String?
+    requireLogoOnBranding      Boolean?
     createdAt                  DateTime  @default(now())
     updatedAt                  DateTime  @updatedAt
 }

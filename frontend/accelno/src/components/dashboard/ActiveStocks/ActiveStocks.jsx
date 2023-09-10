@@ -1,3 +1,8 @@
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { deleteWidget } from '../../../redux/slices/widgetSlice';
+import { MdInfoOutline } from 'react-icons/md';
+
 const data = [
 	{
 		id: 1,
@@ -21,14 +26,34 @@ const data = [
 	},
 ];
 
-const ActiveStocks = ({ size }) => {
+const ActiveStocks = ({ size, widgetId, screen }) => {
+	const [edit, setEdit] = useState(false);
+	const dispatch = useDispatch();
+	const handleWidgetDelete = (widgetId) => {
+		dispatch(deleteWidget({ screen, widgetId }));
+	};
 	return (
 		<div
 			className={`${
 				size === 'small' ? 'w-[360]' : size === 'medium' ? 'w-[410]' : 'w-[460]'
 			}   font-inter rounded-xl bg-white border border-lightSilver`}
 		>
-			<div className="px-4 py-3">
+			<div className="flex justify-end p-1 ">
+				{!edit ? (
+					<span className="cursor-pointer" onClick={() => setEdit(!edit)}>
+						{<MdInfoOutline />}
+					</span>
+				) : (
+					<button
+						className=" bg-red-500 text-white w-5 h-5 rounded-full flex items-center justify-center text-sm hover:bg-red-600"
+						onClick={() => handleWidgetDelete(widgetId)}
+					>
+						x
+					</button>
+				)}
+			</div>
+
+			<div className="px-4 pb-3">
 				<span className={`${size === 'small' ? 'text-xs' : size === 'medium' ? 'text-sm' : 'text-md'}  font-bold`}>
 					{' '}
 					Most Active Stocks{' '}

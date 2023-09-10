@@ -37,12 +37,15 @@ const stripeSubscriptionController = asyncHandler(async (req, res) => {
 			try {
 				// create a new stripe customer and subscription for the user
 				// get the client secret and subscription id to be used in the frontend
-				const { clientSecret, subscriptionId, status, subscriptionExpiry } = await createSubscription({
+				const { clientSecret, subscriptionId, status, subscriptionExpiry, customerId } = await createSubscription({
 					email,
 					username,
 					priceId,
 					paymentMethodId,
 				});
+
+				const UpdatedExpiry = new Date(subscriptionExpiry * 1000);
+
 				// update the user's subscription_id in the database as stripe_customer_id
 				const updateUser = await prisma.user.update({
 					where: {
@@ -50,10 +53,10 @@ const stripeSubscriptionController = asyncHandler(async (req, res) => {
 					},
 					data: {
 						plan_id: planId,
-						stripe_customer_id: customer.id,
+						stripe_customer_id: customerId,
 						stripe_subscription_status: status,
 						stripe_subscription_id: subscriptionId,
-						stripe_subscription_expiry: subscriptionExpiry,
+						stripe_subscription_expiry: UpdatedExpiry,
 					},
 				});
 				res.status(201).json({ clientSecret, status });

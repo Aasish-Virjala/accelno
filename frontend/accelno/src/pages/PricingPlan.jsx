@@ -7,7 +7,7 @@ const handleChange = () => {
 	console.log('changed');
 };
 
-const plans = [
+export const plans = [
 	{
 		id: 1,
 		title: 'Basic',
@@ -20,8 +20,8 @@ const plans = [
 	},
 	{
 		id: 3,
-		title: 'Basic',
-		price: '50',
+		title: 'Premium',
+		price: '99',
 	},
 ];
 
@@ -29,7 +29,7 @@ const PricingPlan = () => {
 	const [selected, setSelected] = useState(null);
 	const navigate = useNavigate();
 	const handleBtnClick = () => {
-		navigate('/checkout');
+		navigate(`/checkout/${selected}`);
 	};
 
 	return (

@@ -1,3 +1,8 @@
+import { MdInfoOutline } from 'react-icons/md';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { deleteWidget } from '../../../redux/slices/widgetSlice';
+
 const data = [
 	{
 		id: 1,
@@ -97,18 +102,32 @@ const data = [
 	},
 ];
 
-const FinancialTableFull = ({ size }) => {
+const FinancialTableFull = ({ widgetId, screen }) => {
+	const [edit, setEdit] = useState(false);
+	const dispatch = useDispatch();
+
+	const handleWidgetDelete = (widgetId) => {
+		dispatch(deleteWidget({ screen, widgetId }));
+	};
+
 	return (
-		<div
-			className={`${
-				size === 'small' ? 'w-[450px]' : size === 'medium' ? 'w-[500px]' : 'w-[550px]'
-			} bg-white   py-6 font-inter rounded-xl border border-lightSilver shadow-xl`}
-		>
-			<div
-				className={`${
-					size === 'small' ? 'text-sm' : size === 'medium' ? 'text-md' : 'text-lg'
-				}  text-center flex justify-between items-center py-3 px-4 text-darkGrey font-bold `}
-			>
+		<div className="w-[450px] bg-white  py-2 font-inter rounded-xl border border-lightSilver shadow-xl">
+			<div className="flex justify-end p-1 ">
+				{!edit ? (
+					<span className="cursor-pointer" onClick={() => setEdit(!edit)}>
+						{<MdInfoOutline />}
+					</span>
+				) : (
+					<button
+						className=" bg-red-500 text-white w-5 h-5 rounded-full flex items-center justify-center text-sm hover:bg-red-600"
+						onClick={() => handleWidgetDelete(widgetId)}
+					>
+						x
+					</button>
+				)}
+			</div>
+
+			<div className={` 'text-sm'  text-center flex justify-between items-center py-3 px-4 text-darkGrey font-bold `}>
 				<span className="w-1/5">COMPANY</span>
 				<span className="w-1/5">PRICE($)</span>
 				<span className="w-1/5">MCAP($M)</span>
@@ -117,12 +136,7 @@ const FinancialTableFull = ({ size }) => {
 			</div>
 
 			{data.map((item) => (
-				<div
-					key={item.id}
-					className={`${
-						size === 'small' ? 'text-sm py-3' : size === 'medium' ? 'text-md py-5' : 'text-lg py-6'
-					}  text-center px-4 flex justify-between items-center font-medium text-darkGrey`}
-				>
+				<div key={item.id} className={` text-sm py-3 text-center px-4 flex justify-between items-center font-medium text-darkGrey`}>
 					<span className="w-1/5">{item.name}</span>
 					<span className="w-1/5">{item.price}</span>
 					<span className="w-1/5">{item.mcap}</span>

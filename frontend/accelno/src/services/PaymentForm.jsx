@@ -27,15 +27,13 @@ const CARD_ELEMENT_OPTIONS = {
 const PaymentForm = () => {
 	const stripe = useStripe();
 	const elements = useElements();
+	const [paymentSuccess, setPaymentSuccess] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(null);
 	const navigate = useNavigate();
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-		navigate('/dashboard');
-
-		/*
 
 		if (!stripe || !elements) {
 			return;
@@ -63,30 +61,15 @@ const PaymentForm = () => {
 				},
 				{ withCredentials: true }
 			);
-
-			// Use the client_secret received in the response to confirm the payment
-			const { clientSecret } = response.data;
-
-			const result = await stripe.confirmCardPayment(clientSecret, {
-				payment_method: {
-					card: elements.getElement(CardElement),
-				},
-			});
-
-			if (result.error) {
-				throw new Error(result.error.message);
-			}
-
-			// Payment was successful
-			console.log('Payment successful:', result.paymentIntent);
-
-			// You can perform further actions here, such as redirecting to a success page
 		} catch (error) {
 			setError(error.message);
 		} finally {
 			setLoading(false);
+			setPaymentSuccess(true);
+			setTimeout(() => {
+				navigate('/dashboard');
+			}, 2000);
 		}
-		*/
 	};
 
 	return (
@@ -110,6 +93,14 @@ const PaymentForm = () => {
 					</button>
 				</div>
 			</form>
+			{
+				// Show this div if payment is successful
+				paymentSuccess && (
+					<div className="min-h-screen w-full bg-slate-300 text-darkGrey fixed inset-0">
+						Your payment was successful. Redirecting to dashboard...
+					</div>
+				)
+			}
 		</div>
 	);
 };

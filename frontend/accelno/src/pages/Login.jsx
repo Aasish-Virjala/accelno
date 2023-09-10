@@ -26,20 +26,18 @@ const Login = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const submitHandler = (data) => {
-		navigate('/choose-plan');
-		/*
 		login(data)
 			.then((response) => {
 				console.log(response);
 				if (response.data.status === 'success') {
 					show('Logged In Successfully', 'success');
 					dispatch(loginSuccess({ ...response.data }));
+					response.data.isActive === true ? navigate('/dashboard') : navigate('/plans');
 				}
 			})
 			.catch((err) => {
 				show(err.data.message, 'error');
 			});
-			*/
 	};
 
 	return (

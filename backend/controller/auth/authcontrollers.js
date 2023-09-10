@@ -58,7 +58,9 @@ const loginUserController = asyncHandler(async (req, res) => {
 				// util function to generate token and send to client
 				generateToken(res, username);
 				const token = res.token;
-				res.status(200).json({ message: 'Logged in', status: 'success', token });
+				// check if the user has active subscription and send it to client
+				const isActive = checkUser.stripe_subscription_status === 'active' ? true : false;
+				res.status(200).json({ message: 'Logged in', status: 'success', token, isActive });
 			}
 		}
 	} catch (err) {
