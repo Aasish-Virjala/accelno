@@ -16,6 +16,8 @@ import Welcome from '../components/dashboard/welcome/Welcome';
 import { selectModalState } from '../redux/slices/modalSlice';
 import { openModal, closeModal } from '../redux/slices/modalSlice';
 import ClipLoader from 'react-spinners/ClipLoader';
+import { selectIsDarkMode } from '../redux/slices/themeSlice';
+import { MdAdd } from 'react-icons/md';
 
 // eslint-disable-next-line react/prop-types
 const WidgetsComponent = ({ screen }) => {
@@ -117,6 +119,7 @@ const WidgetsComponent = ({ screen }) => {
 
 	const dispatch = useDispatch();
 	//const selectedWidgets = useSelector(selectSelectedWidgets);
+	const isDarkMode = useSelector(selectIsDarkMode);
 	const selectedWidgets = useSelector((state) => selectWidgetsByScreen(state, screen));
 	const isModalOpen = useSelector(selectModalState);
 	const [isLoading, setIsLoading] = useState(true);
@@ -275,22 +278,21 @@ const WidgetsComponent = ({ screen }) => {
 	return (
 		<>
 			{isLoading ? (
-				<div className="min-h-screen flex items-center justify-center">
+				<div className="min-h-screen flex items-center justify-center bg-white dark:bg-[#1F2023]">
 					<ClipLoader color="#fff" loading={isLoading} cssOverride={override} size={50} aria-label="Loading Spinner" data-testid="loader" />
 				</div>
 			) : selectedWidgets.length === 0 && !isModalOpen ? (
 				<Welcome />
 			) : (
-				<div className="min-h-screen bg-white flex flex-col pl-7">
+				<div className={`min-h-screen ${isDarkMode ? 'bg-[#1F2023]' : 'bg-white'} flex flex-col pl-7`}>
 					<button
-						className="bg-dashboardBlue py-3 px-4 rounded-md mt-3 text-white font-semibold mx-auto"
+						className="fixed bottom-4 right-5 flex items-center justify-center bg-dashboardBlue w-16 h-16 rounded-full text-3xl text-white font-semibold cursor-pointer shadow-lg z-50"
 						onClick={() => dispatch(openModal())}
 					>
-						{' '}
-						Add Widget{' '}
+						<MdAdd />
 					</button>
 					<div
-						className="min-h-screen p-4 bg-white"
+						className={`min-h-screen p-4 ${isDarkMode ? 'bg-[#1F2023]' : 'bg-white'} `}
 						onDrop={handleWhiteboardDrop}
 						onDragOver={handleWhiteboardDragOver}
 						onDragLeave={handleWhiteboardDragLeave}
@@ -344,7 +346,7 @@ const WidgetsComponent = ({ screen }) => {
 			)}
 
 			{isModalOpen && (
-				<div className="select-none bg-inputGrey h-[400px] w-[600px] fixed top-0 bottom-0 left-0 right-0 overflow-y-scroll p-4 rounded-xl shadow-md z-50">
+				<div className="select-none  bg-inputGrey h-[400px] w-[600px] fixed top-1/2 bottom-0 left-1/2 -translate-x-1/2 -translate-y-1/2 right-0 overflow-y-scroll p-4 rounded-xl shadow-xl z-50">
 					<div className="flex justify-between items-start">
 						<div className="font-poppins mb-3">
 							<h1 className=" text-xl font-bold">All Widget</h1>

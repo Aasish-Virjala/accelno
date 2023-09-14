@@ -2,110 +2,13 @@ import { MdInfoOutline } from 'react-icons/md';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { deleteWidget } from '../../../redux/slices/widgetSlice';
-
-const data = [
-	{
-		id: 1,
-		name: 'Tesla Inc.',
-		price: 102.32,
-		mcap: 300.33,
-		pb: 3.2,
-		pe: 'Tesla Inc.',
-	},
-	{
-		id: 2,
-		name: 'Tesla Inc.',
-		price: 102.32,
-		mcap: 300.33,
-		pb: 3.2,
-		pe: 'Tesla Inc.',
-	},
-	{
-		id: 3,
-		name: 'Tesla Inc.',
-		price: 102.32,
-		mcap: 300.33,
-		pb: 3.2,
-		pe: 'Tesla Inc.',
-	},
-	{
-		id: 4,
-		name: 'Tesla Inc.',
-		price: 102.32,
-		mcap: 300.33,
-		pb: 3.2,
-		pe: 'Tesla Inc.',
-	},
-	{
-		id: 5,
-		name: 'Tesla Inc.',
-		price: 102.32,
-		mcap: 300.33,
-		pb: 3.2,
-		pe: 'Tesla Inc.',
-	},
-	{
-		id: 6,
-		name: 'Tesla Inc.',
-		price: 102.32,
-		mcap: 300.33,
-		pb: 3.2,
-		pe: 'Tesla Inc.',
-	},
-	{
-		id: 7,
-		name: 'Tesla Inc.',
-		price: 102.32,
-		mcap: 300.33,
-		pb: 3.2,
-		pe: 'Tesla Inc.',
-	},
-	{
-		id: 8,
-		name: 'Tesla Inc.',
-		price: 102.32,
-		mcap: 300.33,
-		pb: 3.2,
-		pe: 'Tesla Inc.',
-	},
-	{
-		id: 9,
-		name: 'Tesla Inc.',
-		price: 102.32,
-		mcap: 300.33,
-		pb: 3.2,
-		pe: 'Tesla Inc.',
-	},
-	{
-		id: 10,
-		name: 'Tesla Inc.',
-		price: 102.32,
-		mcap: 300.33,
-		pb: 3.2,
-		pe: 'Tesla Inc.',
-	},
-	{
-		id: 11,
-		name: 'Tesla Inc.',
-		price: 102.32,
-		mcap: 300.33,
-		pb: 3.2,
-		pe: 'Tesla Inc.',
-	},
-	{
-		id: 12,
-		name: 'Tesla Inc.',
-		price: 102.32,
-		mcap: 300.33,
-		pb: 3.2,
-		pe: 'Tesla Inc.',
-	},
-];
+import { useGetFinancialsQuery } from '../../../api/endpoints/widgetDataApi';
 
 const FinancialTableFull = ({ widgetId, screen }) => {
+	const { data: financialData } = useGetFinancialsQuery(['AAPL', 'TSLA', 'AMZN']);
 	const [edit, setEdit] = useState(false);
 	const dispatch = useDispatch();
-
+	console.log(financialData);
 	const handleWidgetDelete = (widgetId) => {
 		dispatch(deleteWidget({ screen, widgetId }));
 	};
@@ -135,13 +38,13 @@ const FinancialTableFull = ({ widgetId, screen }) => {
 				<span className="w-1/5">P/E</span>
 			</div>
 
-			{data.map((item) => (
-				<div key={item.id} className={` text-sm py-3 text-center px-4 flex justify-between items-center font-medium text-darkGrey`}>
-					<span className="w-1/5">{item.name}</span>
-					<span className="w-1/5">{item.price}</span>
-					<span className="w-1/5">{item.mcap}</span>
-					<span className="w-1/5">{item.pb}</span>
-					<span className="w-1/5">{item.pe}</span>
+			{financialData?.map((item, index) => (
+				<div key={index} className={` text-sm py-3 text-center px-4 flex justify-between items-center font-medium text-darkGrey`}>
+					<span className="w-1/5">{item.shortName}</span>
+					<span className="w-1/5">{Math.round(item.price)}</span>
+					<span className="w-1/5">{item.marketCap}</span>
+					<span className="w-1/5">{Math.round(item.pbRatio)}</span>
+					<span className="w-1/5">{Math.round(item.peRatio)}</span>
 				</div>
 			))}
 		</div>

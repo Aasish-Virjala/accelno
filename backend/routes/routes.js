@@ -11,6 +11,9 @@ const {
 	getSingleStockChartController,
 	getMarketChartController,
 	getMarketMoversController,
+	getMostTrendingStocksController,
+	getFinancialsController,
+	getFiftyTwoWeeksController,
 } = require('../controller/externalAPI/externalDataController.js');
 const { protect } = require('../middleware/authMiddleware.js');
 const { getUserProfile, addUserProfile } = require('../controller/dashboard/userProfileController.js');
@@ -44,5 +47,14 @@ router.route('/marketchart').get(protect, getMarketChartController);
 
 //GET /api/v1/marketmovers/:type
 router.route('/marketmovers/:type').get(protect, getMarketMoversController);
+
+// GET /api/v1/trendingstocks
+router.route('/trendingstocks').get(protect, getMostTrendingStocksController);
+
+// GET /api/v1/financials/:stocks
+router.route('/financials/:stocks').get(protect, getFinancialsController);
+
+// GET /api/v1/52weekhighlow/:stock
+router.route('/52weekhighlow/:stocks').get(protect, getFiftyTwoWeeksController);
 
 module.exports = router;

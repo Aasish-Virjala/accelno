@@ -2,31 +2,10 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { deleteWidget } from '../../../redux/slices/widgetSlice';
 import { MdInfoOutline } from 'react-icons/md';
-
-const data = [
-	{
-		id: 1,
-		name: 'Apple Inc.',
-		volume: 50,
-	},
-	{
-		id: 2,
-		name: 'Tesla Inc.',
-		volume: 43,
-	},
-	{
-		id: 3,
-		name: 'Apple Inc.',
-		volume: 75,
-	},
-	{
-		id: 4,
-		name: 'Tesla Inc.',
-		volume: 99,
-	},
-];
+import { useGetTrendingStocksQuery } from '../../../api/endpoints/widgetDataApi';
 
 const ActiveStocks = ({ size, widgetId, screen }) => {
+	const { data, isLoading, isError, error } = useGetTrendingStocksQuery();
 	const [edit, setEdit] = useState(false);
 	const dispatch = useDispatch();
 	const handleWidgetDelete = (widgetId) => {
@@ -56,7 +35,7 @@ const ActiveStocks = ({ size, widgetId, screen }) => {
 			<div className="px-4 pb-3">
 				<span className={`${size === 'small' ? 'text-xs' : size === 'medium' ? 'text-sm' : 'text-md'}  font-bold`}>
 					{' '}
-					Most Active Stocks{' '}
+					Most Trending Stocks{' '}
 				</span>
 			</div>
 			<div
@@ -65,18 +44,18 @@ const ActiveStocks = ({ size, widgetId, screen }) => {
 				} custom-stripe  px-6 flex justify-between items-center bg-dashboardBlue  font-semibold text-white`}
 			>
 				<span>Company</span>
-				<span>Volume</span>
+				<span>Score</span>
 			</div>
 			<div className="pb-2">
-				{data.map((item) => (
+				{data?.map((item) => (
 					<div
 						key={item.id}
 						className={`${
 							size === 'small' ? 'py-2 text-xs' : size === 'medium' ? 'py-3 text-sm' : 'py-4 text-md'
 						} px-6 flex justify-between items-center font-medium text-darkGrey`}
 					>
-						<span className="">{item.name}</span>
-						<span className=" bg-primaryGreen py-1 px-2 text-center rounded-lg text-white font-normal">{item.volume} %</span>
+						<span className="w-3/5">{item?.shortName}</span>
+						<span className=" bg-primaryGreen py-1 px-2 text-center rounded-lg text-white font-normal">{item?.score} %</span>
 					</div>
 				))}
 			</div>

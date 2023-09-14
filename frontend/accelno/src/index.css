@@ -84,9 +84,9 @@ linear-gradient(112.93deg, #D5DFF5 1.12%, #F3F4F7 109.38%);
 
 
   .welcome-container{
-    width: 600px;
+   
     box-shadow: 8px 8px 40px 0px #7D99B433;
-    height: 400px;
+   
   }
 
 
@@ -147,6 +147,15 @@ linear-gradient(112.93deg, #D5DFF5 1.12%, #F3F4F7 109.38%);
   height: 170px;
   width: 100%;
 }
+
+.dark-mode{
+  background-color: #1F2023;
+}  
+
+.light-mode{
+  background-color: #fff;
+}
+
 
 
 }

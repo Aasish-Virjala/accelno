@@ -13,7 +13,7 @@ const getSingleStockDataController = asyncHandler(async (req, res) => {
 			region: 'US',
 		},
 		headers: {
-			'X-RapidAPI-Key': 'a1bfd2d55bmsh079eab2a6266698p18129ajsnc1702b55d612',
+			'X-RapidAPI-Key': 'ca21f9b6d9mshed3976edbde5008p1bce63jsn919797b44961',
 			'X-RapidAPI-Host': 'apidojo-yahoo-finance-v1.p.rapidapi.com',
 		},
 	};
@@ -44,7 +44,7 @@ const getSingleStockChartController = asyncHandler(async (req, res) => {
 			events: 'capitalGain,div,split',
 		},
 		headers: {
-			'X-RapidAPI-Key': 'a1bfd2d55bmsh079eab2a6266698p18129ajsnc1702b55d612',
+			'X-RapidAPI-Key': 'ca21f9b6d9mshed3976edbde5008p1bce63jsn919797b44961',
 			'X-RapidAPI-Host': 'apidojo-yahoo-finance-v1.p.rapidapi.com',
 		},
 	};
@@ -65,7 +65,7 @@ const getMarketChartController = asyncHandler(async (req, res) => {
 		url: 'https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/v2/get-summary',
 		params: { region: 'US' },
 		headers: {
-			'X-RapidAPI-Key': 'a1bfd2d55bmsh079eab2a6266698p18129ajsnc1702b55d612',
+			'X-RapidAPI-Key': 'ca21f9b6d9mshed3976edbde5008p1bce63jsn919797b44961',
 			'X-RapidAPI-Host': 'apidojo-yahoo-finance-v1.p.rapidapi.com',
 		},
 	};
@@ -94,7 +94,7 @@ const getMarketMoversController = asyncHandler(async (req, res) => {
 			count: '5',
 		},
 		headers: {
-			'X-RapidAPI-Key': 'a1bfd2d55bmsh079eab2a6266698p18129ajsnc1702b55d612',
+			'X-RapidAPI-Key': 'ca21f9b6d9mshed3976edbde5008p1bce63jsn919797b44961',
 			'X-RapidAPI-Host': 'apidojo-yahoo-finance-v1.p.rapidapi.com',
 		},
 	};
@@ -117,7 +117,7 @@ const getMarketMoversController = asyncHandler(async (req, res) => {
 					symbols: gainersString,
 				},
 				headers: {
-					'X-RapidAPI-Key': 'a1bfd2d55bmsh079eab2a6266698p18129ajsnc1702b55d612',
+					'X-RapidAPI-Key': 'ca21f9b6d9mshed3976edbde5008p1bce63jsn919797b44961',
 					'X-RapidAPI-Host': 'apidojo-yahoo-finance-v1.p.rapidapi.com',
 				},
 			};
@@ -148,7 +148,7 @@ const getMarketMoversController = asyncHandler(async (req, res) => {
 					symbols: losersString,
 				},
 				headers: {
-					'X-RapidAPI-Key': 'a1bfd2d55bmsh079eab2a6266698p18129ajsnc1702b55d612',
+					'X-RapidAPI-Key': 'ca21f9b6d9mshed3976edbde5008p1bce63jsn919797b44961',
 					'X-RapidAPI-Host': 'apidojo-yahoo-finance-v1.p.rapidapi.com',
 				},
 			};
@@ -172,4 +172,141 @@ const getMarketMoversController = asyncHandler(async (req, res) => {
 	}
 });
 
-module.exports = { getSingleStockDataController, getSingleStockChartController, getMarketChartController, getMarketMoversController };
+const getMostTrendingStocksController = asyncHandler(async (req, res) => {
+	const options = {
+		method: 'GET',
+		url: 'https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/get-trending-tickers',
+		params: { region: 'US' },
+		headers: {
+			'X-RapidAPI-Key': 'ca21f9b6d9mshed3976edbde5008p1bce63jsn919797b44961',
+			'X-RapidAPI-Host': 'apidojo-yahoo-finance-v1.p.rapidapi.com',
+		},
+	};
+
+	try {
+		const response = await axios.request(options);
+		const updatedResponse = response.data.finance.result[0].quotes
+			.filter((stock, index) => index < 5)
+			.map((stock) => ({
+				shortName: stock.shortName,
+				score: Math.round(stock.trendingScore),
+			}));
+		res.status(200).json(updatedResponse);
+	} catch (error) {
+		console.error(error);
+	}
+});
+
+const getFinancialsController = asyncHandler(async (req, res) => {
+	const { stocks } = req.params;
+	const stocksArr = stocks.split(',');
+
+	try {
+		const financialsPromises = stocksArr.map(async (stock) => {
+			const options = {
+				method: 'GET',
+				url: 'https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-analysis',
+				params: {
+					symbol: stock,
+					region: 'US',
+				},
+				headers: {
+					'X-RapidAPI-Key': 'ca21f9b6d9mshed3976edbde5008p1bce63jsn919797b44961',
+					'X-RapidAPI-Host': 'apidojo-yahoo-finance-v1.p.rapidapi.com',
+				},
+			};
+
+			const response = await axios.request(options);
+			const shortName = response.data.price.shortName;
+			const marketCap = response.data.price.marketCap.fmt;
+			const price = response.data.price.regularMarketPrice.raw;
+			const peRatio = response.data.indexTrend.peRatio.raw;
+
+			// Get price to book ratio (p/b ratio) for each stock from another endpoint
+
+			const optionsTwo = {
+				method: 'GET',
+				url: 'https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v4/get-statistics',
+				params: {
+					symbol: stock,
+					region: 'US',
+					lang: 'en-US',
+				},
+				headers: {
+					'X-RapidAPI-Key': 'ca21f9b6d9mshed3976edbde5008p1bce63jsn919797b44961',
+					'X-RapidAPI-Host': 'apidojo-yahoo-finance-v1.p.rapidapi.com',
+				},
+			};
+
+			const responseTwo = await axios.request(optionsTwo);
+			const pbRatio = responseTwo.data.quoteSummary.result[0].defaultKeyStatistics.priceToBook.raw;
+
+			// Return financials for each stock
+			return {
+				shortName,
+				marketCap,
+				price,
+				peRatio,
+				pbRatio,
+			};
+		});
+
+		// Wait for all financials promises to resolve
+		const financials = await Promise.all(financialsPromises);
+		res.status(200).json(financials);
+	} catch (error) {
+		console.error(error);
+		res.status(500).json({ error: 'An error occurred' });
+	}
+});
+
+const getFiftyTwoWeeksController = asyncHandler(async (req, res) => {
+	const { stocks } = req.params;
+	const stocksArr = stocks.split(',');
+
+	try {
+		const fiftyTwoWeeksPromises = stocksArr.map(async (stock) => {
+			const options = {
+				method: 'GET',
+				url: 'https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-analysis',
+				params: {
+					symbol: stock,
+					region: 'US',
+				},
+				headers: {
+					'X-RapidAPI-Key': 'ca21f9b6d9mshed3976edbde5008p1bce63jsn919797b44961',
+					'X-RapidAPI-Host': 'apidojo-yahoo-finance-v1.p.rapidapi.com',
+				},
+			};
+
+			const response = await axios.request(options);
+			const shortName = response.data.price.shortName;
+			const fiftyTwoWeekHigh = response.data.summaryDetail.fiftyTwoWeekHigh.raw;
+			const fiftyTwoWeekLow = response.data.summaryDetail.fiftyTwoWeekLow.raw;
+
+			// Return 52 week high and low for each stock
+			return {
+				shortName,
+				fiftyTwoWeekHigh,
+				fiftyTwoWeekLow,
+			};
+		});
+
+		// Wait for all 52 week high and low promises to resolve
+		const fiftyTwoWeeks = await Promise.all(fiftyTwoWeeksPromises);
+		res.status(200).json(fiftyTwoWeeks);
+	} catch (error) {
+		console.error(error);
+		res.status(500).json({ error: 'An error occurred' });
+	}
+});
+
+module.exports = {
+	getSingleStockDataController,
+	getSingleStockChartController,
+	getMarketChartController,
+	getMarketMoversController,
+	getMostTrendingStocksController,
+	getFinancialsController,
+	getFiftyTwoWeeksController,
+};

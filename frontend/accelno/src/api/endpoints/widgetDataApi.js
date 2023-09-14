@@ -30,7 +30,36 @@ export const widgetDataApi = api.injectEndpoints({
 				credentials: 'include',
 			}),
 		}),
+		getTrendingStocks: builder.query({
+			query: () => ({
+				url: `/trendingstocks`,
+				method: 'GET',
+				credentials: 'include',
+			}),
+		}),
+		getFinancials: builder.query({
+			query: (stocks) => ({
+				url: `/financials/${stocks}`,
+				method: 'GET',
+				credentials: 'include',
+			}),
+		}),
+		getFiftyTwoWeeks: builder.query({
+			query: (stocks) => ({
+				url: `/52weekhighlow/${stocks}`,
+				method: 'GET',
+				credentials: 'include',
+			}),
+		}),
 	}),
 });
 
-export const { useGetSingleStockDataQuery, useGetChartQuery, useGetMarketChartQuery, useGetMoversQuery } = widgetDataApi;
+export const {
+	useGetSingleStockDataQuery,
+	useGetChartQuery,
+	useGetMarketChartQuery,
+	useGetMoversQuery,
+	useGetTrendingStocksQuery,
+	useGetFinancialsQuery,
+	useGetFiftyTwoWeeksQuery,
+} = widgetDataApi;
