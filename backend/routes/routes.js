@@ -14,6 +14,8 @@ const {
 	getMostTrendingStocksController,
 	getFinancialsController,
 	getFiftyTwoWeeksController,
+	getStockDetailController,
+	getChartbyRangeController,
 } = require('../controller/externalAPI/externalDataController.js');
 const { protect } = require('../middleware/authMiddleware.js');
 const { getUserProfile, addUserProfile } = require('../controller/dashboard/userProfileController.js');
@@ -56,5 +58,11 @@ router.route('/financials/:stocks').get(protect, getFinancialsController);
 
 // GET /api/v1/52weekhighlow/:stock
 router.route('/52weekhighlow/:stocks').get(protect, getFiftyTwoWeeksController);
+
+// GET /api/v1/stockdetail/:stock
+router.route('/stockdetail/:stock').get(protect, getStockDetailController);
+
+// GET /api/v1/stockchartbyrange/:stock/:range
+router.route('/stockchartbyrange/:data').get(protect, getChartbyRangeController);
 
 module.exports = router;

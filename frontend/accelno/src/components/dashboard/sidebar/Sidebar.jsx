@@ -62,8 +62,8 @@ const Sidebar = () => {
 			className={`${!active ? ' -left-52' : 'left-0'} fixed top-0 bottom-0  z-50 bg-secondaryGrey w-64 h-full space-y-4
 			transition-all duration-200 ease-in
 			`}
-			onMouseEnter={() => setActive(!active)}
-			onMouseLeave={() => setActive(!active)}
+			onMouseEnter={() => setActive(true)}
+			onMouseLeave={() => setActive(false)}
 		>
 			<div className="px-16 pt-4">
 				<img src={dashboardLogo} alt="Logo" className=" w-14 " />

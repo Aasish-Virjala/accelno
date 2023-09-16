@@ -301,6 +301,74 @@ const getFiftyTwoWeeksController = asyncHandler(async (req, res) => {
 	}
 });
 
+const getStockDetailController = asyncHandler(async (req, res) => {
+	const { stock } = req.params;
+	const options = {
+		method: 'GET',
+		url: 'https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-analysis',
+		params: {
+			symbol: stock,
+			region: 'US',
+		},
+		headers: {
+			'X-RapidAPI-Key': 'ca21f9b6d9mshed3976edbde5008p1bce63jsn919797b44961',
+			'X-RapidAPI-Host': 'apidojo-yahoo-finance-v1.p.rapidapi.com',
+		},
+	};
+	try {
+		const response = await axios.request(options);
+		res.status(200).json(response.data);
+	} catch (error) {
+		console.error(error);
+	}
+});
+
+const getChartbyRangeController = asyncHandler(async (req, res) => {
+	const { data } = req.params;
+	const stock = data.split(',')[0];
+	const range = data.split(',')[1];
+	console.log(stock, range);
+	const options = {
+		method: 'GET',
+		url: 'https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v3/get-chart',
+		params: {
+			interval: `${
+				range === '1d'
+					? '5m'
+					: range === '5d'
+					? '1d'
+					: range === '1mo'
+					? '1d'
+					: range === '6mo'
+					? '1wk'
+					: range === '1y'
+					? '1mo'
+					: range === '5y'
+					? '1mo'
+					: '1wk'
+			}`,
+			symbol: stock,
+			range: range,
+			region: 'US',
+			includePrePost: 'false',
+			useYfid: 'true',
+			includeAdjustedClose: 'true',
+			events: 'capitalGain,div,split',
+		},
+		headers: {
+			'X-RapidAPI-Key': 'ca21f9b6d9mshed3976edbde5008p1bce63jsn919797b44961',
+			'X-RapidAPI-Host': 'apidojo-yahoo-finance-v1.p.rapidapi.com',
+		},
+	};
+
+	try {
+		const response = await axios.request(options);
+		res.status(200).json(response.data);
+	} catch (error) {
+		console.error(error);
+	}
+});
+
 module.exports = {
 	getSingleStockDataController,
 	getSingleStockChartController,
@@ -309,4 +377,6 @@ module.exports = {
 	getMostTrendingStocksController,
 	getFinancialsController,
 	getFiftyTwoWeeksController,
+	getStockDetailController,
+	getChartbyRangeController,
 };

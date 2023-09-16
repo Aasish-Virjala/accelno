@@ -51,6 +51,20 @@ export const widgetDataApi = api.injectEndpoints({
 				credentials: 'include',
 			}),
 		}),
+		getStockDetail: builder.query({
+			query: (stock) => ({
+				url: `/stockdetail/${stock}`,
+				method: 'GET',
+				credentials: 'include',
+			}),
+		}),
+		getChartbyRange: builder.query({
+			query: (data) => ({
+				url: `/stockchartbyrange/${data}`,
+				method: 'GET',
+				credentials: 'include',
+			}),
+		}),
 	}),
 });
 
@@ -62,4 +76,6 @@ export const {
 	useGetTrendingStocksQuery,
 	useGetFinancialsQuery,
 	useGetFiftyTwoWeeksQuery,
+	useGetStockDetailQuery,
+	useGetChartbyRangeQuery,
 } = widgetDataApi;

@@ -1,16 +1,13 @@
 import { useState, useEffect } from 'react';
-import { MdKeyboardArrowDown, MdInfoOutline, MdDone, MdDelete } from 'react-icons/md';
+import { MdKeyboardArrowDown, MdInfoOutline } from 'react-icons/md';
 import { useDispatch } from 'react-redux';
-import { deleteWidget } from '../../../redux/slices/widgetSlice';
 import { useGetFiftyTwoWeeksQuery } from '../../../api/endpoints/widgetDataApi';
-import stockIcon from '../../../assets/dashboard/icons/stock.png';
-import widgetIcon from '../../../assets/dashboard/icons/widget.png';
-import deleteIcon from '../../../assets/dashboard/icons/remove.png';
 import WidgetConfiguration from '../WidgetConfiguration/WidgetConfiguration';
-import { updateWidgetData, selectWidgetsByScreen } from '../../../redux/slices/widgetSlice';
+import { updateWidgetData, selectWidgetsByScreen, updateWidgetSize } from '../../../redux/slices/widgetSlice';
 import { useSelector } from 'react-redux';
 import ClipLoader from 'react-spinners/ClipLoader';
 
+// eslint-disable-next-line react/prop-types
 const FiftyTwoWeeklyStats = ({ widgetId, screen }) => {
 	const dispatch = useDispatch();
 	// state to toggle between high and low
@@ -18,23 +15,18 @@ const FiftyTwoWeeklyStats = ({ widgetId, screen }) => {
 	// state to toggle between edit and view mode
 	const [edit, setEdit] = useState(false);
 	// state to toggle between widget sizes
-	const [size, setSize] = useState('small');
+	const [size, setSize] = useState('');
 	// state to handle input from user
 	const [input, setInput] = useState([]);
 	// state to store stock ticker symbols from user input
 	const [tickers, setTickers] = useState([]);
-	// state to store data from API or cache
+	// state to hold stock data from API or redux store
 	const [stocks, setStocks] = useState([]);
 	// state to check if data needs to be fetched from API
 	const [fetch, setFetch] = useState(false);
 	// get widget data from redux store
 	const selectedWidgets = useSelector((state) => selectWidgetsByScreen(state, screen));
 	const activeWidget = selectedWidgets?.find((widget) => widget.id === widgetId);
-	/*
-	const { data, isFetching, isLoading, isSuccess, isError } = useGetFiftyTwoWeeksQuery(tickers, {
-		skip: !fetch, // Conditionally skip the query based on 'edit' state
-	});
-*/
 
 	const { data, isFetching, isLoading, isSuccess, isError } = useGetFiftyTwoWeeksQuery(tickers, {
 		skip: !fetch, // Always call the hook, but conditionally skip the query
@@ -57,41 +49,25 @@ const FiftyTwoWeeklyStats = ({ widgetId, screen }) => {
 			dispatch(updateWidgetData({ screen, widgetId, data })); // Save data to Redux
 			setFetch(false); // Reset 'fetch' to false
 			setEdit(false); // Close widget configuration
+			setInput([]); // Reset input
 		}
 	}, [isSuccess, data, dispatch, setFetch, setEdit, screen, widgetId]);
+
+	useEffect(() => {
+		// This useEffect is responsible for updating the size of the widget when the widget is resized
+		if (activeWidget?.size) {
+			setSize(activeWidget.size);
+		} else {
+			setSize('small');
+		}
+	}, [setSize, activeWidget?.size]);
 
 	const handleSaveBtnClick = () => {
 		// Set the tickers and initiate data fetching
 		setTickers(input);
 		setFetch(true); // Set fetch to true to trigger the query
+		dispatch(updateWidgetSize({ screen, widgetId, size })); // Save the widget size to Redux
 	};
-
-	/*
-
-	useEffect(() => {
-		// render cached data if available and not fetching
-		if (activeWidget?.data && !fetch) {
-			setStocks(activeWidget?.data);
-		} else if (fetch) {
-			setEdit(false);
-			setStocks(data);
-			data && dispatch(updateWidgetData({ screen, widgetId, data }));
-			setFetch(false);
-		} else if (!activeWidget?.data && !fetch) {
-			setEdit(true);
-		}
-	}, [activeWidget?.data, stocks, data, setEdit, fetch, screen, widgetId, dispatch, setFetch]);
-
-	const handleWidgetDelete = (widgetId) => {
-		dispatch(deleteWidget({ screen, widgetId }));
-	};
-
-	const handleSaveBtnClick = () => {
-		setTickers(input);
-		setFetch(true);
-	};.
-
-	*/
 
 	const override = {
 		display: 'block',
@@ -112,7 +88,7 @@ const FiftyTwoWeeklyStats = ({ widgetId, screen }) => {
 			} bg-white dark:bg-[#2D2F35] dark:border-none h-full py-1 font-inter rounded-xl border border-lightSilver shadow-xl `}
 		>
 			{isLoading ? (
-				<div className="h-full flex items-center justify-center bg-white dark:bg-[#1F2023]">
+				<div className="h-full flex items-center justify-center bg-white dark:bg-[#2D2F35]">
 					<ClipLoader color="#fff" loading={isLoading} cssOverride={override} size={30} aria-label="Loading Spinner" data-testid="loader" />
 				</div>
 			) : edit ? (
@@ -122,8 +98,11 @@ const FiftyTwoWeeklyStats = ({ widgetId, screen }) => {
 					setEdit={setEdit}
 					size={size}
 					setSize={setSize}
+					input={input}
 					setInput={setInput}
 					handleSaveBtnClick={handleSaveBtnClick}
+					isResizable={activeWidget?.isResizable}
+					isInputBased={true}
 				/>
 			) : (
 				<div>

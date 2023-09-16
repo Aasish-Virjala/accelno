@@ -18,6 +18,7 @@ import { openModal, closeModal } from '../redux/slices/modalSlice';
 import ClipLoader from 'react-spinners/ClipLoader';
 import { selectIsDarkMode } from '../redux/slices/themeSlice';
 import { MdAdd } from 'react-icons/md';
+import StockDetailModal from '../components/dashboard/StockDetailModal/StockDetailModal';
 
 // eslint-disable-next-line react/prop-types
 const WidgetsComponent = ({ screen }) => {
@@ -126,6 +127,7 @@ const WidgetsComponent = ({ screen }) => {
 	const [selectedWidgetSize, setSelectedWidgetSize] = useState({});
 	const [isOverWhiteboard, setIsOverWhiteboard] = useState(false);
 	const [selectedStock, setSelectedStock] = useState({});
+	const [isStockDetail, setIsStockDetail] = useState(true);
 
 	// Load widgets data from local storage when component mounts
 	useEffect(() => {
@@ -408,6 +410,7 @@ const WidgetsComponent = ({ screen }) => {
 					</div>
 				</div>
 			)}
+			{isStockDetail && <StockDetailModal />}
 		</>
 	);
 };

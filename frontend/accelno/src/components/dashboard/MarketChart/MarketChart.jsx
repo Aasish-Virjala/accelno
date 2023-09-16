@@ -5,11 +5,22 @@ import { useDispatch } from 'react-redux';
 import { deleteWidget } from '../../../redux/slices/widgetSlice';
 import { MdInfoOutline } from 'react-icons/md';
 
+const durationData = [
+	{ id: 1, name: '1D' },
+	{ id: 2, name: '1W' },
+	{ id: 3, name: '1M' },
+	{ id: 4, name: '6M' },
+	{ id: 5, name: '1Y' },
+];
+
 const MarketChart = ({ widgetId, screen }) => {
+	const [edit, setEdit] = useState(false);
+	const [duration, setDuration] = useState('1D');
+
 	const { data, error, isLoading } = useGetMarketChartQuery();
+
 	const requiredData = data?.marketSummaryAndSparkResponse?.result[0];
 
-	const [edit, setEdit] = useState(false);
 	const dispatch = useDispatch();
 
 	const handleWidgetDelete = (widgetId) => {
@@ -19,11 +30,11 @@ const MarketChart = ({ widgetId, screen }) => {
 	return (
 		<div
 			className={` w-[600px] 
-			 p-3 font-inter space-y-3 bg-white shadow-lg rounded-md`}
+			 p-3 font-inter space-y-3  dark:bg-[#2D2F35] dark:border-none shadow-lg rounded-md`}
 		>
 			<div className="flex justify-end pb-1 ">
 				{!edit ? (
-					<span className="cursor-pointer" onClick={() => setEdit(!edit)}>
+					<span className="cursor-pointer text-xl text-darkGrey dark:text-white" onClick={() => setEdit(!edit)}>
 						{<MdInfoOutline />}
 					</span>
 				) : (
@@ -37,22 +48,28 @@ const MarketChart = ({ widgetId, screen }) => {
 			</div>
 			<div className="flex justify-between">
 				<div className="flex flex-col">
-					<span className={` text-md  text-primaryGrey font-bold `}>{requiredData?.shortName}</span>
+					<span className={` text-md  text-primaryGrey dark:text-white font-bold `}>{requiredData?.shortName}</span>
 					<div className="flex space-x-1 text-sm">
-						<span>Return:</span>
-						<span className="text-primaryGreen">5.5%</span>
+						<span className="text-darkGrey dark:text-white">Return:</span>
+						<span className="text-primaryGreen ">5.5%</span>
 					</div>
 				</div>
 				<div className="text-sm space-x-2">
-					<span className="text-darkGrey font-bold">{requiredData?.regularMarketPreviousClose?.raw}</span>
+					<span className="text-darkGrey dark:text-white font-bold">{requiredData?.regularMarketPreviousClose?.raw}</span>
 					<span className="text-primaryGreen"></span>
 				</div>
-				<div className={`text-sm flex  bg-primarySilver h-9 space-x-6 px-2 rounded-md`}>
-					<span className=" flex justify-center items-center">1D</span>
-					<span className=" flex justify-center items-center">1W</span>
-					<span className=" flex justify-center items-center">1M</span>
-					<span className=" flex justify-center items-center">6M</span>
-					<span className=" flex justify-center items-center">1Y</span>
+				<div className={`text-sm flex rounded-md`}>
+					{durationData.map((item) => (
+						<span
+							key={item.id}
+							onClick={() => setDuration(item.name)}
+							className={`flex justify-center items-center px-2 ${
+								duration === item.name ? 'bg-dashboardBlue text-white' : 'bg-lightSilver dark:bg-primaryGrey'
+							} hover:bg-dashboardBlue hover:text-white cursor-pointer `}
+						>
+							{item.name}
+						</span>
+					))}
 				</div>
 			</div>
 			<Widemarketchart data={requiredData} />

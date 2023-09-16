@@ -8,8 +8,8 @@ const positiveGradientColors = [
 ];
 
 const negativeGradientColors = [
-	{ offset: '0%', color: 'rgba(255, 0, 0, 0.8)' },
-	{ offset: '50%', color: 'rgba(255, 0, 0, 0.216)' },
+	{ offset: '0%', color: 'rgba(255, 0, 0, 0.9)' },
+	{ offset: '50%', color: 'rgba(255, 0, 0, 0.2)' },
 	{ offset: '100%', color: 'rgba(255, 0, 0, 0)' },
 ];
 
@@ -29,13 +29,13 @@ const transformDataForChart = (data) => {
 	}));
 };
 
-const StackedAreachart = ({ size, stock, data, changeValue }) => {
+const StackedAreachart = ({ size, data, changeValue }) => {
 	const liveData = transformDataForChart(data);
 	const cardinal = curveCardinal.tension(0.2);
 
 	return (
 		<AreaChart
-			width={size === 'small' ? 450 : size === 'medium' ? 500 : 560}
+			width={size === 'small' ? 550 : size === 'medium' ? 500 : 580}
 			height={size === 'small' ? 200 : size === 'medium' ? 260 : 320}
 			data={liveData}
 			style={{ fontSize: '0.7rem', fontWeight: '500', fontFamily: 'Inter' }}
@@ -76,7 +76,7 @@ const StackedAreachart = ({ size, stock, data, changeValue }) => {
 				dataKey="lv"
 				stackId="1"
 				stroke={false}
-				fill={Math.sign(parseFloat(changeValue)) === 1 ? '#14C67A' : '#D22B2B'}
+				fill={Math.sign(parseFloat(changeValue)) === 1 ? '#60ffba' : '#9A2A2A'}
 				fillOpacity={0.4}
 			/>
 		</AreaChart>
