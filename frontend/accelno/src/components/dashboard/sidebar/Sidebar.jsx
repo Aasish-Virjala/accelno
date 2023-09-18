@@ -1,22 +1,16 @@
 import dashboardLogo from '../../../assets/dashboard/logos/dashboardLogo.svg';
 import { NavLink } from 'react-router-dom';
 import homeIcon from '../../../assets/dashboard/icons/homeIcon.svg';
-import widgetIcon from '../../../assets/dashboard/icons/widgetIcon.svg';
-import uiElementsIcon from '../../../assets/dashboard/icons/uiElementsIcon.svg';
-import advancedUiIcon from '../../../assets/dashboard/icons/advancedUiIcon.svg';
-import formElementsIcon from '../../../assets/dashboard/icons/formElementsIcon.svg';
-import calendarIcon from '../../../assets/dashboard/icons/calendarIcon.svg';
-import chartsIcon from '../../../assets/dashboard/icons/chartsIcon.svg';
 import lightModeIcon from '../../../assets/dashboard/icons/lightmode-icon.svg';
 import accountIcon from '../../../assets/dashboard/icons/account-icon.svg';
 import updatesIcon from '../../../assets/dashboard/icons/update-icon.svg';
 import logoutIcon from '../../../assets/dashboard/icons/logout-icon.svg';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 import { useState } from 'react';
-import SidebarItem from './SidebarItem';
-import { openModal } from '../../../redux/slices/modalSlice';
+
 import { useDispatch } from 'react-redux';
 import { logoutSuccess } from '../../../redux/slices/authSlice';
+import { toggleDarkMode } from '../../../redux/slices/themeSlice';
 
 const sidebarItems = [
 	{
@@ -30,7 +24,7 @@ const sidebarItems = [
 const sidebarItems2 = [
 	{
 		id: 1,
-		title: 'Light Mode',
+		title: 'Light/Dark Mode',
 		icon: lightModeIcon,
 		path: '#',
 	},
@@ -114,7 +108,13 @@ const Sidebar = () => {
 						>
 							<div
 								className={`${!active && 'justify-end'}   flex items-center py-3 px-4 space-x-4 `}
-								onClick={item.title === 'Logout' ? () => dispatch(logoutSuccess()) : ''}
+								onClick={
+									item.title === 'Logout'
+										? () => dispatch(logoutSuccess())
+										: item.title === 'Light/Dark Mode'
+										? () => dispatch(toggleDarkMode())
+										: ''
+								}
 							>
 								<img src={item.icon} alt="" className="w-5" />
 								{active && (

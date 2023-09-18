@@ -56,7 +56,7 @@ const WidgetsComponent = ({ screen }) => {
 			isResizable: true,
 			isStockBased: true,
 			dimensions: {
-				small: { w: 1.6, h: 3.8 },
+				small: { w: 1.6, h: 2.8 },
 				medium: { w: 1.9, h: 3.8 },
 				large: { w: 2.1, h: 3.8 },
 			},
@@ -333,7 +333,7 @@ const WidgetsComponent = ({ screen }) => {
 			)}
 
 			{isModalOpen && (
-				<div className="select-none  bg-inputGrey h-[400px] w-[400px] fixed top-1/2 bottom-0 left-1/2 -translate-x-1/2 -translate-y-1/2 right-0 overflow-y-scroll p-4 rounded-xl shadow-xl z-50">
+				<div className="select-none  bg-white dark:bg-gray-400 h-[400px] w-[400px] fixed top-1/2 bottom-0 left-1/2 -translate-x-1/2 -translate-y-1/2 right-0 overflow-y-scroll p-4 rounded-xl shadow-xl z-50">
 					<div className="flex justify-between items-start">
 						<div className="font-poppins mb-3">
 							<h1 className=" text-xl font-bold">All Widget</h1>

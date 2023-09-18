@@ -1,15 +1,14 @@
 import { NavLink } from 'react-router-dom';
 import { MdSearch, MdNotificationsNone, MdPerson, MdKeyboardArrowDown } from 'react-icons/md';
-import { useEffect, useState } from 'react';
-import { openStockModal, selectStockModalState, selectStockModalStock } from '../../../redux/slices/stockDetailModalSlice';
+import { useState } from 'react';
+import { openStockModal } from '../../../redux/slices/stockDetailModalSlice';
 import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
 
 const dashboardLinks = [
 	{
 		id: 1,
 		title: 'Portfolio',
-		path: '#',
+		path: 'portfolio',
 	},
 	{
 		id: 2,

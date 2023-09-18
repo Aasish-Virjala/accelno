@@ -1,6 +1,5 @@
 import { MdArrowDropUp, MdArrowDropDown, MdInfoOutline } from 'react-icons/md';
 import Areachart from '../charts/areachart/Areachart';
-import Switch from 'react-switch';
 import { useEffect, useState } from 'react';
 import { useGetSingleStockDataQuery } from '../../../api/endpoints/widgetDataApi';
 import { useGetChartQuery } from '../../../api/endpoints/widgetDataApi';
@@ -90,10 +89,6 @@ const SingleStockChart = ({ widgetId, screen }) => {
 		setTicker(input);
 		setFetch(true); // Set fetch to true to trigger the query
 		dispatch(updateWidgetSize({ screen, widgetId, size })); // Save the widget size to Redux
-	};
-
-	const handleWidgetDelete = (widgetId) => {
-		dispatch(deleteWidget({ screen, widgetId }));
 	};
 
 	const checkPercentType = (value) => {
