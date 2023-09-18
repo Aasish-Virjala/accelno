@@ -19,6 +19,7 @@ import ClipLoader from 'react-spinners/ClipLoader';
 import { selectIsDarkMode } from '../redux/slices/themeSlice';
 import { MdAdd } from 'react-icons/md';
 import StockDetailModal from '../components/dashboard/StockDetailModal/StockDetailModal';
+import { selectStockModalState } from '../redux/slices/stockDetailModalSlice';
 
 // eslint-disable-next-line react/prop-types
 const WidgetsComponent = ({ screen }) => {
@@ -30,9 +31,9 @@ const WidgetsComponent = ({ screen }) => {
 			isResizable: true,
 			isStockBased: false,
 			dimensions: {
-				small: { w: 1.7, h: 4.2 },
-				medium: { w: 2.2, h: 4.7 },
-				large: { w: 2.7, h: 4.9 },
+				small: { w: 1.7, h: 3.4 },
+				medium: { w: 2.2, h: 4.2 },
+				large: { w: 2.7, h: 4.5 },
 			},
 		},
 
@@ -55,8 +56,8 @@ const WidgetsComponent = ({ screen }) => {
 			isResizable: true,
 			isStockBased: true,
 			dimensions: {
-				small: { w: 1.6, h: 3.0 },
-				medium: { w: 1.9, h: 3.3 },
+				small: { w: 1.6, h: 3.8 },
+				medium: { w: 1.9, h: 3.8 },
 				large: { w: 2.1, h: 3.8 },
 			},
 		},
@@ -67,9 +68,9 @@ const WidgetsComponent = ({ screen }) => {
 			isResizable: true,
 			isStockBased: false,
 			dimensions: {
-				small: { w: 1.6, h: 2.6 },
-				medium: { w: 1.9, h: 3.1 },
-				large: { w: 2.1, h: 3.4 },
+				small: { w: 1.9, h: 2.9 },
+				medium: { w: 2.2, h: 3.5 },
+				large: { w: 2.4, h: 3.9 },
 			},
 		},
 		{
@@ -89,9 +90,9 @@ const WidgetsComponent = ({ screen }) => {
 			isResizable: true,
 			isStockBased: false,
 			dimensions: {
-				small: { w: 1.7, h: 3.8 },
-				medium: { w: 2.2, h: 4.1 },
-				large: { w: 2.5, h: 4.2 },
+				small: { w: 5.1, h: 6.1 },
+				medium: { w: 6, h: 4.1 },
+				large: { w: 6, h: 4.2 },
 			},
 		},
 		{
@@ -101,7 +102,7 @@ const WidgetsComponent = ({ screen }) => {
 			isResizable: false,
 			isStockBased: false,
 			dimensions: {
-				small: { w: 2.4, h: 6.0 },
+				small: { w: 2.6, h: 4.9 },
 			},
 		},
 		{
@@ -111,7 +112,7 @@ const WidgetsComponent = ({ screen }) => {
 			isResizable: true,
 			isStockBased: true,
 			dimensions: {
-				small: { w: 2.3, h: 2.9 },
+				small: { w: 3.1, h: 2.9 },
 				medium: { w: 2.6, h: 3.4 },
 				large: { w: 2.9, h: 4.0 },
 			},
@@ -127,7 +128,7 @@ const WidgetsComponent = ({ screen }) => {
 	const [selectedWidgetSize, setSelectedWidgetSize] = useState({});
 	const [isOverWhiteboard, setIsOverWhiteboard] = useState(false);
 	const [selectedStock, setSelectedStock] = useState({});
-	const [isStockDetail, setIsStockDetail] = useState(true);
+	const isStockDetail = useSelector(selectStockModalState);
 
 	// Load widgets data from local storage when component mounts
 	useEffect(() => {
@@ -316,30 +317,14 @@ const WidgetsComponent = ({ screen }) => {
 						>
 							{selectedWidgets.map((widget) => (
 								<div key={widget.id} className="w-full h-full widget p-1 rounded-md cursor-move relative">
-									{widget.content === 'GainerLoser' && (
-										<GainerLoser size={widget.size} stock={widget.stock} widgetId={widget.id} screen={screen} />
-									)}
-									{widget.content === 'FiftyTwoWeeklyStats' && (
-										<FiftyTwoWeeklyStats size={widget.size} stock={widget.stock} widgetId={widget.id} screen={screen} />
-									)}
-									{widget.content === 'SingleStockChart' && (
-										<SingleStockChart size={widget.size} stock={widget.stock} widgetId={widget.id} screen={screen} />
-									)}
-									{widget.content === 'ActiveStocks' && (
-										<ActiveStocks size={widget.size} stock={widget.stock} widgetId={widget.id} screen={screen} />
-									)}
-									{widget.content === 'MarketChart' && (
-										<MarketChart size={widget.size} stock={widget.stock} widgetId={widget.id} screen={screen} />
-									)}
-									{widget.content === 'Heatmap' && (
-										<HeatmapContainer size={widget.size} stock={widget.stock} widgetId={widget.id} screen={screen} />
-									)}
-									{widget.content === 'FinancialTableFull' && (
-										<FinancialTableFull size={widget.size} stock={widget.stock} widgetId={widget.id} screen={screen} />
-									)}
-									{widget.content === 'SingleStockStackedChart' && (
-										<SingleStockStackedChart size={widget.size} stock={widget.stock} widgetId={widget.id} screen={screen} />
-									)}
+									{widget.content === 'GainerLoser' && <GainerLoser widgetId={widget.id} screen={screen} />}
+									{widget.content === 'FiftyTwoWeeklyStats' && <FiftyTwoWeeklyStats widgetId={widget.id} screen={screen} />}
+									{widget.content === 'SingleStockChart' && <SingleStockChart widgetId={widget.id} screen={screen} />}
+									{widget.content === 'ActiveStocks' && <ActiveStocks widgetId={widget.id} screen={screen} />}
+									{widget.content === 'MarketChart' && <MarketChart widgetId={widget.id} screen={screen} />}
+									{widget.content === 'Heatmap' && <HeatmapContainer widgetId={widget.id} screen={screen} />}
+									{widget.content === 'FinancialTableFull' && <FinancialTableFull widgetId={widget.id} screen={screen} />}
+									{widget.content === 'SingleStockStackedChart' && <SingleStockStackedChart widgetId={widget.id} screen={screen} />}
 								</div>
 							))}
 						</GridLayout>
@@ -348,7 +333,7 @@ const WidgetsComponent = ({ screen }) => {
 			)}
 
 			{isModalOpen && (
-				<div className="select-none  bg-inputGrey h-[400px] w-[600px] fixed top-1/2 bottom-0 left-1/2 -translate-x-1/2 -translate-y-1/2 right-0 overflow-y-scroll p-4 rounded-xl shadow-xl z-50">
+				<div className="select-none  bg-inputGrey h-[400px] w-[400px] fixed top-1/2 bottom-0 left-1/2 -translate-x-1/2 -translate-y-1/2 right-0 overflow-y-scroll p-4 rounded-xl shadow-xl z-50">
 					<div className="flex justify-between items-start">
 						<div className="font-poppins mb-3">
 							<h1 className=" text-xl font-bold">All Widget</h1>
@@ -366,45 +351,13 @@ const WidgetsComponent = ({ screen }) => {
 							<div
 								key={widget.id}
 								className="widget p-4 border border-secondaryGrey rounded-md cursor-move flex  items-center justify-between"
-								draggable={widget.isResizable || widget.isStockBased ? !!selectedWidgetSize[widget.id] : true}
+								draggable={true}
 								onDragStart={(e) => {
 									e.dataTransfer.setData('widgetId', widget.id);
 								}}
 								onDragEnd={() => dispatch(closeModal())}
 							>
 								{widget.content}
-								{widget.isResizable && (
-									<select
-										className="bg-white border border-gray-300 rounded-md px-2 py-1"
-										onChange={(e) => {
-											setSelectedWidgetSize((prevSizes) => ({
-												...prevSizes,
-												[widget.id]: e.target.value,
-											}));
-										}}
-									>
-										<option value="">Select Size</option>
-										<option value="small">Small</option>
-										<option value="medium">Medium</option>
-										<option value="large">Large</option>
-									</select>
-								)}
-								{widget.isStockBased && (
-									<select
-										className="bg-white border border-gray-300 rounded-md px-2 py-1"
-										onChange={(e) => {
-											setSelectedStock((prevStocks) => ({
-												...prevStocks,
-												[widget.id]: e.target.value,
-											}));
-										}}
-									>
-										<option value="">Select Stock</option>
-										<option value="AAPL">Apple-AAPL</option>
-										<option value="TSLA">TESLA-TSLA</option>
-										<option value="AMZN">AMAZON-AMZN</option>
-									</select>
-								)}
 							</div>
 						))}
 					</div>

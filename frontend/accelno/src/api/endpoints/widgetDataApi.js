@@ -65,6 +65,13 @@ export const widgetDataApi = api.injectEndpoints({
 				credentials: 'include',
 			}),
 		}),
+		getHeatmap: builder.query({
+			query: () => ({
+				url: `/heatmap`,
+				method: 'GET',
+				credentials: 'include',
+			}),
+		}),
 	}),
 });
 
@@ -78,4 +85,5 @@ export const {
 	useGetFiftyTwoWeeksQuery,
 	useGetStockDetailQuery,
 	useGetChartbyRangeQuery,
+	useGetHeatmapQuery,
 } = widgetDataApi;

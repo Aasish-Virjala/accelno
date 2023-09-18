@@ -4,6 +4,7 @@ import authReducer from './slices/authSlice';
 import widgetsReducer from './slices/widgetSlice';
 import modalReducer from './slices/modalSlice';
 import themeReducer from './slices/themeSlice';
+import stockDetailModalReducer from './slices/stockDetailModalSlice';
 
 const store = configureStore({
 	reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
 		widgets: widgetsReducer,
 		modal: modalReducer,
 		theme: themeReducer,
+		stockModal: stockDetailModalReducer,
 	},
 	middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(api.middleware),
 	devTools: true,

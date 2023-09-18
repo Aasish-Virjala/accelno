@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import Heatmap from 'react-heatmap-grid';
 
 const xLabels = new Array(5).fill(0).map((_, i) => (i + 1) / 10); // Values from 0.1 to 0.5 (5 columns)
@@ -43,7 +44,7 @@ const HeatmapComp = ({ size }) => (
 			yLabelWidth={60}
 			xLabelsLocation={'bottom'}
 			data={data}
-			yLabelTextAlign={'left'}
+			rectangles
 			cellStyle={(background, value) => ({
 				background: getColor(value.symbol, value.value),
 				fontSize: '11px',
@@ -53,7 +54,7 @@ const HeatmapComp = ({ size }) => (
 				display: 'flex',
 				flexDirection: 'column',
 				justifyContent: 'center',
-				height: '40px',
+				height: '60px',
 			})}
 			cellRender={(value) => (
 				<>

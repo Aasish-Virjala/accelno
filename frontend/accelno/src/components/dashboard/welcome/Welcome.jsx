@@ -18,7 +18,6 @@ const Welcome = () => {
 				<div className=" font-inter text-3xl ">
 					<span className={`dark:text-white text-darkGrey  `}> Hi, </span>{' '}
 					<span className="font-bold text-primaryGold "> Fynn Schwichtenberg </span>
-					<p className={`mt-2 text-sm dark:text-white text-primaryGrey `}> Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
 				</div>
 				<img src={addIcon} alt="Add Icon" className="w-28 cursor-pointer " onClick={handleClick} />
 			</div>

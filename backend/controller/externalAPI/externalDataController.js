@@ -369,6 +369,60 @@ const getChartbyRangeController = asyncHandler(async (req, res) => {
 	}
 });
 
+const getHeatmapController = asyncHandler(async (req, res) => {
+	const options = {
+		method: 'GET',
+		url: 'https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/v2/get-movers',
+		params: {
+			region: 'US',
+			lang: 'en-US',
+			start: '0',
+			count: '20',
+		},
+		headers: {
+			'X-RapidAPI-Key': 'ca21f9b6d9mshed3976edbde5008p1bce63jsn919797b44961',
+			'X-RapidAPI-Host': 'apidojo-yahoo-finance-v1.p.rapidapi.com',
+		},
+	};
+
+	try {
+		const response = await axios.request(options);
+		const activeStocksData = response.data.finance.result[2].quotes;
+		const activeStocks = activeStocksData.map((stock) => stock.symbol);
+		const activeStocksString = activeStocks.join(',');
+
+		// get symbol, percent change and market Cap for each stock in active stocks
+		// we will pass the data to another endpoint and get back details of each stock in gainersData
+
+		const activeStocksOptions = {
+			method: 'GET',
+			url: 'https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/v2/get-quotes',
+			params: {
+				region: 'US',
+				symbols: activeStocksString,
+			},
+			headers: {
+				'X-RapidAPI-Key': 'ca21f9b6d9mshed3976edbde5008p1bce63jsn919797b44961',
+				'X-RapidAPI-Host': 'apidojo-yahoo-finance-v1.p.rapidapi.com',
+			},
+		};
+
+		const heatmapResponse = await axios.request(activeStocksOptions);
+		const heatmapData = [
+			...heatmapResponse.data.quoteResponse.result.map((stock) => ({
+				symbol: stock.symbol,
+				price: stock.regularMarketPrice,
+				change: stock.regularMarketChangePercent,
+				shortName: stock.shortName,
+				marketCap: stock.marketCap,
+			})),
+		];
+		res.status(200).json(heatmapData);
+	} catch (error) {
+		console.error(error);
+	}
+});
+
 module.exports = {
 	getSingleStockDataController,
 	getSingleStockChartController,
@@ -379,4 +433,5 @@ module.exports = {
 	getFiftyTwoWeeksController,
 	getStockDetailController,
 	getChartbyRangeController,
+	getHeatmapController,
 };

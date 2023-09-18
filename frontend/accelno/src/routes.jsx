@@ -14,6 +14,7 @@ import Settings from './screens/Settings';
 import WidgetsComponent from './screens/WidgetsComponent';
 import { Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import Portfolio from './screens/Portfolio';
 
 // eslint-disable-next-line react/prop-types
 const PrivateRoute = ({ children }) => {
@@ -41,6 +42,7 @@ const router = createBrowserRouter(
 				}
 			>
 				<Route path="/dashboard" element={<DashboardHome />} />
+				<Route path="portfolio" element={<Portfolio />} />
 				<Route path="/watchlist" element={<Watchlist />} />
 				<Route path="/todays-movers" element={<TodaysMovers />} />
 				<Route path="/market" element={<MarketDashboard />} />

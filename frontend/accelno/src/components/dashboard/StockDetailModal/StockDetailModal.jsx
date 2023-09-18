@@ -3,6 +3,8 @@ import { useState } from 'react';
 import { useGetChartbyRangeQuery, useGetStockDetailQuery } from '../../../api/endpoints/widgetDataApi';
 import RangeChart from '../charts/areachart/RangeChart';
 import ClipLoader from 'react-spinners/ClipLoader';
+import { useSelector, useDispatch } from 'react-redux';
+import { closeStockModal, selectStockModalStock } from '../../../redux/slices/stockDetailModalSlice';
 
 const durationData = [
 	{ id: 1, name: '1d' },
@@ -19,9 +21,12 @@ const override = {
 };
 
 const StockDetailModal = () => {
+	const dispatch = useDispatch();
 	const [duration, setDuration] = useState('5y');
-	const { data: stockData, isLoading: stockDataLoading, error } = useGetStockDetailQuery('TSLA');
-	const { data: chartData, isLoading: chartDataLoading } = useGetChartbyRangeQuery(['TSLA', duration]);
+	const stock = useSelector(selectStockModalStock);
+
+	const { data: stockData, isLoading: stockDataLoading, error } = useGetStockDetailQuery(stock);
+	const { data: chartData, isLoading: chartDataLoading } = useGetChartbyRangeQuery([stock, duration]);
 
 	return (
 		<div className="bg-white dark:bg-[#2D2F35] h-[570px] w-[700px]  fixed top-1/2 bottom-0 left-1/2 -translate-x-1/2 -translate-y-1/2 right-0 p-4 rounded-xl shadow-xl z-50">
@@ -38,7 +43,10 @@ const StockDetailModal = () => {
 				</div>
 			) : (
 				<div className="flex-col font-inter space-y-3">
-					<button className="absolute right-2 top-2 bg-red-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-md font-semibold hover:bg-red-600 float-right">
+					<button
+						onClick={() => dispatch(closeStockModal())}
+						className="absolute right-2 top-2 bg-red-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-md font-semibold hover:bg-red-600 float-right"
+					>
 						x
 					</button>
 

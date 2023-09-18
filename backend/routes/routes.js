@@ -16,6 +16,7 @@ const {
 	getFiftyTwoWeeksController,
 	getStockDetailController,
 	getChartbyRangeController,
+	getHeatmapController,
 } = require('../controller/externalAPI/externalDataController.js');
 const { protect } = require('../middleware/authMiddleware.js');
 const { getUserProfile, addUserProfile } = require('../controller/dashboard/userProfileController.js');
@@ -64,5 +65,8 @@ router.route('/stockdetail/:stock').get(protect, getStockDetailController);
 
 // GET /api/v1/stockchartbyrange/:stock/:range
 router.route('/stockchartbyrange/:data').get(protect, getChartbyRangeController);
+
+// GET /api/v1/heatmap/
+router.route('/heatmap').get(protect, getHeatmapController);
 
 module.exports = router;

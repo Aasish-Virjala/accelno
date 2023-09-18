@@ -6,6 +6,7 @@ const initialState = {
 		watchlist: [],
 		market: [],
 		todaysmovers: [],
+		portfolio: [],
 	},
 };
 

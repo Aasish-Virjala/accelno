@@ -81,7 +81,7 @@ const FinancialTableFull = ({ widgetId, screen }) => {
 	};
 
 	return (
-		<div className="w-[480px] bg-white dark:bg-[#2D2F35] dark:border-none  py-2 font-inter rounded-xl border border-lightSilver shadow-xl">
+		<div className="w-[480px] h-[500px] bg-white dark:bg-[#2D2F35] dark:border-none  py-2 font-inter rounded-xl border border-lightSilver shadow-xl">
 			{isLoading ? (
 				<div className="h-full flex items-center justify-center bg-white dark:bg-[#2D2F35]">
 					<ClipLoader color="#fff" loading={isLoading} cssOverride={override} size={30} aria-label="Loading Spinner" data-testid="loader" />
