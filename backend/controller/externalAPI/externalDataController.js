@@ -13,7 +13,7 @@ const getSingleStockDataController = asyncHandler(async (req, res) => {
 			region: 'US',
 		},
 		headers: {
-			'X-RapidAPI-Key': 'ca21f9b6d9mshed3976edbde5008p1bce63jsn919797b44961',
+			'X-RapidAPI-Key': process.env.YAHOO_FINANCE_API_KEY,
 			'X-RapidAPI-Host': 'apidojo-yahoo-finance-v1.p.rapidapi.com',
 		},
 	};
@@ -21,7 +21,7 @@ const getSingleStockDataController = asyncHandler(async (req, res) => {
 		const response = await axios.request(options);
 		res.status(200).json(response.data.price);
 	} catch (error) {
-		console.error(error);
+		res.status(500).json({ error: 'An error occurred' });
 	}
 });
 
@@ -44,7 +44,7 @@ const getSingleStockChartController = asyncHandler(async (req, res) => {
 			events: 'capitalGain,div,split',
 		},
 		headers: {
-			'X-RapidAPI-Key': 'ca21f9b6d9mshed3976edbde5008p1bce63jsn919797b44961',
+			'X-RapidAPI-Key': process.env.YAHOO_FINANCE_API_KEY,
 			'X-RapidAPI-Host': 'apidojo-yahoo-finance-v1.p.rapidapi.com',
 		},
 	};
@@ -53,7 +53,7 @@ const getSingleStockChartController = asyncHandler(async (req, res) => {
 		const response = await axios.request(options);
 		res.status(200).json(response.data);
 	} catch (error) {
-		console.error(error);
+		res.status(500).json({ error: 'An error occurred' });
 	}
 });
 
@@ -65,7 +65,7 @@ const getMarketChartController = asyncHandler(async (req, res) => {
 		url: 'https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/v2/get-summary',
 		params: { region: 'US' },
 		headers: {
-			'X-RapidAPI-Key': 'ca21f9b6d9mshed3976edbde5008p1bce63jsn919797b44961',
+			'X-RapidAPI-Key': process.env.YAHOO_FINANCE_API_KEY,
 			'X-RapidAPI-Host': 'apidojo-yahoo-finance-v1.p.rapidapi.com',
 		},
 	};
@@ -74,7 +74,7 @@ const getMarketChartController = asyncHandler(async (req, res) => {
 		const response = await axios.request(options);
 		res.status(200).json(response.data);
 	} catch (error) {
-		console.error(error);
+		res.status(500).json({ error: 'An error occurred' });
 	}
 });
 
@@ -94,7 +94,7 @@ const getMarketMoversController = asyncHandler(async (req, res) => {
 			count: '5',
 		},
 		headers: {
-			'X-RapidAPI-Key': 'ca21f9b6d9mshed3976edbde5008p1bce63jsn919797b44961',
+			'X-RapidAPI-Key': process.env.YAHOO_FINANCE_API_KEY,
 			'X-RapidAPI-Host': 'apidojo-yahoo-finance-v1.p.rapidapi.com',
 		},
 	};
@@ -117,7 +117,7 @@ const getMarketMoversController = asyncHandler(async (req, res) => {
 					symbols: gainersString,
 				},
 				headers: {
-					'X-RapidAPI-Key': 'ca21f9b6d9mshed3976edbde5008p1bce63jsn919797b44961',
+					'X-RapidAPI-Key': process.env.YAHOO_FINANCE_API_KEY,
 					'X-RapidAPI-Host': 'apidojo-yahoo-finance-v1.p.rapidapi.com',
 				},
 			};
@@ -148,7 +148,7 @@ const getMarketMoversController = asyncHandler(async (req, res) => {
 					symbols: losersString,
 				},
 				headers: {
-					'X-RapidAPI-Key': 'ca21f9b6d9mshed3976edbde5008p1bce63jsn919797b44961',
+					'X-RapidAPI-Key': process.env.YAHOO_FINANCE_API_KEY,
 					'X-RapidAPI-Host': 'apidojo-yahoo-finance-v1.p.rapidapi.com',
 				},
 			};
@@ -168,7 +168,7 @@ const getMarketMoversController = asyncHandler(async (req, res) => {
 			res.status(200).json(activeData);
 		}
 	} catch (error) {
-		console.error(error);
+		res.status(500).json({ error: 'An error occurred' });
 	}
 });
 
@@ -178,7 +178,7 @@ const getMostTrendingStocksController = asyncHandler(async (req, res) => {
 		url: 'https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/get-trending-tickers',
 		params: { region: 'US' },
 		headers: {
-			'X-RapidAPI-Key': 'ca21f9b6d9mshed3976edbde5008p1bce63jsn919797b44961',
+			'X-RapidAPI-Key': process.env.YAHOO_FINANCE_API_KEY,
 			'X-RapidAPI-Host': 'apidojo-yahoo-finance-v1.p.rapidapi.com',
 		},
 	};
@@ -193,7 +193,7 @@ const getMostTrendingStocksController = asyncHandler(async (req, res) => {
 			}));
 		res.status(200).json(updatedResponse);
 	} catch (error) {
-		console.error(error);
+		res.status(500).json({ error: 'An error occurred' });
 	}
 });
 
@@ -211,7 +211,7 @@ const getFinancialsController = asyncHandler(async (req, res) => {
 					region: 'US',
 				},
 				headers: {
-					'X-RapidAPI-Key': 'ca21f9b6d9mshed3976edbde5008p1bce63jsn919797b44961',
+					'X-RapidAPI-Key': process.env.YAHOO_FINANCE_API_KEY,
 					'X-RapidAPI-Host': 'apidojo-yahoo-finance-v1.p.rapidapi.com',
 				},
 			};
@@ -233,7 +233,7 @@ const getFinancialsController = asyncHandler(async (req, res) => {
 					lang: 'en-US',
 				},
 				headers: {
-					'X-RapidAPI-Key': 'ca21f9b6d9mshed3976edbde5008p1bce63jsn919797b44961',
+					'X-RapidAPI-Key': process.env.YAHOO_FINANCE_API_KEY,
 					'X-RapidAPI-Host': 'apidojo-yahoo-finance-v1.p.rapidapi.com',
 				},
 			};
@@ -274,7 +274,7 @@ const getFiftyTwoWeeksController = asyncHandler(async (req, res) => {
 					region: 'US',
 				},
 				headers: {
-					'X-RapidAPI-Key': 'ca21f9b6d9mshed3976edbde5008p1bce63jsn919797b44961',
+					'X-RapidAPI-Key': process.env.YAHOO_FINANCE_API_KEY,
 					'X-RapidAPI-Host': 'apidojo-yahoo-finance-v1.p.rapidapi.com',
 				},
 			};
@@ -311,7 +311,7 @@ const getStockDetailController = asyncHandler(async (req, res) => {
 			region: 'US',
 		},
 		headers: {
-			'X-RapidAPI-Key': 'ca21f9b6d9mshed3976edbde5008p1bce63jsn919797b44961',
+			'X-RapidAPI-Key': process.env.YAHOO_FINANCE_API_KEY,
 			'X-RapidAPI-Host': 'apidojo-yahoo-finance-v1.p.rapidapi.com',
 		},
 	};
@@ -319,7 +319,7 @@ const getStockDetailController = asyncHandler(async (req, res) => {
 		const response = await axios.request(options);
 		res.status(200).json(response.data);
 	} catch (error) {
-		console.error(error);
+		res.status(500).json({ error: 'An error occurred' });
 	}
 });
 
@@ -356,7 +356,7 @@ const getChartbyRangeController = asyncHandler(async (req, res) => {
 			events: 'capitalGain,div,split',
 		},
 		headers: {
-			'X-RapidAPI-Key': 'ca21f9b6d9mshed3976edbde5008p1bce63jsn919797b44961',
+			'X-RapidAPI-Key': process.env.YAHOO_FINANCE_API_KEY,
 			'X-RapidAPI-Host': 'apidojo-yahoo-finance-v1.p.rapidapi.com',
 		},
 	};
@@ -365,7 +365,7 @@ const getChartbyRangeController = asyncHandler(async (req, res) => {
 		const response = await axios.request(options);
 		res.status(200).json(response.data);
 	} catch (error) {
-		console.error(error);
+		res.status(500).json({ error: 'An error occurred' });
 	}
 });
 
@@ -380,7 +380,7 @@ const getHeatmapController = asyncHandler(async (req, res) => {
 			count: '20',
 		},
 		headers: {
-			'X-RapidAPI-Key': 'ca21f9b6d9mshed3976edbde5008p1bce63jsn919797b44961',
+			'X-RapidAPI-Key': process.env.YAHOO_FINANCE_API_KEY,
 			'X-RapidAPI-Host': 'apidojo-yahoo-finance-v1.p.rapidapi.com',
 		},
 	};
@@ -402,7 +402,7 @@ const getHeatmapController = asyncHandler(async (req, res) => {
 				symbols: activeStocksString,
 			},
 			headers: {
-				'X-RapidAPI-Key': 'ca21f9b6d9mshed3976edbde5008p1bce63jsn919797b44961',
+				'X-RapidAPI-Key': process.env.YAHOO_FINANCE_API_KEY,
 				'X-RapidAPI-Host': 'apidojo-yahoo-finance-v1.p.rapidapi.com',
 			},
 		};
@@ -419,7 +419,7 @@ const getHeatmapController = asyncHandler(async (req, res) => {
 		];
 		res.status(200).json(heatmapData);
 	} catch (error) {
-		console.error(error);
+		res.status(500).json({ error: 'An error occurred' });
 	}
 });
 

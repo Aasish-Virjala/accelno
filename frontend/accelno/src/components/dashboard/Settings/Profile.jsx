@@ -60,9 +60,9 @@ const Profile = () => {
 	const onSubmit = async (data) => {
 		const formData = new FormData();
 		formData.append('file', imgFile);
-		formData.append('upload_preset', 'rm3fkp0y');
+		formData.append('upload_preset', import.meta.env.VITE_PRESET);
 		try {
-			const response = await axios.post('https://api.cloudinary.com/v1_1/dpw1bckje/image/upload', formData);
+			const response = await axios.post(`https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDNAME}/image/upload`, formData);
 			if (response) {
 				const imageUrl = response.data.url;
 				console.log(imageUrl);
