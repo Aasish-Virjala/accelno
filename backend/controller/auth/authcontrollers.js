@@ -10,7 +10,7 @@ const generateToken = require('../../utils/generateToken.js');
 // CHECKS IF USER EXISTS, IF NOT, CREATES USER
 
 const registerUserController = asyncHandler(async (req, res) => {
-	const { username, email, password } = req.body;
+	const { fullName, username, email, password } = req.body;
 	try {
 		const checkUser = await prisma.user.findFirst({
 			where: {
@@ -23,6 +23,7 @@ const registerUserController = asyncHandler(async (req, res) => {
 			const hashedPassword = await bcrypt.hash(password, 10);
 			const addUser = await prisma.user.create({
 				data: {
+					fullName,
 					username,
 					email,
 					password: hashedPassword,
@@ -45,7 +46,14 @@ const loginUserController = asyncHandler(async (req, res) => {
 	try {
 		const checkUser = await prisma.user.findFirst({
 			where: {
-				username,
+				OR: [
+					{
+						username: username,
+					},
+					{
+						email: username,
+					},
+				],
 			},
 		});
 		if (!checkUser) {
@@ -53,7 +61,7 @@ const loginUserController = asyncHandler(async (req, res) => {
 		} else {
 			const checkPassword = await bcrypt.compare(password, checkUser.password);
 			if (!checkPassword) {
-				res.status(400).json({ message: 'Username or Pasword Incorrect' });
+				res.status(400).json({ message: 'Invalid Credentials' });
 			} else {
 				// util function to generate token and send to client
 				generateToken(res, username);
