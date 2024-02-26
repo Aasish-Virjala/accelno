@@ -1,25 +1,34 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import GridLayout from 'react-grid-layout';
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
-import GainerLoser from '../components/dashboard/GainerLoser/GainerLoser';
-import FiftyTwoWeeklyStats from '../components/dashboard/FiftyTwoWeeklyStats/FiftyTwoWeeklyStats';
-import SingleStockChart from '../components/dashboard/SingleStockChart/SingleStockChart';
-import ActiveStocks from '../components/dashboard/ActiveStocks/ActiveStocks';
-import MarketChart from '../components/dashboard/MarketChart/MarketChart';
-import HeatmapContainer from '../components/dashboard/HeatmapContainer/HeatmapContainer';
-import FinancialTableFull from '../components/dashboard/FinancialTable/FinancialTableFull';
-import SingleStockStackedChart from '../components/dashboard/SingleStockStackedChart/SingleStockStackedChart';
+//import GainerLoser from '../components/dashboard/GainerLoser/GainerLoser';
+// import FiftyTwoWeeklyStats from '../components/dashboard/FiftyTwoWeeklyStats/FiftyTwoWeeklyStats';
+// import SingleStockChart from '../components/dashboard/SingleStockChart/SingleStockChart';
+// import ActiveStocks from '../components/dashboard/ActiveStocks/ActiveStocks';
+// import MarketChart from '../components/dashboard/MarketChart/MarketChart';
+// import HeatmapContainer from '../components/dashboard/HeatmapContainer/HeatmapContainer';
+// import FinancialTableFull from '../components/dashboard/FinancialTable/FinancialTableFull';
+// import SingleStockStackedChart from '../components/dashboard/SingleStockStackedChart/SingleStockStackedChart';
 import { addWidget, deleteWidget, setWidgets, selectWidgetsByScreen } from '../redux/slices/widgetSlice';
 import Welcome from '../components/dashboard/welcome/Welcome';
 import { selectModalState } from '../redux/slices/modalSlice';
 import { openModal, closeModal } from '../redux/slices/modalSlice';
 import ClipLoader from 'react-spinners/ClipLoader';
 import { selectIsDarkMode } from '../redux/slices/themeSlice';
-import { MdAdd } from 'react-icons/md';
+import { MdAdd, MdClose } from 'react-icons/md';
 import StockDetailModal from '../components/dashboard/StockDetailModal/StockDetailModal';
 import { selectStockModalState } from '../redux/slices/stockDetailModalSlice';
+
+const GainerLoser = lazy(() => import('../components/dashboard/GainerLoser/GainerLoser'));
+const FiftyTwoWeeklyStats = lazy(() => import('../components/dashboard/FiftyTwoWeeklyStats/FiftyTwoWeeklyStats'));
+const SingleStockChart = lazy(() => import('../components/dashboard/SingleStockChart/SingleStockChart'));
+const ActiveStocks = lazy(() => import('../components/dashboard/ActiveStocks/ActiveStocks'));
+const MarketChart = lazy(() => import('../components/dashboard/MarketChart/MarketChart'));
+const HeatmapContainer = lazy(() => import('../components/dashboard/HeatmapContainer/HeatmapContainer'));
+const FinancialTableFull = lazy(() => import('../components/dashboard/FinancialTable/FinancialTableFull'));
+const SingleStockStackedChart = lazy(() => import('../components/dashboard/SingleStockStackedChart/SingleStockStackedChart'));
 
 // eslint-disable-next-line react/prop-types
 const WidgetsComponent = ({ screen }) => {
@@ -275,19 +284,19 @@ const WidgetsComponent = ({ screen }) => {
 	const override = {
 		display: 'block',
 		margin: '0 auto',
-		borderColor: '#2151C0',
+		borderColor: '#813CF0',
 	};
 
 	return (
 		<>
 			{isLoading ? (
-				<div className="min-h-screen flex items-center justify-center bg-white dark:bg-[#1F2023]">
+				<div className="min-h-screen flex items-center justify-center bg-[#1F2023]">
 					<ClipLoader color="#fff" loading={isLoading} cssOverride={override} size={50} aria-label="Loading Spinner" data-testid="loader" />
 				</div>
 			) : selectedWidgets.length === 0 && !isModalOpen ? (
 				<Welcome />
 			) : (
-				<div className={`min-h-screen ${isDarkMode ? 'bg-[#1F2023]' : 'bg-white'} flex flex-col pl-7`}>
+				<div className={`min-h-screen flex flex-col pl-10`}>
 					<button
 						className="fixed bottom-4 right-5 flex items-center justify-center bg-dashboardBlue w-16 h-16 rounded-full text-3xl text-white font-semibold cursor-pointer shadow-lg z-50"
 						onClick={() => dispatch(openModal())}
@@ -295,7 +304,7 @@ const WidgetsComponent = ({ screen }) => {
 						<MdAdd />
 					</button>
 					<div
-						className={`min-h-screen p-4 ${isDarkMode ? 'bg-[#1F2023]' : 'bg-white'} `}
+						className={`min-h-screen p-4 bg-[#1D2022]`}
 						onDrop={handleWhiteboardDrop}
 						onDragOver={handleWhiteboardDragOver}
 						onDragLeave={handleWhiteboardDragLeave}
@@ -317,14 +326,51 @@ const WidgetsComponent = ({ screen }) => {
 						>
 							{selectedWidgets.map((widget) => (
 								<div key={widget.id} className="w-full h-full widget p-1 rounded-md cursor-move relative">
-									{widget.content === 'GainerLoser' && <GainerLoser widgetId={widget.id} screen={screen} />}
-									{widget.content === 'FiftyTwoWeeklyStats' && <FiftyTwoWeeklyStats widgetId={widget.id} screen={screen} />}
-									{widget.content === 'SingleStockChart' && <SingleStockChart widgetId={widget.id} screen={screen} />}
-									{widget.content === 'ActiveStocks' && <ActiveStocks widgetId={widget.id} screen={screen} />}
-									{widget.content === 'MarketChart' && <MarketChart widgetId={widget.id} screen={screen} />}
-									{widget.content === 'Heatmap' && <HeatmapContainer widgetId={widget.id} screen={screen} />}
-									{widget.content === 'FinancialTableFull' && <FinancialTableFull widgetId={widget.id} screen={screen} />}
-									{widget.content === 'SingleStockStackedChart' && <SingleStockStackedChart widgetId={widget.id} screen={screen} />}
+									{widget.content === 'GainerLoser' && (
+										<Suspense fallback={<></>}>
+											<GainerLoser widgetId={widget.id} screen={screen} />
+										</Suspense>
+									)}
+									{widget.content === 'FiftyTwoWeeklyStats' && (
+										<Suspense fallback={<></>}>
+											<FiftyTwoWeeklyStats widgetId={widget.id} screen={screen} />
+										</Suspense>
+									)}
+									{widget.content === 'SingleStockChart' && (
+										<Suspense fallback={<></>}>
+											<SingleStockChart widgetId={widget.id} screen={screen} />
+										</Suspense>
+									)}
+									{widget.content === 'ActiveStocks' && (
+										<Suspense fallback={<></>}>
+											{' '}
+											<ActiveStocks widgetId={widget.id} screen={screen} />
+										</Suspense>
+									)}
+									{widget.content === 'MarketChart' && (
+										<Suspense fallback={<></>}>
+											{' '}
+											<MarketChart widgetId={widget.id} screen={screen} />
+										</Suspense>
+									)}
+									{widget.content === 'Heatmap' && (
+										<Suspense fallback={<></>}>
+											{' '}
+											<HeatmapContainer widgetId={widget.id} screen={screen} />
+										</Suspense>
+									)}
+									{widget.content === 'FinancialTableFull' && (
+										<Suspense fallback={<></>}>
+											{' '}
+											<FinancialTableFull widgetId={widget.id} screen={screen} />
+										</Suspense>
+									)}
+									{widget.content === 'SingleStockStackedChart' && (
+										<Suspense fallback={<></>}>
+											{' '}
+											<SingleStockStackedChart widgetId={widget.id} screen={screen} />
+										</Suspense>
+									)}
 								</div>
 							))}
 						</GridLayout>
@@ -333,24 +379,24 @@ const WidgetsComponent = ({ screen }) => {
 			)}
 
 			{isModalOpen && (
-				<div className="select-none  bg-white dark:bg-gray-400 h-[400px] w-[400px] fixed top-1/2 bottom-0 left-1/2 -translate-x-1/2 -translate-y-1/2 right-0 overflow-y-scroll p-4 rounded-xl shadow-xl z-50">
+				<div className="select-none  bg-[#1D2022] h-[400px] w-[400px] fixed top-1/2 bottom-0 left-1/2 -translate-x-1/2 -translate-y-1/2 right-0 overflow-y-scroll p-4 rounded-xl shadow-xl z-50">
 					<div className="flex justify-between items-start">
-						<div className="font-poppins mb-3">
-							<h1 className=" text-xl font-bold">All Widget</h1>
-							<span className="text-sm font-medium">Select the size of the widget and drag it to the screen</span>
+						<div className="mb-3 flex flex-col gap-2">
+							<h1 className=" text-xl font-bold gradient-text">All Widgets</h1>
+							<span className="text-sm font-medium text-[#D9D9D9] ">Select the size of the widget and drag it to the screen</span>
 						</div>
 						<button
-							className=" bg-red-500 text-white w-5 h-5 rounded-full flex items-center justify-center text-sm hover:bg-red-600"
+							className=" bg-red-500 text-white p-1 rounded-full flex items-center justify-center hover:bg-red-600"
 							onClick={() => dispatch(closeModal())}
 						>
-							x
+							<MdClose size={20} />
 						</button>
 					</div>
 					<div className="flex flex-col space-y-3">
 						{widgetSelectorData.map((widget) => (
 							<div
 								key={widget.id}
-								className="widget p-4 border border-secondaryGrey rounded-md cursor-move flex  items-center justify-between"
+								className="widget p-4 border text-[#D9D9D9] border-secondaryGrey hover:gradient-button-border rounded-md cursor-move flex  items-center justify-between"
 								draggable={true}
 								onDragStart={(e) => {
 									e.dataTransfer.setData('widgetId', widget.id);

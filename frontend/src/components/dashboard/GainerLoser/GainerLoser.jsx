@@ -7,6 +7,7 @@ import ClipLoader from 'react-spinners/ClipLoader';
 import { updateWidgetSize, selectWidgetsByScreen } from '../../../redux/slices/widgetSlice';
 import { useSelector } from 'react-redux';
 
+// eslint-disable-next-line react/prop-types
 const GainerLoser = ({ widgetId, screen }) => {
 	const { data: gainersData, isLoading: gainersLoading, error: gainersError } = useGetMoversQuery('gainers');
 	const { data: losersData, isLoading: losersLoading, error: losersError } = useGetMoversQuery('losers');
@@ -41,12 +42,12 @@ const GainerLoser = ({ widgetId, screen }) => {
 
 	return (
 		<div
-			className={`bg-white dark:bg-[#2D2F35] dark:border-none font-inter rounded-xl border border-lightSilver shadow-md py-1 ${
+			className={`bg-[#2D3133] dark:border-none rounded-xl border border-lightSilver shadow-md ${
 				size === 'small' ? ' w-[320px]' : size === 'medium' ? ' w-[420px]' : size === 'large' ? ' w-[520px]' : ''
 			} `}
 		>
 			{gainersLoading || losersLoading ? (
-				<div className="h-full flex items-center justify-center bg-white dark:bg-[#1F2023]">
+				<div className="h-full flex items-center justify-center bg-[#1F2023]">
 					<ClipLoader
 						color="#fff"
 						loading={gainersLoading || losersLoading}
@@ -70,18 +71,18 @@ const GainerLoser = ({ widgetId, screen }) => {
 				/>
 			) : (
 				<div>
-					<div className="flex justify-end p-1 ">
-						<span className="cursor-pointer text-xl text-darkGrey dark:text-white" onClick={() => setEdit(!edit)}>
+					<div className="flex justify-end p-2 rounded-t-xl bg-[#191B1D] text-[#D2DDE5]">
+						<span className="cursor-pointer text-xl " onClick={() => setEdit(!edit)}>
 							{<MdInfoOutline />}
 						</span>
 					</div>
 
 					<div
 						className={`${
-							size === 'small' ? 'text-xs' : size === 'medium' ? 'text-sm' : size === 'large' ? 'text-md' : ''
-						} flex justify-between items-center text-darkGrey dark:text-white pb-4 px-3`}
+							size === 'small' ? 'text-xs' : size === 'medium' ? 'text-sm' : size === 'large' ? 'text-base' : ''
+						} flex justify-between items-center bg-[#191B1D] text-[#D2DDE5] pb-4 px-3`}
 					>
-						<span className="font-bold  ">Today&#39;s Gainer/Loser</span>
+						<span className="font-bold">Today&#39;s Gainer/Loser</span>
 						<div className="flex items-center space-x-2 cursor-pointer" onClick={() => setIsGainer(!isGainer)}>
 							<span className=" font-medium">{isGainer ? 'Gainers' : 'Losers'}</span>
 							<MdKeyboardArrowDown />
@@ -90,7 +91,7 @@ const GainerLoser = ({ widgetId, screen }) => {
 					<div
 						className={`${
 							size === 'small' ? 'text-xs py-2' : size === 'medium' ? 'text-sm py-3' : size === 'large' ? 'text-md py-4' : ''
-						}   custom-stripe  px-3 flex justify-between text-left items-center bg-dashboardBlue  font-semibold text-white`}
+						}   custom-stripe  px-3 flex justify-between text-left items-center bg-[#191B1D]  font-semibold text-[#D2DDE5]`}
 					>
 						<span className="w-[40%]">Company</span>
 						<span className="w-[30%] text-center">Price ($)</span>
@@ -103,14 +104,14 @@ const GainerLoser = ({ widgetId, screen }) => {
 								key={i}
 								className={`${
 									size === 'small' ? 'text-xs py-3' : size === 'medium' ? 'text-sm py-4' : size === 'large' ? 'text-md py-5' : ''
-								}  px-3 flex justify-between items-center font-medium text-darkGrey dark:text-white`}
+								}  px-3 flex justify-between items-center font-medium text-[#B5BCBF]`}
 							>
 								<span className="w-[40%]"> {item.shortName} </span>
 								<span className="w-[30%] text-center ">{item.price}</span>
 
-								<div className={`w-[30%] text-center  `}>
+								<div className={`w-[30%] flex justify-center items-center `}>
 									<span
-										className={`${isGainer ? 'bg-primaryGreen' : 'bg-red-400'}  py-1 px-3 text-center rounded-lg text-white font-normal`}
+										className={`${isGainer ? 'text-[#B5BCBF]' : 'text-red-500'} bg-[#1D2022]  py-1 px-3 text-center rounded-lg font-normal`}
 									>
 										{Math.round(item.change)} %
 									</span>

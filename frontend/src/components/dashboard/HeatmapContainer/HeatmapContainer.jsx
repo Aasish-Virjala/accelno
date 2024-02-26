@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useGetHeatmapQuery } from '../../../api/endpoints/widgetDataApi';
 import ClipLoader from 'react-spinners/ClipLoader';
-import { MdInfoOutline } from 'react-icons/md';
+import { MdClose, MdInfoOutline } from 'react-icons/md';
 import { useDispatch } from 'react-redux';
 import { deleteWidget } from '../../../redux/slices/widgetSlice';
 
@@ -111,7 +111,7 @@ const HeatmapContainer = ({ size, widgetId, screen }) => {
 	if (isLoading || !data) {
 		return (
 			<div className="w-[1080px] h-[400px]  font-inter ">
-				<div className="h-full flex items-center justify-center bg-white dark:bg-[#2D2F35]">
+				<div className="h-full flex items-center justify-center bg-[#2D3133] ">
 					<ClipLoader color="#fff" loading={isLoading} cssOverride={override} size={30} aria-label="Loading Spinner" data-testid="loader" />
 				</div>
 			</div>
@@ -123,7 +123,7 @@ const HeatmapContainer = ({ size, widgetId, screen }) => {
 	heatmapDataSorted.sort((a, b) => b.marketCap - a.marketCap);
 	if (heatmapDataSorted && heatmapDataSorted.length > 0) {
 		return (
-			<div className=" w-[1000px] h-[650px] relative font-inter bg-white dark:bg-[#2D2F35] shadow-xl space-y-3 flex flex-col items-center ">
+			<div className=" w-[1000px] h-[650px] relative  bg-[#2D3133]  shadow-xl space-y-3 flex flex-col items-center rounded-xl">
 				<div className="absolute top-2 right-2">
 					{!close ? (
 						<span className=" cursor-pointer  text-xl text-darkGrey dark:text-white" onClick={() => setClose(!close)}>
@@ -131,10 +131,10 @@ const HeatmapContainer = ({ size, widgetId, screen }) => {
 						</span>
 					) : (
 						<button
-							className=" bg-red-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-md font-semibold hover:bg-red-600 float-right"
+							className=" bg-red-500 text-white p-1 rounded-full flex items-center justify-center text-md font-semibold hover:bg-red-600 float-right"
 							onClick={() => handleWidgetDelete(widgetId)}
 						>
-							x
+							<MdClose size={20} />
 						</button>
 					)}
 				</div>

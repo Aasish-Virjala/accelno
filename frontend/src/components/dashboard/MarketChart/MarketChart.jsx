@@ -3,7 +3,7 @@ import { useGetMarketChartQuery } from '../../../api/endpoints/widgetDataApi';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { deleteWidget } from '../../../redux/slices/widgetSlice';
-import { MdInfoOutline } from 'react-icons/md';
+import { MdInfoOutline, MdClose } from 'react-icons/md';
 
 const durationData = [
 	{ id: 1, name: '1D' },
@@ -30,7 +30,7 @@ const MarketChart = ({ widgetId, screen }) => {
 	return (
 		<div
 			className={` w-[600px] 
-			 p-3 font-inter space-y-3  dark:bg-[#2D2F35] dark:border-none shadow-lg rounded-md`}
+			 p-3  space-y-3  bg-[#2D3133] dark:border-none shadow-lg rounded-md`}
 		>
 			<div className="flex justify-end pb-1 ">
 				{!edit ? (
@@ -39,10 +39,10 @@ const MarketChart = ({ widgetId, screen }) => {
 					</span>
 				) : (
 					<button
-						className=" bg-red-500 text-white w-5 h-5 rounded-full flex items-center justify-center text-sm hover:bg-red-600"
+						className=" bg-red-500 text-white p-1 rounded-full flex items-center justify-center text-sm hover:bg-red-600"
 						onClick={() => handleWidgetDelete(widgetId)}
 					>
-						x
+						<MdClose size={20} />
 					</button>
 				)}
 			</div>

@@ -1,9 +1,10 @@
+/* eslint-disable react/prop-types */
 import widgetIcon from '../../../assets/dashboard/icons/widget.png';
 import stockIcon from '../../../assets/dashboard/icons/stock.png';
 import { deleteWidget } from '../../../redux/slices/widgetSlice';
 import { useDispatch } from 'react-redux';
+import { MdClose } from 'react-icons/md';
 
-// eslint-disable-next-line react/prop-types
 const WidgetConfiguration = ({
 	widgetId,
 	input,
@@ -22,12 +23,12 @@ const WidgetConfiguration = ({
 	};
 
 	return (
-		<div className="py-3 px-2 space-y-2">
+		<div className="py-3 px-2 space-y-2 bg-[#2D3133]">
 			<button
 				className=" bg-red-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-md font-semibold hover:bg-red-600 float-right"
 				onClick={() => handleWidgetDelete(widgetId)}
 			>
-				x
+				<MdClose size={20} />
 			</button>
 
 			<div className="pt-4">

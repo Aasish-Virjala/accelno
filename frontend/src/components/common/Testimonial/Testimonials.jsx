@@ -1,69 +1,81 @@
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import './Testimonial.css';
-import memberOne from '../../../assets/images/member1.svg';
-import memberTwo from '../../../assets/images/member2.svg';
-import memberThree from '../../../assets/images/member3.svg';
-import memberFour from '../../../assets/images/member4.svg';
-import memberFive from '../../../assets/images/member5.svg';
+import leslieImg from '../../../assets/images/leslie.png';
+import estherImg from '../../../assets/images/esther.png';
+import janeImg from '../../../assets/images/jane.png';
+
+const testimonials = [
+	{
+		id: 1,
+		designation: 'General Manager At Amazon',
+		name: 'Leslie Alexander',
+		description:
+			'I love how easy it is to use this website. Even as someone who is not  particularly tech-savvy. I was able to navigate it with ease.',
+		img: leslieImg,
+	},
+	{
+		id: 2,
+		designation: 'General Manager At Amazon',
+		name: 'Esther Howard',
+		description:
+			'I love how easy it is to use this website. Even as someone who is not  particularly tech-savvy. I was able to navigate it with ease.',
+		img: estherImg,
+	},
+	{
+		id: 3,
+		designation: 'General Manager At Amazon',
+		name: 'Leslie Alexander',
+		description:
+			'I love how easy it is to use this website. Even as someone who is not  particularly tech-savvy. I was able to navigate it with ease.',
+		img: leslieImg,
+	},
+	{
+		id: 4,
+		designation: 'General Manager At Amazon',
+		name: 'Jane Cooper',
+		description:
+			'I love how easy it is to use this website. Even as someone who is not  particularly tech-savvy. I was able to navigate it with ease.',
+		img: janeImg,
+	},
+	{
+		id: 5,
+		designation: 'General Manager At Amazon',
+		name: 'Leslie Alexander',
+		description:
+			'I love how easy it is to use this website. Even as someone who is not  particularly tech-savvy. I was able to navigate it with ease.',
+		img: leslieImg,
+	},
+];
 
 const Testimonials = () => {
-	// Generate an array of six random image URLs
-	const images = [memberOne, memberTwo, memberThree, memberFour, memberFive];
-
-	const settings = {
-		dots: true,
-		centerMode: true,
-		centerPadding: '80px',
-		infinite: true,
-		speed: 500,
-		slidesToShow: 4,
-		slidesToScroll: 1,
-		initialSlide: 0,
-		autoplay: true,
-		autoplaySpeed: 3000,
-		responsive: [
-			{
-				breakpoint: 990,
-				settings: {
-					slidesToShow: 3,
-					slidesToScroll: 1,
-					infinite: true,
-					dots: false,
-					centerMode: true,
-				},
-			},
-			{
-				breakpoint: 600,
-				settings: {
-					slidesToShow: 2,
-					slidesToScroll: 2,
-					initialSlide: 2,
-					centerMode: true,
-				},
-			},
-			{
-				breakpoint: 480,
-				settings: {
-					slidesToShow: 1,
-					slidesToScroll: 1,
-					centerMode: true,
-				},
-			},
-		],
-	};
-
 	return (
-		<div className="space-x-2 overflow-hidden">
-			<Slider {...settings}>
-				{images.map((image, index) => (
-					<div key={index} className="h-full py-16 ">
-						<img src={image} alt={`Image ${index + 1}`} className="h-32" />
+		<section className="flex flex-col md:flex-row md:flex-wrap justify-center gap-4 lg:gap-16 py-3 px-4 md:px-0  relative h-full lg:h-[600px]">
+			{testimonials.map((item) => (
+				<div
+					key={item.id}
+					className={`${
+						item.id === 1
+							? 'lg:-left-40 lg:-rotate-12 lg:top-28'
+							: item.id === 2
+							? 'lg:left-1/4 lg:-translate-x-1/2 lg:-rotate-6 lg:top-10'
+							: item.id === 3
+							? 'lg:left-1/2 lg:-translate-x-1/2'
+							: item.id === 4
+							? 'lg:right-1/4 lg:translate-x-1/2 lg:rotate-6 lg:top-10'
+							: item.id === 5
+							? 'lg:-right-40 lg:rotate-12 lg:top-28'
+							: ''
+					} lg:absolute max-w-[280px] mx-auto md:mx-0 lg:w-64 xl:w-72 2xl:w-80 bg-[#1D2022] gradient-button-border px-4 py-5 rounded-3xl flex flex-col gap-4`}
+				>
+					<h2 className="text-[#B4B4B4] text-sm font-normal">{item.designation}</h2>
+					<p className="text-[#D9D9D9] text-base">{item.description}</p>
+					<div className="flex items-center gap-2 mt-20">
+						<img loading="lazy" src={item.img} alt="" className="w-16" />
+						<h2 className="text-[#CFCFCF] text-sm font-normal">
+							{item.name} <br /> <span className="text-[#9C9C9C] text-xs">Age: 32</span>{' '}
+						</h2>
 					</div>
-				))}
-			</Slider>
-		</div>
+				</div>
+			))}
+		</section>
 	);
 };
 

@@ -85,10 +85,10 @@ const FiftyTwoWeeklyStats = ({ widgetId, screen }) => {
 					: size === 'large'
 					? ' w-[520px] h-[480px]'
 					: ''
-			} bg-white dark:bg-[#2D2F35] dark:border-none h-full py-1 font-inter rounded-xl border border-lightSilver shadow-xl `}
+			} dark:border-none h-full py-1 font-inter rounded-xl border border-lightSilver bg-[#1D2022] shadow-xl `}
 		>
 			{isLoading ? (
-				<div className="h-full flex items-center justify-center bg-white dark:bg-[#2D2F35]">
+				<div className="h-full flex items-center justify-center bg-[#1D2022]">
 					<ClipLoader color="#fff" loading={isLoading} cssOverride={override} size={30} aria-label="Loading Spinner" data-testid="loader" />
 				</div>
 			) : edit ? (
@@ -105,8 +105,8 @@ const FiftyTwoWeeklyStats = ({ widgetId, screen }) => {
 					isInputBased={true}
 				/>
 			) : (
-				<div>
-					<div className="flex justify-end p-1 ">
+				<div className="bg-[#1D2022]">
+					<div className="flex justify-end p-1 bg-[#191B1D] ">
 						{!edit && (
 							<span className="cursor-pointer text-xl text-darkGrey dark:text-white" onClick={() => setEdit(!edit)}>
 								{<MdInfoOutline />}
@@ -114,11 +114,11 @@ const FiftyTwoWeeklyStats = ({ widgetId, screen }) => {
 						)}
 					</div>
 
-					<div>
+					<div className="bg-[#1D2022]">
 						<div
 							className={`${
 								size === 'small' ? 'text-xs' : size === 'medium' ? 'text-sm' : size === 'large' ? 'text-md' : ''
-							}  flex justify-between items-center px-4 py-2 text-darkGrey dark:text-white`}
+							}  flex justify-between items-center px-4 py-2 bg-[#191B1D] text-[#D2DDE5]`}
 						>
 							<span className="font-bold ">52 Week High/Low</span>
 							<div className="flex items-center space-x-2 cursor-pointer" onClick={() => setIsHigh(!isHigh)}>
@@ -129,31 +129,27 @@ const FiftyTwoWeeklyStats = ({ widgetId, screen }) => {
 						<div
 							className={`${
 								size === 'small' ? 'text-xs py-2' : size === 'medium' ? 'text-sm py-4' : size === 'large' ? 'text-md py-5' : ''
-							}   custom-stripe px-6 flex justify-between items-center bg-dashboardBlue font-semibold text-white`}
+							}   custom-stripe px-6 flex justify-between items-center bg-[#191B1D] text-[#D2DDE5] font-semibold `}
 						>
 							<span>Company</span>
 
 							<span>{isHigh ? 'High Value' : 'Low Value'}</span>
 						</div>
 
-						<div className="pb-2">
+						<div className="pb-2 ">
 							{stocks?.map((item, i) => (
 								<div
 									key={i}
 									className={`${
 										size === 'small' ? 'text-xs py-3' : size === 'medium' ? 'text-sm py-5' : size === 'large' ? 'text-md py-6' : ''
-									} px-6 flex justify-between items-center font-medium text-darkGrey dark:text-white`}
+									} px-6 flex justify-between items-center font-medium `}
 								>
-									<span className="w-2/3">{item.shortName}</span>
+									<span className="w-2/3 text-[#B5BCBF]">{item.shortName}</span>
 
-									<div className="">
-										<span
-											className={`${
-												isHigh ? 'bg-primaryGreen' : 'bg-red-400'
-											}  w-16  py-1 px-2 text-center rounded-lg text-white font-normal`}
-										>
-											{isHigh ? Math.round(item.fiftyTwoWeekHigh) : Math.round(item.fiftyTwoWeekLow)}
-										</span>
+									<div
+										className={`${isHigh ? 'text-[#B5BCBF]' : 'text-red-500'} bg-[#393A3D] py-2 px-3 text-center rounded-lg font-normal`}
+									>
+										{isHigh ? Math.round(item.fiftyTwoWeekHigh) : Math.round(item.fiftyTwoWeekLow)}
 									</div>
 								</div>
 							))}

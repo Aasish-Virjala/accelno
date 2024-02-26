@@ -81,9 +81,9 @@ const FinancialTableFull = ({ widgetId, screen }) => {
 	};
 
 	return (
-		<div className="w-[480px] h-[500px] bg-white dark:bg-[#2D2F35] dark:border-none  py-2 font-inter rounded-xl border border-lightSilver shadow-xl">
+		<div className="w-[480px] h-[500px]  bg-[#2D3133] dark:border-none rounded-xl border border-lightSilver shadow-xl">
 			{isLoading ? (
-				<div className="h-full flex items-center justify-center bg-white dark:bg-[#2D2F35]">
+				<div className="h-full flex items-center justify-center bg-[#2D3133]">
 					<ClipLoader color="#fff" loading={isLoading} cssOverride={override} size={30} aria-label="Loading Spinner" data-testid="loader" />
 				</div>
 			) : edit ? (
@@ -101,15 +101,15 @@ const FinancialTableFull = ({ widgetId, screen }) => {
 				/>
 			) : (
 				<div>
-					<div className="flex justify-end p-1 ">
+					<div className="flex justify-end P-1 bg-[#191B1D] rounded-t-xl">
 						{!edit && (
-							<span className="cursor-pointer text-xl text-darkGrey dark:text-white" onClick={() => setEdit(!edit)}>
-								{<MdInfoOutline />}
+							<span className="cursor-pointer text-xl p-1  text-[#D2DDE5] " onClick={() => setEdit(!edit)}>
+								{<MdInfoOutline size={20} />}
 							</span>
 						)}
 					</div>
 
-					<div className={` 'text-sm'  text-center flex justify-between items-center py-3 px-4 text-darkGrey dark:text-white font-bold `}>
+					<div className={`text-sm bg-[#191B1D] text-center flex justify-between items-center py-3 px-4 text-[#D2DDE5]  font-bold `}>
 						<span className="w-1/5">COMPANY</span>
 						<span className="w-1/5">PRICE($)</span>
 						<span className="w-1/5">MCAP</span>
@@ -118,10 +118,7 @@ const FinancialTableFull = ({ widgetId, screen }) => {
 					</div>
 
 					{stocks?.map((item, index) => (
-						<div
-							key={index}
-							className={` text-sm py-3 text-center px-4 flex justify-between items-center font-normal text-darkGrey dark:text-white`}
-						>
+						<div key={index} className={` text-sm py-3 text-center px-4 flex justify-between items-center font-normal text-[#D2DDE5] `}>
 							<span className="w-1/5">{item.shortName}</span>
 							<span className="w-1/5">{Math.round(item.price)}</span>
 							<span className="w-1/5">{item.marketCap}</span>

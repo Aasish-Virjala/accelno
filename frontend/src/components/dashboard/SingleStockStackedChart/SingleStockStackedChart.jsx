@@ -139,10 +139,10 @@ const SingleStockStackedChart = ({ widgetId, screen }) => {
 		<div
 			className={`${
 				size === 'small' ? 'w-[570px]' : size === 'medium' ? 'w-[380px]' : 'w-[460px]'
-			} bg-white   dark:bg-[#2D2F35] dark:border-none rounded-xl border border-lightSilver   pt-3 pb-5 shadow-md`}
+			} bg-[#2D3133] dark:border-none rounded-xl border border-lightSilver   pt-3 pb-5 shadow-md`}
 		>
 			{isLoading ? (
-				<div className="h-full flex items-center justify-center bg-white dark:bg-[#2D2F35]">
+				<div className="h-full flex items-center justify-center bg-[#2D2F35]">
 					<ClipLoader color="#fff" loading={isLoading} cssOverride={override} size={30} aria-label="Loading Spinner" data-testid="loader" />
 				</div>
 			) : edit ? (

@@ -52,9 +52,14 @@ const socialLinks = [
 const Navbar = () => {
 	return (
 		<div className="absolute top-0 right-0 left-0 font-poppins py-8 px-10 flex justify-between items-center">
-			<h1 className="gradient-text text-5xl font-medium">Accelno</h1>
+			<Link to="/" className="gradient-text text-2xl md:text-5xl font-medium">
+				Accelno
+			</Link>
+
 			<Link to="/login">
-				<button className="py-3 px-12 text-white font-medium text-lg gradient-border rounded-2xl">Log In</button>
+				<button className="py-2 px-6  md:py-3 md:px-12 text-white font-medium text-sm md:text-lg gradient-border rounded-2xl">
+					Log In
+				</button>
 			</Link>
 		</div>
 	);

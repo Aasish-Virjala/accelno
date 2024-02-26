@@ -29,9 +29,9 @@ const StockDetailModal = () => {
 	const { data: chartData, isLoading: chartDataLoading } = useGetChartbyRangeQuery([stock, duration]);
 
 	return (
-		<div className="bg-white dark:bg-[#2D2F35] h-[570px] w-[700px]  fixed top-1/2 bottom-0 left-1/2 -translate-x-1/2 -translate-y-1/2 right-0 p-4 rounded-xl shadow-xl z-50">
+		<div className="bg-[#2D3133] h-[570px] w-[700px]  fixed top-1/2 bottom-0 left-1/2 -translate-x-1/2 -translate-y-1/2 right-0 p-4 rounded-xl shadow-xl z-50">
 			{stockDataLoading && chartDataLoading ? (
-				<div className="h-full flex items-center justify-center bg-white dark:bg-[#2D2F35]">
+				<div className="h-full flex items-center justify-center bg-[#2D3133]">
 					<ClipLoader
 						color="#fff"
 						loading={stockDataLoading && chartDataLoading}
