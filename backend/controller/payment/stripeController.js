@@ -52,7 +52,7 @@ const stripeSubscriptionController = asyncHandler(async (req, res) => {
 						id: user_data.id,
 					},
 					data: {
-						plan_id: planId,
+						plan_id: Number(planId),
 						stripe_customer_id: customerId,
 						stripe_subscription_status: status,
 						stripe_subscription_id: subscriptionId,

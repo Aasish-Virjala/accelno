@@ -36,9 +36,18 @@ const FormTemplate = ({ formType, inputs, submitHandler, isLoading, errorMessage
 			username: yup.string().required(),
 			password: yup.string().min(6).required(),
 		});
-	} else {
+	} else if (formType == 'ForgotPassword') {
 		schema = yup.object().shape({
 			email: yup.string().required(),
+		});
+	} else {
+		schema = yup.object().shape({
+			password: yup.string().min(6).required(),
+			retypePassword: yup
+				.string()
+				.oneOf([yup.ref('password'), null], 'Passwords must match')
+				.min(6)
+				.required(),
 		});
 	}
 
@@ -65,8 +74,10 @@ const FormTemplate = ({ formType, inputs, submitHandler, isLoading, errorMessage
 							Register your Account
 							<img src={handWave} alt="Hande Wave Icon" className="w-7" />
 						</>
-					) : (
+					) : formType == 'ForgotPassword' ? (
 						'Forgot your Password?'
+					) : (
+						'Enter New Password'
 					)}
 				</h1>
 				{formType === 'Register' ? <p className="text-[#7D7D7D] mb-6 ">Use your .edu email if you are a student </p> : null}
@@ -74,6 +85,7 @@ const FormTemplate = ({ formType, inputs, submitHandler, isLoading, errorMessage
 				{formType == 'ForgotPassword' && (
 					<p className="text-[#7D7D7D] mb-6 ">Enter your email with which you registered. We will send you a link to reset your password</p>
 				)}
+
 				<form onSubmit={handleSubmit(submitHandler)} className="flex flex-col gap-4">
 					{inputs.map((el) => (
 						<div key={el.id} className="flex flex-col gap-2">
@@ -111,7 +123,17 @@ const FormTemplate = ({ formType, inputs, submitHandler, isLoading, errorMessage
 						type="submit"
 						className={`${isLoading ? 'bg-[#a2f2df]' : 'bg-[#37CAA8]'} font-poppins  text-darkGrey  py-3 text-md cursor-pointer rounded-md`}
 					>
-						{isLoading ? <LoadingSpinner /> : formType === 'Login' ? 'Login' : formType === 'Register' ? 'Register' : 'Reset my Password'}
+						{isLoading ? (
+							<LoadingSpinner />
+						) : formType === 'Login' ? (
+							'Login'
+						) : formType === 'Register' ? (
+							'Register'
+						) : formType === 'ForgotPassword' ? (
+							'Reset my Password'
+						) : (
+							'Confirm New Password'
+						)}
 					</button>
 				</form>
 				{formType === 'Login' && (
@@ -136,6 +158,14 @@ const FormTemplate = ({ formType, inputs, submitHandler, isLoading, errorMessage
 							<FaCheckCircle size={20} />
 						</span>{' '}
 						Password reset link sent to your email
+					</p>
+				)}
+				{formType === 'ResetPassword' && successMessage && (
+					<p className=" text-center mt-3 font-normal text-[#667177] flex gap-2 justify-center items-center">
+						<span className="text-green-600">
+							<FaCheckCircle size={20} />
+						</span>{' '}
+						Password reset successfully!
 					</p>
 				)}
 

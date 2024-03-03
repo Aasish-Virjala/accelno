@@ -7,15 +7,7 @@ const createSubscription = async (clientData) => {
 	const customer = await stripe.customers.create({
 		email: clientData.email,
 		name: clientData.username,
-	});
-
-	// attach the payment method to the customer
-	await stripe.paymentMethods.attach(clientData.paymentMethodId, {
-		customer: customer.id,
-	});
-
-	// set the payment method as the customer's default payment method
-	await stripe.customers.update(customer.id, {
+		payment_method: clientData.paymentMethodId,
 		invoice_settings: {
 			default_payment_method: clientData.paymentMethodId,
 		},

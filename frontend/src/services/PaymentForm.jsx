@@ -1,28 +1,6 @@
 import { useState } from 'react';
-import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-
-const CARD_ELEMENT_OPTIONS = {
-	style: {
-		base: {
-			color: '#303030',
-			fontFamily: 'Inter, sans-serif',
-			fontSmoothing: 'antialiased',
-			fontSize: '14px',
-			'::placeholder': {
-				color: '#303030',
-			},
-		},
-		invalid: {
-			color: '#fa755a',
-			iconColor: '#fa755a',
-		},
-		input: {
-			colorBackground: '#fa755a',
-		},
-	},
-};
+import { useStripe, useElements, CardCvcElement, CardExpiryElement, CardNumberElement } from '@stripe/react-stripe-js';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 const PaymentForm = () => {
 	const stripe = useStripe();
@@ -30,6 +8,13 @@ const PaymentForm = () => {
 	const [paymentSuccess, setPaymentSuccess] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(null);
+	const [firstName, setFirstName] = useState('');
+	const [lastName, setLastName] = useState('');
+	const [zipCode, setZipCode] = useState('');
+
+	//const navigate = useNavigate();
+	const [searchParams] = useSearchParams();
+	const plan = searchParams.get('plan');
 	const navigate = useNavigate();
 
 	const handleSubmit = async (event) => {
@@ -45,57 +30,196 @@ const PaymentForm = () => {
 		try {
 			const { error, paymentMethod } = await stripe.createPaymentMethod({
 				type: 'card',
-				card: elements.getElement(CardElement),
+				card: elements.getElement(CardNumberElement),
 			});
 
 			if (error) {
-				throw new Error(error.message);
+				setLoading(false);
+				setError(error.message);
+				return;
 			}
 
-			const response = await axios.post(
-				'https://accelno-api-ozyu9.ondigitalocean.app/api/v1/createsubscription',
-				{
-					paymentMethodId: paymentMethod.id,
-					planId: 3,
+			const response = await fetch(`${import.meta.env.VITE_API}/api/v1/createsubscription`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
 				},
-				{ withCredentials: true }
-			);
-			if (response.data.clientSecret) {
+				credentials: 'include',
+				body: JSON.stringify({
+					planId: plan,
+					paymentMethodId: paymentMethod.id,
+				}),
+			});
+
+			if (!response.ok) {
+				// setLoading(false);
+				// setPaymentSuccess(true);
+				// setTimeout(() => {
+				// 	navigate('/dashboard');
+				// }, 2000);
+
 				setLoading(false);
+
+				setError(response.statusText);
+				return;
+			}
+			const data = await response.json();
+			const confirmation = await stripe.confirmCardPayment(data.clientSecret);
+			if (confirmation.error) {
+				setLoading(false);
+				setError(confirmation.error.message);
+
+				return;
+			} else {
+				setLoading(false);
+
 				setPaymentSuccess(true);
 				setTimeout(() => {
 					navigate('/dashboard');
 				}, 2000);
 			}
 		} catch (error) {
+			setLoading(false);
 			setError(error.message);
 		}
 	};
 
 	return (
-		<div className="max-w-lg mx-auto">
+		<div className="w-[670px] gradient-border p-6 ">
 			<form onSubmit={handleSubmit}>
-				<div className="mb-8">
-					<CardElement options={CARD_ELEMENT_OPTIONS} className="p-3 rounded-md bg-[#E2E8F0]" />
+				<div className="space-y-3 py-4 border-b border-[#2D3133] mb-8">
+					<h2 className="text-[#D2DDE5] text-2xl">Payment Method</h2>
+					<p className="text-[#7D7D7D]">Add your details to pay the required amount.</p>
+					{error && <div className="text-red-500 mb-4">{error}</div>}
 				</div>
-				{error && <div className="text-red-500 mb-4">{error}</div>}
-				<div className="flex justify-end items-center space-x-8 pt-6 border-t  border-lightSilver">
-					<span className=" font-inter text-sm text-[#4A5568] cursor-pointer">Cancel Order</span>
 
-					<button
-						type="submit"
-						disabled={!stripe || loading}
-						className={` bg-[#3182CE] font-semibold font-poppins text-sm  text-white py-4 px-6 rounded-md ${
-							loading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-blue-600'
-						}`}
-					>
-						{loading ? 'Processing...' : 'Complete Order'}
-					</button>
+				<div className="flex flex-wrap justify-center gap-5">
+					<div className="w-[300px] space-y-2">
+						<label htmlFor="firstName" className="text-[#667177]">
+							First Name
+						</label>
+						<input
+							type="text"
+							id="firstName"
+							className="w-full text-xs text-[#D2DDE5] bg-inherit rounded-2xl outline-none border border-[#2D3133] py-3 px-6"
+							value={firstName}
+							onChange={(e) => setFirstName(e.target.value)}
+						/>
+					</div>
+					<div className="w-[300px] space-y-2">
+						<label htmlFor="lastName" className="text-[#667177]">
+							Last Name
+						</label>
+						<input
+							type="text"
+							id="lastName"
+							className="w-full text-xs bg-inherit text-[#D2DDE5] rounded-2xl outline-none border border-[#2D3133] py-3 px-6"
+							value={lastName}
+							onChange={(e) => setLastName(e.target.value)}
+						/>
+					</div>
+					<div className="w-[300px] space-y-2 text-[#D2DDE5] ">
+						<label htmlFor="lastName" className="text-[#667177]">
+							Card Number
+						</label>
+						<CardNumberElement
+							disabled={loading}
+							options={{
+								style: {
+									base: {
+										color: '#D2DDE5',
+										fontSize: '14px',
+										fontFamily: 'Poppins, sans-serif',
+										'::placeholder': {
+											color: '#667177',
+										},
+									},
+									invalid: {
+										color: '#FF0000',
+									},
+								},
+							}}
+							id="card-nr"
+							className="w-full bg-inherit text-inherit rounded-2xl border border-[#2D3133] text-xs py-3 px-6"
+						/>
+					</div>
+					<div className="w-[300px] space-y-2">
+						<label htmlFor="card-expiry" className="text-[#667177]">
+							Expiry Date
+						</label>
+						<CardExpiryElement
+							options={{
+								style: {
+									base: {
+										color: '#D2DDE5',
+										fontSize: '14px',
+										fontFamily: 'Poppins, sans-serif',
+										'::placeholder': {
+											color: '#667177',
+										},
+									},
+									invalid: {
+										color: '#9e2146',
+									},
+								},
+							}}
+							disabled={loading}
+							id="card-expiry"
+							className="w-full bg-inherit rounded-2xl text-xs text-[#D2DDE5] border border-[#2D3133] py-3 px-6"
+						/>
+					</div>
+					<div className="w-[300px] space-y-2">
+						<label htmlFor="card-cvc" className="text-[#667177]">
+							CVC
+						</label>
+						<CardCvcElement
+							disabled={loading}
+							options={{
+								style: {
+									base: {
+										color: '#D2DDE5',
+										fontSize: '14px',
+										fontFamily: 'Poppins, sans-serif',
+										'::placeholder': {
+											color: '#667177',
+										},
+									},
+									invalid: {
+										color: '#9e2146',
+									},
+								},
+							}}
+							id="card-cvc"
+							className="w-full bg-inherit rounded-2xl text-xs text-[#D2DDE5] border border-[#2D3133] py-3 px-6"
+						/>
+					</div>
+					<div className="w-[300px] space-y-2">
+						<label htmlFor="zipCode" className="text-[#667177]">
+							Zip Code
+						</label>
+						<input
+							type="text"
+							id="zipCode"
+							className="w-full bg-inherit rounded-2xl text-xs text-[#D2DDE5] outline-none border border-[#2D3133] py-3 px-6"
+							value={zipCode}
+							onChange={(e) => setZipCode(e.target.value)}
+						/>
+					</div>
 				</div>
+
+				<button
+					type="submit"
+					disabled={!stripe || loading}
+					className={` gradient-bg mt-6 w-full font-semibold rounded-full font-poppins text-sm  text-white py-3 px-6  ${
+						loading ? 'opacity-50 cursor-not-allowed' : ''
+					}`}
+				>
+					{loading ? 'Processing...' : 'Complete Order'}
+				</button>
 			</form>
 			{paymentSuccess && (
-				<div className="min-h-screen w-full bg-slate-300 text-darkGrey fixed inset-0">
-					Your payment was successful. Redirecting to dashboard...
+				<div className="h-screen w-full italic text-white flex justify-center text-2xl items-center bg-[#121416] fixed inset-0">
+					Your payment was successful. Redirecting to dashboard ....
 				</div>
 			)}
 		</div>

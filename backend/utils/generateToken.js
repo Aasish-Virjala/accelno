@@ -20,4 +20,13 @@ const generateToken = (res, username) => {
 	res.token = token;
 };
 
-module.exports = generateToken;
+const generateShortToken = (email) => {
+	console.log('email from token func', email);
+	const token = jwt.sign({ email }, process.env.JWT_SECRET, {
+		expiresIn: '1h',
+	});
+
+	return { token };
+};
+
+module.exports = { generateToken, generateShortToken };

@@ -1,6 +1,6 @@
 import Pricing from '../components/common/Pricing';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 export const plans = [
 	{
@@ -21,11 +21,42 @@ export const plans = [
 ];
 
 const PricingPlan = () => {
-	const [selectedPlan, setSelectedPlan] = useState(null);
 	const navigate = useNavigate();
+	const [selectedPlan, setSelectedPlan] = useState(null);
+	const [loading, setLoading] = useState(false);
+	const [searchParams] = useSearchParams();
+	const checkout = searchParams.get('checkout');
 
-	const handlePlanSelection = () => {
-		navigate('/dashboard');
+	const handlePlanSelection = async () => {
+		try {
+			if (checkout === 'true') {
+				navigate(`/checkout?plan=${selectedPlan}`);
+			} else {
+				setLoading(true);
+				const response = await fetch(`${import.meta.env.VITE_API}/api/v1/early-user`, {
+					method: 'PUT',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					credentials: 'include',
+					body: JSON.stringify({
+						planId: selectedPlan,
+					}),
+				});
+
+				if (response.ok) {
+					setLoading(false);
+					navigate('/dashboard');
+				} else {
+					setLoading(false);
+					alert('Something went wrong');
+				}
+			}
+		} catch (error) {
+			setLoading(false);
+			console.error(error);
+			alert(error.message);
+		}
 	};
 
 	return (
@@ -36,11 +67,13 @@ const PricingPlan = () => {
 			</div>
 			<Pricing setSelectedPlan={setSelectedPlan} selectedPlan={selectedPlan} plansPage={true} />
 			<button
-				disabled={!selectedPlan}
-				className={`${selectedPlan ? 'gradient-bg' : 'gradient-border'}  text-lg rounded-xl text-white  mx-auto py-2 px-36 `}
+				disabled={!selectedPlan || loading}
+				className={`${
+					selectedPlan ? 'gradient-bg' : loading ? 'bg-gray-600' : 'gradient-border'
+				}  text-lg rounded-xl text-white  mx-auto py-2 px-36 `}
 				onClick={handlePlanSelection}
 			>
-				Next
+				{loading ? 'Please Wait...' : 'Next'}
 			</button>
 		</div>
 	);

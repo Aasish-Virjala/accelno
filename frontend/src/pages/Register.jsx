@@ -58,10 +58,9 @@ const Register = () => {
 			await register(rest).unwrap();
 
 			setTimeout(() => {
-				navigate('/login');
+				navigate('/confirm-email');
 			}, 3000);
 		} catch (error) {
-			console.log('Failed to register:', error);
 			setErrorMessage(error.data.message);
 		}
 	};

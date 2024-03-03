@@ -28,14 +28,27 @@ const Login = () => {
 	const [loginError, setLoginError] = useState('');
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+	const checkoutFlow = import.meta.env.VITE_CHECKOUT_FLOW;
 
 	const submitHandler = async (data) => {
 		try {
 			setLoginError('');
 			const response = await login(data).unwrap();
+
 			dispatch(loginSuccess({ ...response }));
+
 			setTimeout(() => {
-				response.isActive === true ? navigate('/dashboard') : navigate('/plans');
+				if (checkoutFlow === 'false' && !response.isActive) {
+					navigate('/plans');
+				} else if (checkoutFlow === 'false' && response.isActive) {
+					navigate('/dashboard');
+				} else if (checkoutFlow === 'true' && response.isActive) {
+					navigate('/dashboard');
+				} else if (checkoutFlow === 'true' && !response.isActive) {
+					navigate('/plans?checkout=true');
+				}
+
+				//response.isActive === true ? navigate('/dashboard') : navigate('/plans');
 			}, 2000);
 		} catch (error) {
 			setLoginError(error.data.message);

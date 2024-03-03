@@ -14,19 +14,22 @@ const inputs = [
 ];
 
 const ForgotPassword = () => {
-	const [forgotPassword, { isLoading }] = useForgotPasswordMutation();
+	const [forgotPassword, { isLoading, isSuccess }] = useForgotPasswordMutation();
 	const [errorMessage, setErrorMessage] = useState('');
-	const [successMessage, setSuccessMessage] = useState(false);
 
-	function submitHandler(data) {
-		forgotPassword(data).then((response) => {
-			if (!response.ok) {
-				setErrorMessage(response.error.data.message);
-			} else {
-				setSuccessMessage(true);
-			}
-		});
-	}
+	const submitHandler = async (data) => {
+		// eslint-disable-next-line no-unused-vars
+		try {
+			setErrorMessage('');
+
+			// eslint-disable-next-line no-unused-vars
+
+			const response = await forgotPassword(data).unwrap();
+			console.log('response', response);
+		} catch (error) {
+			setErrorMessage(error.data.message);
+		}
+	};
 
 	return (
 		<div className="flex">
@@ -37,7 +40,7 @@ const ForgotPassword = () => {
 				submitHandler={submitHandler}
 				isLoading={isLoading}
 				errorMessage={errorMessage}
-				successMessage={successMessage}
+				successMessage={isSuccess}
 			/>
 		</div>
 	);

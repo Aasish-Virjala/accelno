@@ -1,6 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const { registerUserController, loginUserController } = require('../controller/auth/authcontrollers.js');
+const {
+	registerUserController,
+	loginUserController,
+	earlyUserStatusController,
+	verifyUserEmailController,
+} = require('../controller/auth/authcontrollers.js');
 const {
 	stripeSubscriptionController,
 	stripeUpdateSubscriptionController,
@@ -20,12 +25,30 @@ const {
 } = require('../controller/externalAPI/externalDataController.js');
 const { protect } = require('../middleware/authMiddleware.js');
 const { getUserProfile, addUserProfile } = require('../controller/dashboard/userProfileController.js');
+const { forgotPasswordController, resetPasswordController } = require('../controller/auth/resetPassword.js');
 
 // POST /api/v1/registeruser
 router.route('/registeruser').post(registerUserController);
 
 // POST /api/v1/loginuser
 router.route('/loginuser').post(loginUserController);
+
+// POST /api/v1/verifyemail
+router.route('/verifyemail').post(verifyUserEmailController);
+
+// POST /api/v1/forgotpassword
+router.route('/forgotpassword').post(forgotPasswordController);
+
+// POST /api/v1/resetpassword
+router.route('/resetpassword').post(resetPasswordController);
+
+// The following route ('/early-user') is only used to update an early user's subscription to active state
+// without having to go through the payment process. This is only used for testing & presentation purposes.
+// This will only be used if .env  EARLY_USER is set to true and the frontend has a way to trigger this endpoint.
+// This is not a part of the actual application flow.
+
+// PUT /api/v1/early-user
+router.route('/early-user').put(protect, earlyUserStatusController);
 
 // POST /api/v1/createsubscription
 router.route('/createsubscription').post(protect, stripeSubscriptionController);

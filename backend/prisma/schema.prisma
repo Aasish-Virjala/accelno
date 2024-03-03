@@ -12,6 +12,11 @@ model User {
     email                      String    @unique
     username                   String    @unique
     password                   String
+    isVerified                 Boolean?  @default(false)
+    verificationToken          String?
+    resetPasswordToken         String?
+    earlyUser                  Boolean?  @default(false)
+    isStudent                  Boolean?  @default(false)
     stripe_customer_id         String?
     stripe_subscription_id     String?
     stripe_subscription_status String?

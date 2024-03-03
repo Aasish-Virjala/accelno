@@ -3,7 +3,7 @@ import checkIcon from '../../assets/icons/check-icon.svg';
 
 const pricingData = [
 	{
-		id: 1,
+		id: 3,
 		title: 'Students',
 		price: '$0',
 		desc: 'Just what you need to save time for your classes and ace your interviews.',
@@ -11,7 +11,7 @@ const pricingData = [
 		path: '/register',
 	},
 	{
-		id: 2,
+		id: 5,
 		title: 'Other',
 		price: '$49',
 		desc: 'All the essentials for your own analysis, or even secretly at your 9-5... I mean 8-11',
@@ -19,7 +19,7 @@ const pricingData = [
 		path: '/register',
 	},
 	{
-		id: 3,
+		id: 6,
 		title: 'Enterprises',
 		desc: 'Fire analysts, hire us.',
 		perks: ['X models a month', 'Custom templates', 'Access to new features'],

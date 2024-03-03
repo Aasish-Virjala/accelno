@@ -19,6 +19,7 @@ import { useSelector } from 'react-redux';
 // import ContactUs from './pages/ContactUs';
 import { Suspense, lazy } from 'react';
 import FallbackSpinner from './components/common/FallbackSpinner';
+import ResetPassword from './pages/ResetPassword';
 const Home = lazy(() => import('./pages/Home'));
 const Login = lazy(() => import('./pages/Login'));
 const Register = lazy(() => import('./pages/Register'));
@@ -33,6 +34,7 @@ const Portfolio = lazy(() => import('./screens/Portfolio'));
 const ForgotPassword = lazy(() => import('./pages/ForgotPassword'));
 const ConfirmEmail = lazy(() => import('./pages/ConfirmEmail'));
 const ContactUs = lazy(() => import('./pages/ContactUs'));
+const VerifyEmail = lazy(() => import('./pages/VerifyEmail'));
 
 // eslint-disable-next-line react/prop-types
 const PrivateRoute = ({ children }) => {
@@ -72,10 +74,26 @@ const router = createBrowserRouter(
 				}
 			/>
 			<Route
+				path="/reset-password"
+				element={
+					<Suspense fallback={<FallbackSpinner />}>
+						<ResetPassword />
+					</Suspense>
+				}
+			/>
+			<Route
 				path="/confirm-email"
 				element={
 					<Suspense fallback={<FallbackSpinner />}>
 						<ConfirmEmail />
+					</Suspense>
+				}
+			/>
+			<Route
+				path="/verify-email"
+				element={
+					<Suspense fallback={<FallbackSpinner />}>
+						<VerifyEmail />
 					</Suspense>
 				}
 			/>
@@ -104,7 +122,7 @@ const router = createBrowserRouter(
 				}
 			/>
 			<Route
-				path="/checkout/:planId"
+				path="/checkout"
 				element={
 					<Suspense fallback={<FallbackSpinner />}>
 						<Checkout />
