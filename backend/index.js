@@ -5,12 +5,7 @@ const cookieParser = require('cookie-parser');
 const { notFound, errorHandler } = require('./middleware/errorMiddleware.js');
 const cors = require('cors');
 
-app.use(
-	cors({
-		origin: process.env.CLIENT_URL,
-		credentials: true,
-	})
-);
+app.use(cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
