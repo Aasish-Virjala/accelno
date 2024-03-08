@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const { notFound, errorHandler } = require('./middleware/errorMiddleware.js');
 const cors = require('cors');
 
+/*
 const corsOpts = {
 	origin: 'https://glistening-sprite-30779a.netlify.app/',
 
@@ -14,6 +15,7 @@ const corsOpts = {
 };
 
 app.use(cors(corsOpts));
+*/
 
 app.use(function (req, res, next) {
 	res.header('Access-Control-Allow-Origin', 'https://glistening-sprite-30779a.netlify.app/');
