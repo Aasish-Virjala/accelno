@@ -16,7 +16,7 @@ const protect = async (req, res, next) => {
 		// check if user exists
 		const user_data = await prisma.user.findFirst({
 			where: {
-				username: decoded.username,
+				OR: [{ email: decoded.username }, { username: decoded.username }],
 			},
 		});
 

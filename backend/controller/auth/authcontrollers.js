@@ -139,7 +139,6 @@ const verifyUserEmailController = asyncHandler(async (req, res) => {
 
 	try {
 		const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-		console.log('decodedToken', decodedToken);
 
 		if (!decodedToken) {
 			return res.status(400).json({
